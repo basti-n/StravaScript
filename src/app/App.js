@@ -8,10 +8,24 @@ import {
   saveToLocalStorage,
   getFromLocalStorage
 } from '../services'
+import ActivityList from '../components/ActivityList'
 
 const GlobalStyle = createGlobalStyle`
-  /* Global Styles go here */
-`
+:root {
+  --primary-color: #2E8B57;
+  --grey: rgba(216, 216, 214, 0.44);
+  --yellow: #FDE100;
+  --blue: #0072C2;
+  --bg-grey: #D8D8D8;
+  --light-font: #FFFFFF;
+  --dark-font: #000000;
+  --red-font:#DF4D60;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 22px;
+}`
 
 const Grid = styled.div`
   xdisplay: grid;
@@ -45,9 +59,9 @@ function App() {
   return (
     <Grid>
       <GlobalStyle />
+      <ActivityList activities={activities} />
       {isLoading && <p>...loading</p>}
-      {activities &&
-        activities.map(activity => <p key={activity.id}>{activity.name}</p>)}
+
       <NavigationBar />
     </Grid>
   )

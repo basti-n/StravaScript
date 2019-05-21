@@ -3,6 +3,7 @@
 #custom 
 .vscode
 .cache
+.docz
 
 # dependencies
 /node_modules
