@@ -29,7 +29,7 @@ body {
 
 const Grid = styled.div`
   xdisplay: grid;
-  xgrid-template-rows: 200px 1fr 200px;
+  xgrid-template-rows: 200px 1fr 1fr 200px;
 `
 
 function App() {
