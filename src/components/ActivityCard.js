@@ -1,15 +1,17 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import styled from 'styled-components'
+import CodingLanguagesTags from './CodingLanguagesTags'
 import moment from 'moment'
 import 'moment/locale/de'
 moment.locale('de')
 
-const activityTypeIcon = {
-  Ride: '/assets/bike.svg',
-  Workout: '/assets/dumbbell.svg',
-  WeightTraining: '/assets/dumbbell.svg',
-  Run: '/assets/run.svg',
-  Code: '/assets/vectorpaint.svg'
+const activityTypeImg = {
+  Ride: { src: '/assets/bike.svg', alt: 'ride icon' },
+  Workout: { src: '/assets/dumbbell.svg', alt: 'weight icon' },
+  WeightTraining: { src: '/assets/dumbbell.svg', alt: 'weight icon' },
+  Run: { src: '/assets/run.svg', alt: 'run icon' },
+  Code: { src: '/assets/code.svg', alt: 'code tag icon' },
 }
 
 const StyledCard = styled.article`
@@ -36,7 +38,7 @@ const StyledCardHeader = styled.div`
   }
 `
 
-const StyledCardBody = styled.div`
+const StyledCardBody = styled.section`
   display: grid;
   padding: 0 5px;
   align-items: center;
@@ -78,17 +80,19 @@ export default function ActivityCard({ activity }) {
         <p>{moment(activity.start_date).format('Do MMM YYYY')}</p>
       </StyledCardHeader>
       <StyledCardBody>
-        <img src={activityTypeIcon[activity.type]} alt='' />
+        <img {...activityTypeImg[activity.type]} />
         <p>{Math.round(activity.elapsed_time / 60)} min</p>
         <label>
-          {activity.type === 'Code'
-            ? 'HTML, CSS, JS'
-            : activity.average_heartrate
-            ? `Avg. HR ${Math.round(activity.average_heartrate)}`
-            : `n/a`}
+          {activity.type === 'Code' ? (
+            <CodingLanguagesTags languages={activity.languages} />
+          ) : activity.average_heartrate ? (
+            `Avg. HR ${Math.round(activity.average_heartrate)}`
+          ) : (
+            `n/a`
+          )}
 
           {activity.type !== 'Code' && (
-            <img src='/assets/heart-rate.svg' alt='heartrate monitor' />
+            <img src="/assets/heart-rate.svg" alt="heartrate monitor" />
           )}
         </label>
       </StyledCardBody>

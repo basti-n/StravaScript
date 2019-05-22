@@ -9,6 +9,7 @@ const StyledTimerButton = styled.button`
   background: var(--primary-color);
   outline: none;
   border-radius: 50%;
+  border: none;
   width: 140px;
   height: 140px;
 
@@ -22,7 +23,7 @@ const StyledTimerButton = styled.button`
 export default function TimeTracker({
   setCodingActivities,
   setRunningTime,
-  runningTime
+  runningTime,
 }) {
   const [isActive, setIsActive] = useState(runningTime ? true : false)
 
@@ -36,12 +37,12 @@ export default function TimeTracker({
       id: uid(),
       elapsed_time: runningTime,
       start_date: new Date().toISOString(),
-      languages: ['html', 'css', 'js']
+      languages: ['backend', 'css', 'js'],
     }
 
     setCodingActivities(prevCodingActivities => [
       ...prevCodingActivities,
-      completedCodingActivity
+      completedCodingActivity,
     ])
     setRunningTime(0)
   }
@@ -73,7 +74,7 @@ export default function TimeTracker({
     <StyledTimerButton onClick={handleClick}>
       <img
         src={isActive ? '/assets/stop.svg' : '/assets/play.svg'}
-        alt='start-stop-button'
+        alt="start-stop-button"
       />
       <p>{isActive ? 'Stop' : 'Start'}</p>
     </StyledTimerButton>
