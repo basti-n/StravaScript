@@ -1,3 +1,7 @@
+import moment from 'moment'
+import 'moment/locale/de'
+moment.locale('de')
+
 export const getActivitiesFromStrava = token =>
   fetch(
     `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`
@@ -9,11 +13,21 @@ export const getActivitiesFromStrava = token =>
 export const getTokenFromStrava = () => fetch('/token').then(res => res.json())
 
 //saveTokenToLocalStorage
-export const saveToLocalStorage = (name, data) => {
-  localStorage.setItem(name, data)
+export const getTokenFromLocalStorage = name => {
+  return localStorage.getItem(name)
 }
 
-//getTokenFromLocalStorage
+//set localStorage
+export const saveToLocalStorage = (name, data) => {
+  JSON.stringify(localStorage.setItem(name, data))
+}
+
+//get localStorage
 export const getFromLocalStorage = name => {
-  return localStorage.getItem(name)
+  return JSON.parse(localStorage.getItem(name))
+}
+
+//convert tracked time to minutes and seconds
+export const formatToMinutesAndSeconds = seconds => {
+  return moment(seconds * 1000).format('mm:ss')
 }
