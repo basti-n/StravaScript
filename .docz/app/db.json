@@ -1,0 +1,149 @@
+{
+  "config": {
+    "title": "Stravascript",
+    "description": "My awesome app using docz",
+    "menu": [],
+    "version": "0.1.0",
+    "repository": null,
+    "native": false,
+    "codeSandbox": true,
+    "themeConfig": {},
+    "separator": "-"
+  },
+  "props": [
+    {
+      "key": "src/components/NavigationBar.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "NavigationBar",
+          "methods": [],
+          "actualName": "NavigationBar"
+        }
+      ]
+    },
+    {
+      "key": "src/app/App.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "App",
+          "methods": [],
+          "actualName": "App"
+        }
+      ]
+    },
+    {
+      "key": "src/components/ActivityList.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ActivityList",
+          "methods": [],
+          "actualName": "ActivityList"
+        }
+      ]
+    },
+    {
+      "key": "src/components/ActivityCard.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ActivityCard",
+          "methods": [],
+          "actualName": "ActivityCard"
+        }
+      ]
+    }
+  ],
+  "entries": [
+    {
+      "key": "src/components/ActivityCard.mdx",
+      "value": {
+        "name": "ActivityCard",
+        "id": "6d24fd0f9c65ceafdf7371f43c77b0d0",
+        "filepath": "src/components/ActivityCard.mdx",
+        "link": "",
+        "slug": "src-components-activity-card",
+        "route": "/src-components-activity-card",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          },
+          {
+            "slug": "basic-usage",
+            "depth": 2,
+            "value": "Basic Usage"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/index.mdx",
+      "value": {
+        "name": "Home",
+        "route": "/",
+        "id": "8f6609a989594e49bce5582173f1be02",
+        "filepath": "src/components/index.mdx",
+        "link": "",
+        "slug": "src-components-index",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "styleguide",
+            "depth": 1,
+            "value": "Styleguide"
+          },
+          {
+            "slug": "stravascript",
+            "depth": 2,
+            "value": "StravaScript"
+          },
+          {
+            "slug": "neue-fische-bootcamp-digitales-gesellenstück",
+            "depth": 3,
+            "value": "neue Fische Bootcamp Digitales Gesellenstück"
+          },
+          {
+            "slug": "colors",
+            "depth": 4,
+            "value": "Colors"
+          },
+          {
+            "slug": "main",
+            "depth": 5,
+            "value": "Main"
+          },
+          {
+            "slug": "background",
+            "depth": 5,
+            "value": "Background"
+          },
+          {
+            "slug": "font",
+            "depth": 5,
+            "value": "Font"
+          },
+          {
+            "slug": "font-1",
+            "depth": 4,
+            "value": "Font"
+          },
+          {
+            "slug": "primary-font-family",
+            "depth": 5,
+            "value": "Primary Font-Family"
+          },
+          {
+            "slug": "clock-font-family",
+            "depth": 5,
+            "value": "Clock Font-Family"
+          }
+        ]
+      }
+    }
+  ]
+}
