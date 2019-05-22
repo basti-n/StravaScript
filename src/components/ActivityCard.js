@@ -8,7 +8,8 @@ const activityTypeIcon = {
   Ride: '/assets/bike.svg',
   Workout: '/assets/dumbbell.svg',
   WeightTraining: '/assets/dumbbell.svg',
-  Run: '/assets/run.svg'
+  Run: '/assets/run.svg',
+  Code: '/assets/vectorpaint.svg'
 }
 
 const StyledCard = styled.article`
@@ -78,12 +79,17 @@ export default function ActivityCard({ activity }) {
       </StyledCardHeader>
       <StyledCardBody>
         <img src={activityTypeIcon[activity.type]} alt='' />
-        <p>{Math.round(activity.moving_time / 60)} min</p>
+        <p>{Math.round(activity.elapsed_time / 60)} min</p>
         <label>
-          {activity.average_heartrate
+          {activity.type === 'Code'
+            ? 'HTML, CSS, JS'
+            : activity.average_heartrate
             ? `Avg. HR ${Math.round(activity.average_heartrate)}`
             : `n/a`}
-          <img src='/assets/heart-rate.svg' alt='heartrate monitor' />
+
+          {activity.type !== 'Code' && (
+            <img src='/assets/heart-rate.svg' alt='heartrate monitor' />
+          )}
         </label>
       </StyledCardBody>
     </StyledCard>

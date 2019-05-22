@@ -4,11 +4,14 @@ import styled, { createGlobalStyle } from 'styled-components'
 import NavigationBar from '../components/NavigationBar'
 import {
   getActivitiesFromStrava,
+  getTokenFromLocalStorage,
   getTokenFromStrava,
   saveToLocalStorage,
   getFromLocalStorage
 } from '../services'
 import ActivityList from '../components/ActivityList'
+import TimerClock from '../components/TimerClock'
+import TimeTracker from '../components/TimeTracker'
 
 const GlobalStyle = createGlobalStyle`
 :root {
@@ -28,14 +31,18 @@ body {
 }`
 
 const Grid = styled.div`
-  xdisplay: grid;
-  xgrid-template-rows: 200px 1fr 1fr 200px;
+  display: grid;
+  grid-template-rows: 50px 200px 1fr 100px;
 `
 
 function App() {
   const [activities, setActivities] = useState('')
+  const [codingActivities, setCodingActivities] = useState(
+    getFromLocalStorage('Coding') || []
+  )
   const [isLoading, setIsLoading] = useState(false)
-  const token = getFromLocalStorage('token')
+  const [runningTime, setRunningTime] = useState(getFromLocalStorage('Tracker'))
+  const token = getTokenFromLocalStorage('token')
 
   function getStravaActivities(token) {
     getActivitiesFromStrava(token).then(data => {
@@ -56,10 +63,30 @@ function App() {
         })
   }, [token])
 
+  useEffect(() => {
+    saveToLocalStorage('Coding', JSON.stringify(codingActivities))
+  }, [codingActivities])
+
+  useEffect(() => {
+    return window.addEventListener(
+      'beforeunload',
+      saveToLocalStorage('Tracker', runningTime)
+    )
+  })
+
   return (
     <Grid>
       <GlobalStyle />
-      <ActivityList activities={activities} />
+      <TimerClock runningTime={runningTime} />
+      <TimeTracker
+        runningTime={runningTime}
+        setRunningTime={setRunningTime}
+        setCodingActivities={setCodingActivities}
+      />
+      <ActivityList
+        activities={activities}
+        codingActivities={codingActivities}
+      />
       {isLoading && <p>...loading</p>}
 
       <NavigationBar />
