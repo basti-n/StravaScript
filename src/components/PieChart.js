@@ -41,7 +41,6 @@ export default function PieChart({ codingData, stravaData, labels }) {
     maintainAspectRation: false,
     plugins: {
       labels: {
-        render: 'label',
         position: 'default',
         fontColor: function(pie) {
           var rgb = hexToRgb(pie.dataset.backgroundColor[pie.index])
@@ -51,8 +50,14 @@ export default function PieChart({ codingData, stravaData, labels }) {
         },
         fontSize: '12',
         fontStyle: 'bold',
-        arc: true,
+        arc: activePie === stravaData ? false : true,
         fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
+        render: activePie === stravaData ? 'image' : 'label',
+        images: [
+          { src: '/assets/bike-small.svg', width: 18, height: 18 },
+          { src: '/assets/run-small.svg', width: 18, height: 18 },
+          { src: '/assets/weighttraining-small.svg', width: 18, height: 18 },
+        ],
       },
     },
   }
@@ -62,7 +67,10 @@ export default function PieChart({ codingData, stravaData, labels }) {
     datasets: [
       {
         data: activePie,
-        backgroundColor: ['#D8D8D8', '#0072C2', '#FDE100'],
+        backgroundColor:
+          activePie === stravaData
+            ? ['#F8F8F8', '#E8E8E8', '#D8D8D8']
+            : ['#D8D8D8', '#0072C2', '#FDE100'],
         hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
       },
     ],
