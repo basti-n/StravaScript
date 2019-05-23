@@ -11,6 +11,9 @@
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@craco/craco": "^5.1.0",
+    "chart.js": "^2.8.0",
+    "chartjs-plugin-annotation": "^0.5.7",
+    "chartjs-plugin-labels": "^1.1.0",
     "docz": "^1.2.0",
     "docz-theme-default": "^1.2.0",
     "dotenv": "^8.0.0",
@@ -20,6 +23,7 @@
     "node-fetch": "^2.6.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-chartjs-2": "^2.7.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
     "styled-components": "^4.2.0",

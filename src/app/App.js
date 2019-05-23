@@ -37,7 +37,7 @@ const Grid = styled.div`
 `
 
 function App() {
-  const [stravaActivities, setStravaActivities] = useState('')
+  const [stravaActivities, setStravaActivities] = useState([])
   const [codingActivities, setCodingActivities] = useState(
     getFromLocalStorage('Coding') || []
   )
@@ -117,6 +117,14 @@ function App() {
       <GlobalStyle />
       <TimerClock trackingTime={trackingTime} />
       <TimeTracker
+        codingActivities={codingActivities.map(activity => ({
+          duration: activity.elapsed_time,
+          languages: activity.languages,
+        }))}
+        stravaActivities={stravaActivities.map(activity => ({
+          duration: activity.elapsed_time,
+          type: activity.type,
+        }))}
         isTracking={isTracking}
         onTimerClick={() => setIsTracking(prevState => !prevState)}
       />
