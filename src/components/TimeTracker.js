@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import uid from 'uid'
 
 const StyledTimerButton = styled.button`
   justify-self: center;
@@ -20,63 +19,18 @@ const StyledTimerButton = styled.button`
   }
 `
 
-export default function TimeTracker({
-  setCodingActivities,
-  setRunningTime,
-  runningTime,
-}) {
-  const [isActive, setIsActive] = useState(runningTime ? true : false)
-
-  function handleTrackingStop() {
-    if (!runningTime) {
-      return
-    }
-    const completedCodingActivity = {
-      name: 'Coding Activity',
-      type: 'Code',
-      id: uid(),
-      elapsed_time: runningTime,
-      start_date: new Date().toISOString(),
-      languages: ['backend', 'css', 'js'],
-    }
-
-    setCodingActivities(prevCodingActivities => [
-      ...prevCodingActivities,
-      completedCodingActivity,
-    ])
-    setRunningTime(0)
-  }
-
-  useEffect(() => {
-    let interval
-    if (isActive) {
-      const startTime = Date.now()
-      interval = setInterval(
-        () =>
-          setRunningTime(
-            Math.floor((Date.now() - startTime + runningTime * 1000) / 1000)
-          ),
-        1000
-      )
-    } else if (!isActive) {
-      handleTrackingStop()
-      clearInterval(interval)
-    }
-    return () => clearInterval(interval)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isActive])
-
+export default function TimeTracker({ isTracking, onTimerClick }) {
   const handleClick = () => {
-    setIsActive(!isActive)
+    onTimerClick()
   }
 
   return (
     <StyledTimerButton onClick={handleClick}>
       <img
-        src={isActive ? '/assets/stop.svg' : '/assets/play.svg'}
+        src={isTracking ? '/assets/stop.svg' : '/assets/play.svg'}
         alt="start-stop-button"
       />
-      <p>{isActive ? 'Stop' : 'Start'}</p>
+      <p>{isTracking ? 'Stop' : 'Start'}</p>
     </StyledTimerButton>
   )
 }

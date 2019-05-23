@@ -15,11 +15,11 @@ const StyledRunningTimer = styled.h2`
   justify-content: center;
 `
 
-export default function TimerClock({ runningTime }) {
-  const displayTime = formatToMinutesAndSeconds(runningTime)
+export default function TimerClock({ trackingTime }) {
+  const displayTime = formatToMinutesAndSeconds(trackingTime)
   return (
-    <StyledRunningTimer runningTime={runningTime}>
-      {runningTime ? `${displayTime}` : `StravaScript`}
+    <StyledRunningTimer runningTime={trackingTime}>
+      {trackingTime ? `${displayTime}` : `StravaScript`}
     </StyledRunningTimer>
   )
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
+import uid from 'uid'
 
 import NavigationBar from '../components/NavigationBar'
 import {
@@ -7,7 +8,7 @@ import {
   getTokenFromLocalStorage,
   getTokenFromStrava,
   saveToLocalStorage,
-  getFromLocalStorage
+  getFromLocalStorage,
 } from '../services'
 import ActivityList from '../components/ActivityList'
 import TimerClock from '../components/TimerClock'
@@ -36,24 +37,28 @@ const Grid = styled.div`
 `
 
 function App() {
-  const [activities, setActivities] = useState('')
+  const [stravaActivities, setStravaActivities] = useState('')
   const [codingActivities, setCodingActivities] = useState(
     getFromLocalStorage('Coding') || []
   )
-  const [isLoading, setIsLoading] = useState(false)
-  const [runningTime, setRunningTime] = useState(getFromLocalStorage('Tracker'))
+  const [isStravaLoading, setisStravaLoading] = useState(false)
+  const [trackingTime, setTrackingTime] = useState(
+    getFromLocalStorage('Tracker') || 0
+  )
+  const [isTracking, setIsTracking] = useState(trackingTime > 0)
+
   const token = getTokenFromLocalStorage('token')
 
   function getStravaActivities(token) {
     getActivitiesFromStrava(token).then(data => {
-      setActivities(data)
+      setStravaActivities(data)
       saveToLocalStorage('Strava Activities', JSON.stringify(data))
-      setIsLoading(false)
+      setisStravaLoading(false)
     })
   }
 
   useEffect(() => {
-    setIsLoading(true)
+    setisStravaLoading(true)
     token
       ? getStravaActivities(token)
       : getTokenFromStrava().then(data => {
@@ -67,27 +72,59 @@ function App() {
     saveToLocalStorage('Coding', JSON.stringify(codingActivities))
   }, [codingActivities])
 
+  useEffect(() => saveToLocalStorage('Tracker', trackingTime), [trackingTime])
+
   useEffect(() => {
-    return window.addEventListener(
-      'beforeunload',
-      saveToLocalStorage('Tracker', runningTime)
-    )
-  })
+    let interval
+
+    if (isTracking) {
+      const startTime = Date.now()
+      interval = setInterval(
+        () =>
+          setTrackingTime(
+            Math.floor((Date.now() - startTime + trackingTime * 1000) / 1000)
+          ),
+        1000
+      )
+    } else if (!isTracking && trackingTime) {
+      handleTrackingCompleted()
+      clearInterval(interval)
+    }
+
+    return () => clearInterval(interval)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isTracking])
+
+  function handleTrackingCompleted() {
+    const completedCodingActivity = {
+      name: 'Coding Activity',
+      type: 'Code',
+      id: uid(),
+      elapsed_time: trackingTime,
+      start_date: new Date().toISOString(),
+      languages: ['backend', 'css', 'js'],
+    }
+
+    setCodingActivities(prevCodingActivities => [
+      ...prevCodingActivities,
+      completedCodingActivity,
+    ])
+    setTrackingTime(0)
+  }
 
   return (
     <Grid>
       <GlobalStyle />
-      <TimerClock runningTime={runningTime} />
+      <TimerClock trackingTime={trackingTime} />
       <TimeTracker
-        runningTime={runningTime}
-        setRunningTime={setRunningTime}
-        setCodingActivities={setCodingActivities}
+        isTracking={isTracking}
+        onTimerClick={() => setIsTracking(prevState => !prevState)}
       />
       <ActivityList
-        activities={activities}
+        activities={stravaActivities}
         codingActivities={codingActivities}
       />
-      {isLoading && <p>...loading</p>}
+      {isStravaLoading && <p>...loading</p>}
 
       <NavigationBar />
     </Grid>

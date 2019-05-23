@@ -3,19 +3,33 @@ import styled from 'styled-components'
 
 const StyledLanguageTagsContainer = styled.div`
   display: flex;
-  color: var(--light-font);
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
 `
+
 const StyledLanguageTags = styled.span`
-  background: var(--yellow);
-  padding: 5px;
+  background: ${props =>
+    props.language === 'backend'
+      ? 'var(--bg-grey)'
+      : props.language === 'css'
+      ? 'var(--blue)'
+      : 'var(--yellow)'};
+  color: ${props =>
+    props.language === 'backend' ? 'var(--dark-font)' : 'var(--light-font)'};
+  padding: 5px 10px;
   margin-left: 5px;
+  border-radius: 10px;
 `
 
 export default function CodingLanguagesTags({ languages }) {
   return (
     <StyledLanguageTagsContainer>
       {languages.map(language => (
-        <StyledLanguageTags>{language}</StyledLanguageTags>
+        <StyledLanguageTags key={language} language={language}>
+          {language}
+        </StyledLanguageTags>
       ))}
     </StyledLanguageTagsContainer>
   )

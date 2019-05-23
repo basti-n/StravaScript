@@ -28,13 +28,10 @@ const StyledCardHeader = styled.div`
   height: 30px;
   padding: 0 10px 5px;
   justify-content: space-between;
-
-  h2 {
-    font-size: 0.7em;
-  }
-
+  margin-bottom: 3px;
+  h2,
   p {
-    font-size: 0.7em;
+    font-size: 15px;
   }
 `
 
@@ -45,14 +42,15 @@ const StyledCardBody = styled.section`
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(2, 1fr);
   height: min-content;
+  font-size: 15px;
 
   img {
     grid-row: 1 / 3;
-    width: 50%;
+    width: 75px;
+    padding-left: 5px;
   }
   p,
   label {
-    font-size: 0.7em;
     margin: 5px 0 0 auto;
   }
 
