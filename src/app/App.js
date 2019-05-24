@@ -37,11 +37,16 @@ const Grid = styled.div`
 `
 
 function App() {
-  const [stravaActivities, setStravaActivities] = useState([])
+  const [stravaActivities, setStravaActivities] = useState(
+    getFromLocalStorage('Strava Activities')
+  )
   const [codingActivities, setCodingActivities] = useState(
     getFromLocalStorage('Coding') || []
   )
   const [isStravaLoading, setisStravaLoading] = useState(false)
+  // ToDo: Save instead of duration the start time and calculate trackingTime as
+  // Date.now() - startTime => trackingTime (then we count up tracking time)
+  //clear startDate when saving activity (i.e. stop timer)
   const [trackingTime, setTrackingTime] = useState(
     getFromLocalStorage('Tracker') || 0
   )
@@ -72,6 +77,8 @@ function App() {
     saveToLocalStorage('Coding', JSON.stringify(codingActivities))
   }, [codingActivities])
 
+  // ToDo: see comment above, dependencyArray = [startTime] => then we write in DB
+  // onStop we remove it from localStorGE
   useEffect(() => saveToLocalStorage('Tracker', trackingTime), [trackingTime])
 
   useEffect(() => {

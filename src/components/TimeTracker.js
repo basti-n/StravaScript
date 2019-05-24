@@ -37,46 +37,61 @@ export default function TimeTracker({
     onTimerClick()
   }
 
-  function totalDurationByCriteria(activities, criteria, field) {
+  function getTotalDurationByCriteria(activities, criteria, field) {
     return Math.round(
       activities
-        .filter(activity => activity[field].includes(criteria))
+        .filter(activity => {
+          return typeof activity[field] === 'string'
+            ? activity[field] === criteria
+            : activity[field].includes(criteria)
+        })
         .reduce((acc, curr) => acc + curr.duration, 0) / 60
     )
   }
 
-  const cssDuration = totalDurationByCriteria(
+  function getTotalDurationByActivityType(...activities) {
+    return activities.flat().reduce((acc, curr) => acc + curr, 0)
+  }
+
+  const cssDuration = getTotalDurationByCriteria(
     codingActivities,
     'css',
     'languages'
   )
-  const jsDuration = totalDurationByCriteria(
+  const jsDuration = getTotalDurationByCriteria(
     codingActivities,
     'js',
     'languages'
   )
-  const backendDuration = totalDurationByCriteria(
+  const backendDuration = getTotalDurationByCriteria(
     codingActivities,
     'backend',
     'languages'
   )
 
-  // Required for filter
-
-  const stravaBikeDuration = totalDurationByCriteria(
+  const stravaBikeDuration = getTotalDurationByCriteria(
     stravaActivities,
     'Ride',
     'type'
   )
-  const stravaRunDuration = totalDurationByCriteria(
+  const stravaRunDuration = getTotalDurationByCriteria(
     stravaActivities,
     'Run',
     'type'
   )
 
   const stravaWorkoutDuration =
-    totalDurationByCriteria(stravaActivities, 'Workout', 'type') +
-    totalDurationByCriteria(stravaActivities, 'WeightTraining', 'type')
+    getTotalDurationByCriteria(stravaActivities, 'Workout', 'type') +
+    getTotalDurationByCriteria(stravaActivities, 'WeightTraining', 'type')
+
+  const totalDurationPerActivityType = [
+    getTotalDurationByActivityType(backendDuration, cssDuration, jsDuration),
+    getTotalDurationByActivityType(
+      stravaBikeDuration,
+      stravaRunDuration,
+      stravaWorkoutDuration
+    ),
+  ]
 
   return (
     <StyledTimeTracker>
@@ -87,9 +102,11 @@ export default function TimeTracker({
           stravaRunDuration,
           stravaWorkoutDuration,
         ]}
+        totalData={totalDurationPerActivityType}
         labels={{
           codingData: ['Backend', 'CSS', 'JS'],
           stravaData: ['Bike', 'Run', 'Workout'],
+          totalData: ['Coding', 'Sports'],
         }}
       />
       <StyledTimerButton onClick={handleClick}>

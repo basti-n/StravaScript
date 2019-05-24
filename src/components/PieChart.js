@@ -27,8 +27,37 @@ const StyledTagClose = styled(StyledTag)`
   top: 105px;
 `
 
-export default function PieChart({ codingData, stravaData, labels }) {
-  const [activePie, setActivePie] = useState(codingData)
+export default function PieChart({
+  codingData,
+  stravaData,
+  labels,
+  totalData,
+}) {
+  const [activeFilter, setActiveFilter] = useState('totalData')
+  function getLabel(activeFilter) {
+    return activeFilter === 'stravaData'
+      ? labels.stravaData
+      : activeFilter === 'codingData'
+      ? labels.codingData
+      : labels.totalData
+  }
+
+  function getChartData(activeFilter) {
+    return activeFilter === 'stravaData'
+      ? stravaData
+      : activeFilter === 'codingData'
+      ? codingData
+      : totalData
+  }
+
+  function getBgColor(activeFilter) {
+    return activeFilter === 'stravaData'
+      ? ['#F8F8F8', '#E8E8E8', '#D8D8D8']
+      : activeFilter === 'codingData'
+      ? ['#D8D8D8', '#0072C2', '#FDE100']
+      : ['#2E8B57', '#E8E8E8']
+  }
+
   const options = {
     cutoutPercentage: 75,
     animation: { animateScale: true },
@@ -50,9 +79,9 @@ export default function PieChart({ codingData, stravaData, labels }) {
         },
         fontSize: '12',
         fontStyle: 'bold',
-        arc: activePie === stravaData ? false : true,
+        arc: activeFilter === 'stravaData' ? false : true,
         fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
-        render: activePie === stravaData ? 'image' : 'label',
+        render: activeFilter === 'stravaData' ? 'image' : 'label',
         images: [
           { src: '/assets/bike-small.svg', width: 18, height: 18 },
           { src: '/assets/run-small.svg', width: 18, height: 18 },
@@ -63,23 +92,26 @@ export default function PieChart({ codingData, stravaData, labels }) {
   }
 
   const view = {
-    labels: activePie === stravaData ? labels.stravaData : labels.codingData,
+    labels: getLabel(activeFilter),
     datasets: [
       {
-        data: activePie,
-        backgroundColor:
-          activePie === stravaData
-            ? ['#F8F8F8', '#E8E8E8', '#D8D8D8']
-            : ['#D8D8D8', '#0072C2', '#FDE100'],
-        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        data: getChartData(activeFilter),
+        backgroundColor: getBgColor(activeFilter),
       },
     ],
   }
 
-  function handleFilterChange() {
-    setActivePie(prevState =>
-      prevState === stravaData ? codingData : stravaData
-    )
+  function handleFilterChange(direction) {
+    setActiveFilter(prevState => {
+      if (prevState === 'codingData') {
+        return direction === 'right' ? 'stravaData' : 'totalData'
+      }
+      if (prevState === 'stravaData') {
+        return direction === 'right' ? 'totalData' : 'codingData'
+      } else {
+        return direction === 'right' ? 'codingData' : 'stravaData'
+      }
+    })
   }
 
   return (
@@ -87,13 +119,13 @@ export default function PieChart({ codingData, stravaData, labels }) {
       <StyledTagOpen
         src="/assets/openTag.svg"
         alt="html tag open"
-        onClick={handleFilterChange}
+        onClick={() => handleFilterChange('left')}
       />
       <Doughnut data={view} options={options} />
       <StyledTagClose
         src="/assets/closeTag.svg"
         alt="html tag close"
-        onClick={handleFilterChange}
+        onClick={() => handleFilterChange('right')}
       />
     </StyledDonutContainer>
   )
