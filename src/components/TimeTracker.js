@@ -19,7 +19,7 @@ const StyledTimerButton = styled.button`
   position: absolute;
   margin-left: -18.4vw;
   left: 50%;
-  top: 85px;
+  top: 34px;
   img {
     padding-top: 20px;
     height: 40px;

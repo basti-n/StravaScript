@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Router } from '@reach/router'
 import styled, { createGlobalStyle } from 'styled-components'
 import uid from 'uid'
 
@@ -10,9 +11,10 @@ import {
   saveToLocalStorage,
   getFromLocalStorage,
 } from '../services'
-import ActivityList from '../components/ActivityList'
-import TimerClock from '../components/TimerClock'
-import TimeTracker from '../components/TimeTracker'
+import TopbarNav from '../components/TopbarNav'
+import HomePage from '../home/HomePage'
+import SettingsPage from '../appsettings/SettingsPage'
+import ConnectPage from '../connect/ConnectPage'
 
 const GlobalStyle = createGlobalStyle`
 :root {
@@ -33,7 +35,8 @@ body {
 
 const Grid = styled.div`
   display: grid;
-  grid-template-rows: 50px 200px 1fr 100px;
+  height: 100vh;
+  grid-template-rows: 80px 1fr;
 `
 
 function App() {
@@ -53,6 +56,28 @@ function App() {
   const [isTracking, setIsTracking] = useState(trackingTime > 0)
 
   const token = getTokenFromLocalStorage('token')
+  const subPages = {
+    home: {
+      page: 'home',
+      name: ['View All', 'Coding', 'Sports'],
+      src: '/assets/home.svg',
+      srcActive: '/assets/home-active.svg',
+    },
+    connect: {
+      page: 'connect',
+      name: ['Connect', 'How it works'],
+      src: '/assets/connect.svg',
+      srcActive: '/assets/connect-active.svg',
+    },
+    settings: {
+      page: 'settings',
+      name: ['My Goals', 'Settings'],
+      src: '/assets/settings.svg',
+      srcActive: '/assets/settings-active.svg',
+    },
+  }
+
+  const [activePage, setActivePage] = useState('home')
 
   function getStravaActivities(token) {
     getActivitiesFromStrava(token).then(data => {
@@ -122,26 +147,28 @@ function App() {
   return (
     <Grid>
       <GlobalStyle />
-      <TimerClock trackingTime={trackingTime} />
-      <TimeTracker
-        codingActivities={codingActivities.map(activity => ({
-          duration: activity.elapsed_time,
-          languages: activity.languages,
-        }))}
-        stravaActivities={stravaActivities.map(activity => ({
-          duration: activity.elapsed_time,
-          type: activity.type,
-        }))}
-        isTracking={isTracking}
-        onTimerClick={() => setIsTracking(prevState => !prevState)}
+      <TopbarNav
+        subPages={subPages}
+        trackingTime={trackingTime}
+        activePage={activePage}
       />
-      <ActivityList
-        activities={stravaActivities}
-        codingActivities={codingActivities}
+      <Router primary={false}>
+        <HomePage
+          path="/*"
+          codingActivities={codingActivities}
+          stravaActivities={stravaActivities}
+          isTracking={isTracking}
+          onTimerClick={() => setIsTracking(prevState => !prevState)}
+          isStravaLoading={isStravaLoading}
+        />
+        <SettingsPage path="settings" />
+        <ConnectPage path="connect" />
+      </Router>
+      <NavigationBar
+        subPages={subPages}
+        activePage={activePage}
+        setActivePage={setActivePage}
       />
-      {isStravaLoading && <p>...loading</p>}
-
-      <NavigationBar />
     </Grid>
   )
 }

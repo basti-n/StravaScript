@@ -30,13 +30,4 @@ const getAccessTokenFromStrava = () =>
     .then(response => response.json())
     .catch(error => error.json({ errors: [error] }))
 
-const getFromEdamam = () => {
-  fetch(
-    'http://api.edamam.com/auto-complete?q=rou&limit=10&app_id=702bbe7d&app_key=7470d6e6a4439eb58cae84ec6ebc10a7'
-  )
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err.message))
-}
 
-getFromEdamam()

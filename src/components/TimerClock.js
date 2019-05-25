@@ -4,7 +4,6 @@ import { formatToMinutesAndSeconds } from '../services'
 
 const StyledRunningTimer = styled.h2`
   @import url(http://allfont.de/allfont.css?fonts=ds-digital);
-  align-items: center;
   background: var(--primary-color);
   color: var(--light-font);
   font-size: ${props => (props.runningTime ? '20px' : '16px')};

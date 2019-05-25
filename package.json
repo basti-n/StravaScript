@@ -11,6 +11,7 @@
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@craco/craco": "^5.1.0",
+    "@reach/router": "^1.2.1",
     "chart.js": "^2.8.0",
     "chartjs-plugin-annotation": "^0.5.7",
     "chartjs-plugin-labels": "^1.1.0",

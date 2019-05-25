@@ -9,7 +9,6 @@ defaults.global.defaultFontFamily =
   '-apple-system, BlinkMacSystemFont, sans-serif;'
 
 const StyledDonutContainer = styled.section`
-  height: 200px;
   display: flex;
   justify-content: center;
 `
@@ -20,11 +19,11 @@ const StyledTag = styled.img`
 `
 const StyledTagOpen = styled(StyledTag)`
   left: 5px;
-  top: 105px;
+  top: 53px;
 `
 const StyledTagClose = styled(StyledTag)`
   right: 5px;
-  top: 105px;
+  top: 53px;
 `
 
 export default function PieChart({
