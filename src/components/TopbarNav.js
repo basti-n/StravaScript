@@ -63,7 +63,9 @@ export default function TopbarNav({ subPages, trackingTime, activePage }) {
               to={getLinkToPage(page)}
               getProps={isActive}
               key={page}
-              onClick={() => window.scrollTo(0, 0)}
+              onClick={() =>
+                window.scroll({ top: 0, left: 0, behavior: 'smooth' })
+              }
             >
               {page}
             </StyledTopbarLink>
