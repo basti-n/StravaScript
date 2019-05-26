@@ -15,6 +15,7 @@ import TopbarNav from '../components/TopbarNav'
 import HomePage from '../home/HomePage'
 import SettingsPage from '../appsettings/SettingsPage'
 import ConnectPage from '../connect/ConnectPage'
+import { sortActivitiesByDate } from '../utils'
 
 const GlobalStyle = createGlobalStyle`
 :root {
@@ -173,8 +174,8 @@ function App() {
       <Router primary={false}>
         <HomePage
           path="/*"
-          codingActivities={codingActivities}
-          stravaActivities={stravaActivities}
+          codingActivities={sortActivitiesByDate(codingActivities)}
+          stravaActivities={sortActivitiesByDate(stravaActivities)}
           isTracking={isTracking}
           onTimerClick={() => setIsTracking(prevState => !prevState)}
           isStravaLoading={isStravaLoading}

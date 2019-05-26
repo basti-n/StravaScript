@@ -23,18 +23,15 @@ const StyledActivityListHeadline = styled.div`
   }
 `
 
-export default function ActivityList({ activities, codingActivities }) {
-  const mergedActivities = [...activities, ...codingActivities]
-  mergedActivities.sort((a, b) => (b.start_date > a.start_date ? 1 : -1))
-
+export default function ActivityList({ activities }) {
   return (
     <StyledActivityContainer>
       <StyledActivityListHeadline>
         <h2>Recent activities</h2>
         <p>by date ↓</p>
       </StyledActivityListHeadline>
-      {mergedActivities &&
-        mergedActivities.map(activity => (
+      {activities &&
+        activities.map(activity => (
           <ActivityCard activity={activity} key={activity.id} />
         ))}
     </StyledActivityContainer>

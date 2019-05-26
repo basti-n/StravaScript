@@ -9,6 +9,9 @@ export default function OverviewActivities({
   onTimerClick,
   isStravaLoading,
 }) {
+  const allActivities = [...stravaActivities, ...codingActivities]
+  allActivities.sort((a, b) => (b.start_date > a.start_date ? 1 : -1))
+
   return (
     <>
       <TimeTracker
@@ -23,10 +26,7 @@ export default function OverviewActivities({
         isTracking={isTracking}
         onTimerClick={onTimerClick}
       />
-      <ActivityList
-        activities={stravaActivities}
-        codingActivities={codingActivities}
-      />
+      <ActivityList activities={allActivities} />
       {isStravaLoading && <p>...Loading</p>}
     </>
   )

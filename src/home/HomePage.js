@@ -29,8 +29,8 @@ export default function HomePage({
           onTimerClick={onTimerClick}
           isStravaLoading={isStravaLoading}
         />
-        <CodingActivitiesPage path="code" data={codingActivities} />
-        <SportActivityPage path="sport" data={stravaActivities} />
+        <CodingActivitiesPage path="code" codingActivities={codingActivities} />
+        <SportActivityPage path="sport" stravaActivities={stravaActivities} />
       </Router>
     </HomepageLayout>
   )

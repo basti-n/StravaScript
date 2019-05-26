@@ -1,11 +1,12 @@
 import React from 'react'
 import ActivitySummary from '../components/ActivitySummary'
+import ActivityList from '../components/ActivityList'
 
-export default function CodingActivitiesPage({ data }) {
+export default function CodingActivitiesPage({ codingActivities }) {
   return (
     <>
-      <h1>Coding Activities</h1>
-      <ActivitySummary data={data} activityType="code" />
+      <ActivitySummary data={codingActivities} activityType="code" />
+      <ActivityList activities={codingActivities} />
     </>
   )
 }

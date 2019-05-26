@@ -46,15 +46,12 @@ export default function TopbarNav({ subPages, trackingTime, activePage }) {
       MyGoals: 'goals',
       Settings: 'settings',
     }
-    console.log(mapping[page.replace(' ', '')])
     return mapping[page.replace(/ /g, '')]
   }
 
   const isActive = ({ isCurrent }) => {
     return isCurrent ? { className: 'active' } : null
   }
-
-  console.log(subPages[activePage].name)
 
   return (
     <StyledTopbar>
@@ -66,6 +63,7 @@ export default function TopbarNav({ subPages, trackingTime, activePage }) {
               to={getLinkToPage(page)}
               getProps={isActive}
               key={page}
+              onClick={() => window.scrollTo(0, 0)}
             >
               {page}
             </StyledTopbarLink>

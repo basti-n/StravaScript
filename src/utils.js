@@ -13,3 +13,7 @@ export function hexToRgb(hex) {
       }
     : null
 }
+
+export function sortActivitiesByDate(activities) {
+  return activities.sort((a, b) => (b.start_date > a.start_date ? 1 : -1))
+}

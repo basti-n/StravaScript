@@ -46,7 +46,10 @@ export default function NavigationBar({ subPages, activePage, setActivePage }) {
             to={page === 'home' ? `/` : `/${page}`}
             getProps={isActive}
             key={page}
-            onClick={() => setActivePage(subPages[page].page)}
+            onClick={() => {
+              window.scrollTo(0, 0)
+              setActivePage(subPages[page].page)
+            }}
           >
             <img
               src={

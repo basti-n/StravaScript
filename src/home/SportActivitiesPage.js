@@ -1,11 +1,12 @@
 import React from 'react'
 import ActivitySummary from '../components/ActivitySummary'
+import ActivityList from '../components/ActivityList'
 
-export default function SportActivityPage({ data }) {
+export default function SportActivityPage({ stravaActivities }) {
   return (
     <>
-      <h1>Sport Activities</h1>
-      <ActivitySummary data={data} type="sport" />
+      <ActivitySummary data={stravaActivities} activityType="sport" />
+      <ActivityList activities={stravaActivities} />
     </>
   )
 }
