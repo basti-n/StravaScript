@@ -29,10 +29,28 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 22px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 22px;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  .active {
+  font-weight: bold;
+  color: var(--font-light);
+  text-decoration: none;
+  padding-bottom: 5px;
+  border-bottom: 3px solid black;
+}
+
+.nav-active {
+  transition: all 0.7s ease-in;
+  transform: rotateY(360deg);
+}
+
 }`
 
+/*Add overflow auto if topbar should not be removed after specific scroll position */
 const Grid = styled.div`
   display: grid;
   height: 100vh;
