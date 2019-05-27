@@ -35,23 +35,18 @@ const StyledTopbarLink = styled(Link)`
   text-decoration: none;
 `
 
-export default function TopbarNav({ subPages, trackingTime, activePage }) {
-  function getLinkToPage(page) {
-    const mapping = {
-      ViewAll: '/',
-      Coding: 'code',
-      Sports: 'sport',
-      Connect: 'connect',
-      Howitworks: 'faq',
-      MyGoals: 'goals',
-      Settings: 'settings',
-    }
-    return mapping[page.replace(/ /g, '')]
-  }
-
+export default function TopbarNav({
+  subPages,
+  trackingTime,
+  activePage,
+  setActivePage,
+  getLinkToPage,
+}) {
   const isActive = ({ isCurrent }) => {
     return isCurrent ? { className: 'active' } : null
   }
+
+  console.log(activePage)
 
   return (
     <StyledTopbar>
@@ -60,12 +55,13 @@ export default function TopbarNav({ subPages, trackingTime, activePage }) {
         <ul>
           {subPages[activePage].name.map(page => (
             <StyledTopbarLink
-              to={getLinkToPage(page)}
+              to={getLinkToPage(page).url}
               getProps={isActive}
               key={page}
-              onClick={() =>
+              onClick={() => {
+                setActivePage(getLinkToPage(page).mainPage)
                 window.scroll({ top: 0, left: 0, behavior: 'smooth' })
-              }
+              }}
             >
               {page}
             </StyledTopbarLink>

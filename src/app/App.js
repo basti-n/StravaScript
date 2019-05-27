@@ -10,12 +10,15 @@ import {
   getTokenFromStrava,
   saveToLocalStorage,
   getFromLocalStorage,
+  getAthlete,
 } from '../services'
 import TopbarNav from '../components/TopbarNav'
 import HomePage from '../home/HomePage'
 import SettingsPage from '../appsettings/SettingsPage'
 import ConnectPage from '../connect/ConnectPage'
 import { sortActivitiesByDate } from '../utils'
+import FaqPage from '../connect/FaqPage'
+import GoalsPage from '../appsettings/GoalsPage'
 
 const GlobalStyle = createGlobalStyle`
 :root {
@@ -59,6 +62,7 @@ const Grid = styled.div`
 `
 
 function App() {
+  const token = getTokenFromLocalStorage('token')
   const [stravaActivities, setStravaActivities] = useState(
     getFromLocalStorage('Strava Activities')
   )
@@ -66,6 +70,8 @@ function App() {
     getFromLocalStorage('Coding') || []
   )
   const [isStravaLoading, setisStravaLoading] = useState(false)
+  const [stravaUser, setStravaUser] = useState({})
+
   // ToDo: Save instead of duration the start time and calculate trackingTime as
   // Date.now() - startTime => trackingTime (then we count up tracking time)
   //clear startDate when saving activity (i.e. stop timer)
@@ -74,7 +80,6 @@ function App() {
   )
   const [isTracking, setIsTracking] = useState(trackingTime > 0)
 
-  const token = getTokenFromLocalStorage('token')
   const subPages = {
     home: {
       page: 'home',
@@ -96,7 +101,34 @@ function App() {
     },
   }
 
-  const [activePage, setActivePage] = useState('home')
+  const mapping = {
+    ViewAll: { url: '/', mainPage: 'home' },
+    Coding: { url: 'code', mainPage: 'home' },
+    Sports: { url: 'sport', mainPage: 'home' },
+    Connect: { url: 'connect', mainPage: 'connect' },
+    Howitworks: { url: 'faq', mainPage: 'connect' },
+    MyGoals: { url: 'goals', mainPage: 'settings' },
+    Settings: { url: 'settings', mainPage: 'settings' },
+  }
+
+  function getMainPagefromSubPage(page) {
+    if (!page) {
+      return 'home'
+    }
+    const index = Object.values(mapping)
+      .map(value => value.url)
+      .indexOf(page)
+
+    return Object.values(mapping).map(value => value.mainPage)[index]
+  }
+
+  function getLinkToPage(page) {
+    return mapping[page.replace(/ /g, '')]
+  }
+
+  const [activePage, setActivePage] = useState(
+    getMainPagefromSubPage(window.location.pathname.substr(1)) || 'home'
+  )
 
   function getStravaActivities(token) {
     getActivitiesFromStrava(token).then(data => {
@@ -105,6 +137,36 @@ function App() {
       setisStravaLoading(false)
     })
   }
+
+  function getStravaProfile(token) {
+    return getAthlete(token).then(data => {
+      setStravaUser(data)
+    })
+  }
+
+  useEffect(() => {
+    function getMainPagefromSubPage(page) {
+      if (!page) {
+        return 'home'
+      }
+      const index = Object.values(mapping)
+        .map(value => value.url)
+        .indexOf(page)
+
+      return Object.values(mapping).map(value => value.mainPage)[index]
+    }
+
+    window.onpopstate = () => {
+      const newActivePage = getMainPagefromSubPage(
+        window.location.pathname.substr(1)
+      )
+      setActivePage(newActivePage)
+    }
+  }, [mapping])
+
+  useEffect(() => {
+    getStravaProfile(token)
+  }, [token])
 
   useEffect(() => {
     setisStravaLoading(true)
@@ -170,6 +232,8 @@ function App() {
         subPages={subPages}
         trackingTime={trackingTime}
         activePage={activePage}
+        setActivePage={setActivePage}
+        getLinkToPage={getLinkToPage}
       />
       <Router primary={false}>
         <HomePage
@@ -181,7 +245,14 @@ function App() {
           isStravaLoading={isStravaLoading}
         />
         <SettingsPage path="settings" />
-        <ConnectPage path="connect" />
+        <ConnectPage
+          path="connect"
+          username={stravaUser.username}
+          image={stravaUser.profile}
+          setActivePage={setActivePage}
+        />
+        <GoalsPage path="goals" />
+        <FaqPage path="faq" />
       </Router>
       <NavigationBar
         subPages={subPages}

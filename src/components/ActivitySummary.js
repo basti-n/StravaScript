@@ -2,13 +2,9 @@ import React from 'react'
 import moment from 'moment'
 import styled from 'styled-components'
 import 'moment/locale/de'
-import { StyledActivityContainer, StyledMainHeadline } from './StyledComponents'
+import { StyledMainHeadline, StyledContainer } from './StyledComponents'
 import ActivityOnLineChart from './ActivityOnLineChart'
 moment.locale('de')
-
-const StyledSummaryContainer = styled(StyledActivityContainer)`
-  padding: 0 10px;
-`
 
 const StyledSummaryHeadline = styled.h3`
   font-size: 24px;
@@ -91,7 +87,7 @@ export default function ActivitySummary({ data, activityType }) {
   }
 
   return (
-    <StyledSummaryContainer>
+    <StyledContainer>
       <StyledMainHeadline>This Week</StyledMainHeadline>
       <StyledSummaryHeadline>
         {timeLastWeek}
@@ -165,7 +161,7 @@ export default function ActivitySummary({ data, activityType }) {
           />
         </StyledStackedLineChart>
       )}
-    </StyledSummaryContainer>
+    </StyledContainer>
   )
 }
 

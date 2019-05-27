@@ -4,9 +4,48 @@ export const StyledActivityContainer = styled.section`
   margin: 10px;
 `
 
+export const StyledContainer = styled(StyledActivityContainer)`
+  padding: 0 10px;
+`
+
 export const StyledMainHeadline = styled.h2`
   margin: 30px 0 15px 0;
   font-size: 1.15rem;
   color: var(--primary-color);
   font-weight: 600;
+`
+
+export const StyledHeadlineWithIcon = styled.section`
+  display: flex;
+  align-items: center;
+  margin: 34px 0 40px 0;
+
+  img {
+    align-self: center;
+    margin-right: 10px;
+    padding-top: 10px;
+  }
+`
+
+const Button = styled.button`
+  border-radius: 10px;
+  padding: 12px 20px;
+  width: 60vw;
+  outline: none;
+  font-weight: bolder;
+  font-size: 15px;
+  display: block;
+  margin: 25px auto;
+`
+
+export const ButtonPrimary = styled(Button)`
+  background: var(--primary-color);
+  color: var(--light-font);
+`
+
+export const StyledRegularText = styled.p`
+  color: var(--dark-font);
+  font-size: 14px;
+  padding: 0 4px;
+  text-align: justify;
 `

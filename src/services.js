@@ -9,6 +9,11 @@ export const getActivitiesFromStrava = token =>
     .then(res => res.json())
     .catch(error => error.json({ errors: [error] }))
 
+export const getAthlete = token =>
+  fetch(`https://www.strava.com/api/v3/athlete?access_token=${token}`)
+    .then(res => res.json())
+    .catch(error => error.json({ errors: [error] }))
+
 // getTokenFromStrava
 export const getTokenFromStrava = () => fetch('/token').then(res => res.json())
 
