@@ -27,7 +27,7 @@ export default function TimerClock({ startTime }) {
 
   return (
     <StyledRunningTimer runningTime={startTime > 1}>
-      {startTime
+      {startTime > 1
         ? `${formatToMinutesAndSeconds((Date.now() - startTime) / 1000)}`
         : `StravaScript`}
     </StyledRunningTimer>

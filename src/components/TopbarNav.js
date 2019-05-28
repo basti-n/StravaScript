@@ -37,7 +37,7 @@ const StyledTopbarLink = styled(Link)`
 
 export default function TopbarNav({
   subPages,
-  trackingTime,
+  startTime,
   activePage,
   setActivePage,
   getLinkToPage,
@@ -48,7 +48,7 @@ export default function TopbarNav({
 
   return (
     <StyledTopbar>
-      <TimerClock trackingTime={trackingTime} />
+      <TimerClock startTime={startTime} />
       <StyledTopbarNav>
         <ul>
           {subPages[activePage].name.map(page => (
