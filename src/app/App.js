@@ -72,13 +72,10 @@ function App() {
   const [isStravaLoading, setisStravaLoading] = useState(false)
   const [stravaUser, setStravaUser] = useState({})
 
-  // ToDo: Save instead of duration the start time and calculate trackingTime as
-  // Date.now() - startTime => trackingTime (then we count up tracking time)
-  //clear startDate when saving activity (i.e. stop timer)
-  const [trackingTime, setTrackingTime] = useState(
-    getFromLocalStorage('Tracker') || 0
+  const [startTime, setStartTime] = useState(
+    getFromLocalStorage('Start Time') || null
   )
-  const [isTracking, setIsTracking] = useState(trackingTime > 0)
+  const [isTracking, setIsTracking] = useState(startTime > 0)
 
   const subPages = {
     home: {
@@ -109,6 +106,10 @@ function App() {
     Howitworks: { url: 'faq', mainPage: 'connect' },
     MyGoals: { url: 'goals', mainPage: 'settings' },
     Settings: { url: 'settings', mainPage: 'settings' },
+  }
+
+  function getTrackingTimeInSeconds(startTime) {
+    return (Date.now() - startTime) / 1000
   }
 
   function getMainPagefromSubPage(page) {
@@ -185,26 +186,18 @@ function App() {
 
   // ToDo: see comment above, dependencyArray = [startTime] => then we write in DB
   // onStop we remove it from localStorGE
-  useEffect(() => saveToLocalStorage('Tracker', trackingTime), [trackingTime])
+  useEffect(() => saveToLocalStorage('Start Time', startTime), [startTime])
 
   useEffect(() => {
     let interval
 
-    if (isTracking) {
-      const startTime = Date.now()
-      interval = setInterval(
-        () =>
-          setTrackingTime(
-            Math.floor((Date.now() - startTime + trackingTime * 1000) / 1000)
-          ),
-        1000
-      )
-    } else if (!isTracking && trackingTime) {
+    if (isTracking && !startTime) {
+      setStartTime(Date.now())
+    } else if (!isTracking && startTime) {
       handleTrackingCompleted()
       clearInterval(interval)
     }
 
-    return () => clearInterval(interval)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTracking])
 
@@ -213,8 +206,8 @@ function App() {
       name: 'Coding Activity',
       type: 'Code',
       id: uid(),
-      elapsed_time: trackingTime,
-      start_date: new Date().toISOString(),
+      elapsed_time: getTrackingTimeInSeconds(startTime),
+      start_date: new Date(startTime).toISOString(),
       languages: ['backend', 'css', 'js'],
     }
 
@@ -222,7 +215,7 @@ function App() {
       ...prevCodingActivities,
       completedCodingActivity,
     ])
-    setTrackingTime(0)
+    setStartTime(null)
   }
 
   return (
@@ -230,7 +223,7 @@ function App() {
       <GlobalStyle />
       <TopbarNav
         subPages={subPages}
-        trackingTime={trackingTime}
+        startTime={startTime}
         activePage={activePage}
         setActivePage={setActivePage}
         getLinkToPage={getLinkToPage}

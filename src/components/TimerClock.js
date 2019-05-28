@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { formatToMinutesAndSeconds } from '../services'
 
@@ -14,11 +14,22 @@ const StyledRunningTimer = styled.h2`
   justify-content: center;
 `
 
-export default function TimerClock({ trackingTime }) {
-  const displayTime = formatToMinutesAndSeconds(trackingTime)
+export default function TimerClock({ startTime }) {
+  const [time, setTime] = useState(0)
+  useEffect(() => {
+    if (startTime) {
+      let interval = setInterval(() => {
+        setTime(time + 1)
+      }, 500)
+      return () => clearInterval(interval)
+    }
+  }, [startTime, time])
+
   return (
-    <StyledRunningTimer runningTime={trackingTime}>
-      {trackingTime ? `${displayTime}` : `StravaScript`}
+    <StyledRunningTimer runningTime={startTime > 1}>
+      {startTime
+        ? `${formatToMinutesAndSeconds((Date.now() - startTime) / 1000)}`
+        : `StravaScript`}
     </StyledRunningTimer>
   )
 }

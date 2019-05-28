@@ -51,8 +51,17 @@ export const StyledRegularText = styled.p`
   font-weight: lighter;
   padding: 0 4px;
   text-align: justify;
-  p:first-child {
-    margin-top: 20px;
+  span:first-child {
+    margin-top: 10px;
+  }
+  span {
+    display: inline-block;
+    margin: 5px 0;
+  }
+  @media (min-height: 730px) {
+    span {
+      margin: 10px 0;
+    }
   }
 `
 export const StyledOrderedList = styled.ol`

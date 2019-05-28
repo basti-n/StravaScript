@@ -50,6 +50,7 @@ export default function NavigationBar({ subPages, activePage, setActivePage }) {
               window.scroll({ top: 0, left: 0, behavior: 'smooth' })
               setActivePage(subPages[page].page)
             }}
+            suppressClassNameWarning
           >
             <img
               src={
