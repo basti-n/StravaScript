@@ -46,8 +46,6 @@ export default function TopbarNav({
     return isCurrent ? { className: 'active' } : null
   }
 
-  console.log(activePage)
-
   return (
     <StyledTopbar>
       <TimerClock trackingTime={trackingTime} />

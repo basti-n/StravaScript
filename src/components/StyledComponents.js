@@ -48,6 +48,13 @@ export const StyledRegularText = styled.p`
   color: var(--dark-font);
   letter-spacing: 0.6px;
   font-size: 14px;
+  font-weight: lighter;
   padding: 0 4px;
   text-align: justify;
+  p:first-child {
+    margin-top: 20px;
+  }
+`
+export const StyledOrderedList = styled.ol`
+  padding-left: 25px;
 `
