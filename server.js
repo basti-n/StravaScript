@@ -6,7 +6,6 @@ const fetch = require('node-fetch')
 
 app.get('/token', (req, res) =>
   getAccessTokenFromStrava().then(data => {
-    console.log(data)
     res.json(data)
   })
 )

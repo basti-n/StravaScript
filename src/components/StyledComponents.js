@@ -29,9 +29,10 @@ export const StyledHeadlineWithIcon = styled.section`
 
 const Button = styled.button`
   border-radius: 10px;
-  padding: 12px 20px;
+  padding: 15px 20px;
   width: 60vw;
   outline: none;
+  border: none;
   font-weight: bolder;
   font-size: 15px;
   display: block;
@@ -45,6 +46,7 @@ export const ButtonPrimary = styled(Button)`
 
 export const StyledRegularText = styled.p`
   color: var(--dark-font);
+  letter-spacing: 0.6px;
   font-size: 14px;
   padding: 0 4px;
   text-align: justify;
