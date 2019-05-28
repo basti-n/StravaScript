@@ -56,6 +56,7 @@ export default function TopbarNav({
               to={getLinkToPage(page).url}
               getProps={isActive}
               key={page}
+              suppressClassNameWarning
               onClick={() => {
                 setActivePage(getLinkToPage(page).mainPage)
                 window.scroll({ top: 0, left: 0, behavior: 'smooth' })

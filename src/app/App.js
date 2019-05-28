@@ -189,26 +189,24 @@ function App() {
   useEffect(() => saveToLocalStorage('Start Time', startTime), [startTime])
 
   useEffect(() => {
-    let interval
-
     if (isTracking && !startTime) {
       setStartTime(Date.now())
+      // else if can be removed when handleTrackingCompleted is passed along to Modal Dialogue
     } else if (!isTracking && startTime) {
-      handleTrackingCompleted()
-      clearInterval(interval)
+      //handleTrackingCompleted()
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTracking])
 
-  function handleTrackingCompleted() {
+  function handleTrackingCompleted(languages) {
     const completedCodingActivity = {
       name: 'Coding Activity',
       type: 'Code',
       id: uid(),
       elapsed_time: getTrackingTimeInSeconds(startTime),
       start_date: new Date(startTime).toISOString(),
-      languages: ['backend', 'css', 'js'],
+      languages,
     }
 
     setCodingActivities(prevCodingActivities => [
@@ -236,6 +234,8 @@ function App() {
           isTracking={isTracking}
           onTimerClick={() => setIsTracking(prevState => !prevState)}
           isStravaLoading={isStravaLoading}
+          showModal={(!isTracking && startTime) > 0}
+          onTrackingCompleted={handleTrackingCompleted}
         />
         <SettingsPage path="settings" />
         <ConnectPage

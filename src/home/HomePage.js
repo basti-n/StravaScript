@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Router } from '@reach/router'
-import OverviewPage from '../components/OverviewActivities'
+import OverviewPage from './OverviewPage'
 import SportActivityPage from './SportActivitiesPage'
 import CodingActivitiesPage from './CodingActivitiesPage'
 
@@ -17,6 +17,8 @@ export default function HomePage({
   isTracking,
   onTimerClick,
   isStravaLoading,
+  onTrackingCompleted,
+  showModal,
 }) {
   return (
     <HomepageLayout>
@@ -28,6 +30,8 @@ export default function HomePage({
           isTracking={isTracking}
           onTimerClick={onTimerClick}
           isStravaLoading={isStravaLoading}
+          onTrackingCompleted={onTrackingCompleted}
+          showModal={showModal}
         />
         <CodingActivitiesPage path="code" codingActivities={codingActivities} />
         <SportActivityPage path="sport" stravaActivities={stravaActivities} />
