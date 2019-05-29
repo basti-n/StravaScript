@@ -51,14 +51,14 @@ export default function TopbarNav({
       <TimerClock startTime={startTime} />
       <StyledTopbarNav>
         <ul>
-          {subPages[activePage].name.map(page => (
+          {subPages[activePage].name.map((page, index) => (
             <StyledTopbarLink
-              to={getLinkToPage(page).url}
+              to={subPages[activePage].path[index]}
               getProps={isActive}
               key={page}
               suppressClassNameWarning
               onClick={() => {
-                setActivePage(getLinkToPage(page).mainPage)
+                setActivePage(subPages[activePage].page)
                 window.scroll({ top: 0, left: 0, behavior: 'smooth' })
               }}
             >

@@ -79,7 +79,11 @@ export default function ActivityCard({ activity }) {
       </StyledCardHeader>
       <StyledCardBody>
         <img {...activityTypeImg[activity.type]} />
-        <p>{Math.round(activity.elapsed_time / 60)} min</p>
+        <p>
+          {activity.elapsed_time < 60
+            ? `${Math.round(activity.elapsed_time)} sec`
+            : `${Math.round(activity.elapsed_time / 60)} min`}
+        </p>
         <label>
           {activity.type === 'Code' ? (
             <CodingLanguagesTags languages={activity.languages} />

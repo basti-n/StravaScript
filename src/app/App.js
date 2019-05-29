@@ -61,6 +61,40 @@ const Grid = styled.div`
   grid-template-rows: 80px 1fr;
 `
 
+const subPages = {
+  home: {
+    page: 'home',
+    name: ['View All', 'Coding', 'Sports'],
+    path: ['/', '/code', 'sport'],
+    src: '/assets/home.svg',
+    srcActive: '/assets/home-active.svg',
+  },
+  connect: {
+    page: 'connect',
+    name: ['Connect', 'How it works'],
+    path: ['connect', '/faq'],
+    src: '/assets/connect.svg',
+    srcActive: '/assets/connect-active.svg',
+  },
+  settings: {
+    page: 'settings',
+    name: ['My Goals', 'Settings'],
+    path: ['goals', '/settings'],
+    src: '/assets/settings.svg',
+    srcActive: '/assets/settings-active.svg',
+  },
+}
+
+const urlMapping = {
+  ViewAll: { url: '/', mainPage: 'home' },
+  Coding: { url: 'code', mainPage: 'home' },
+  Sports: { url: 'sport', mainPage: 'home' },
+  Connect: { url: 'connect', mainPage: 'connect' },
+  Howitworks: { url: 'faq', mainPage: 'connect' },
+  MyGoals: { url: 'goals', mainPage: 'settings' },
+  Settings: { url: 'settings', mainPage: 'settings' },
+}
+
 function App() {
   const token = getTokenFromLocalStorage('token')
   const [stravaActivities, setStravaActivities] = useState(
@@ -77,37 +111,6 @@ function App() {
   )
   const [isTracking, setIsTracking] = useState(startTime > 0)
 
-  const subPages = {
-    home: {
-      page: 'home',
-      name: ['View All', 'Coding', 'Sports'],
-      src: '/assets/home.svg',
-      srcActive: '/assets/home-active.svg',
-    },
-    connect: {
-      page: 'connect',
-      name: ['Connect', 'How it works'],
-      src: '/assets/connect.svg',
-      srcActive: '/assets/connect-active.svg',
-    },
-    settings: {
-      page: 'settings',
-      name: ['My Goals', 'Settings'],
-      src: '/assets/settings.svg',
-      srcActive: '/assets/settings-active.svg',
-    },
-  }
-
-  const mapping = {
-    ViewAll: { url: '/', mainPage: 'home' },
-    Coding: { url: 'code', mainPage: 'home' },
-    Sports: { url: 'sport', mainPage: 'home' },
-    Connect: { url: 'connect', mainPage: 'connect' },
-    Howitworks: { url: 'faq', mainPage: 'connect' },
-    MyGoals: { url: 'goals', mainPage: 'settings' },
-    Settings: { url: 'settings', mainPage: 'settings' },
-  }
-
   function getTrackingTimeInSeconds(startTime) {
     return (Date.now() - startTime) / 1000
   }
@@ -116,19 +119,15 @@ function App() {
     if (!page) {
       return 'home'
     }
-    const index = Object.values(mapping)
+    const index = Object.values(urlMapping)
       .map(value => value.url)
       .indexOf(page)
 
-    return Object.values(mapping).map(value => value.mainPage)[index]
-  }
-
-  function getLinkToPage(page) {
-    return mapping[page.replace(/ /g, '')]
+    return Object.values(urlMapping).map(value => value.mainPage)[index]
   }
 
   const [activePage, setActivePage] = useState(
-    getMainPagefromSubPage(window.location.pathname.substr(1)) || 'home'
+    getMainPagefromSubPage([window.location.pathname.substr(1)]) || 'home'
   )
 
   function getStravaActivities(token) {
@@ -146,24 +145,13 @@ function App() {
   }
 
   useEffect(() => {
-    function getMainPagefromSubPage(page) {
-      if (!page) {
-        return 'home'
-      }
-      const index = Object.values(mapping)
-        .map(value => value.url)
-        .indexOf(page)
-
-      return Object.values(mapping).map(value => value.mainPage)[index]
-    }
-
     window.onpopstate = () => {
       const newActivePage = getMainPagefromSubPage(
         window.location.pathname.substr(1)
       )
       setActivePage(newActivePage)
     }
-  }, [mapping])
+  }, [])
 
   useEffect(() => {
     getStravaProfile(token)
@@ -224,7 +212,6 @@ function App() {
         startTime={startTime}
         activePage={activePage}
         setActivePage={setActivePage}
-        getLinkToPage={getLinkToPage}
       />
       <Router primary={false}>
         <HomePage
