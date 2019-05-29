@@ -39,18 +39,18 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  .active {
+  .nav-active {
+    transition: all 0.7s ease-in;
+    transform: rotateY(360deg);
+  }
+
+  .topbar-active {
   font-weight: bold;
   color: var(--font-light);
   text-decoration: none;
   padding-bottom: 5px;
   border-bottom: 3px solid black;
-}
-
-.nav-active {
-  transition: all 0.7s ease-in;
-  transform: rotateY(360deg);
-}
+  }
 
 }`
 
@@ -72,27 +72,27 @@ const subPages = {
   connect: {
     page: 'connect',
     name: ['Connect', 'How it works'],
-    path: ['connect', '/faq'],
+    path: ['/connect', '/faq'],
     src: '/assets/connect.svg',
     srcActive: '/assets/connect-active.svg',
   },
-  settings: {
-    page: 'settings',
+  goals: {
+    page: 'goals',
     name: ['My Goals', 'Settings'],
-    path: ['goals', '/settings'],
+    path: ['/goals', '/settings'],
     src: '/assets/settings.svg',
     srcActive: '/assets/settings-active.svg',
   },
 }
 
 const urlMapping = {
-  ViewAll: { url: '/', mainPage: 'home' },
-  Coding: { url: 'code', mainPage: 'home' },
-  Sports: { url: 'sport', mainPage: 'home' },
+  Home: { url: '/', mainPage: 'home' },
+  Code: { url: 'code', mainPage: 'home' },
+  Sport: { url: 'sport', mainPage: 'home' },
   Connect: { url: 'connect', mainPage: 'connect' },
-  Howitworks: { url: 'faq', mainPage: 'connect' },
-  MyGoals: { url: 'goals', mainPage: 'settings' },
-  Settings: { url: 'settings', mainPage: 'settings' },
+  Faq: { url: 'faq', mainPage: 'connect' },
+  Goals: { url: 'goals', mainPage: 'goals' },
+  Settings: { url: 'settings', mainPage: 'goals' },
 }
 
 function App() {
@@ -127,7 +127,7 @@ function App() {
   }
 
   const [activePage, setActivePage] = useState(
-    getMainPagefromSubPage([window.location.pathname.substr(1)]) || 'home'
+    getMainPagefromSubPage(window.location.pathname.substr(1)) || 'home'
   )
 
   function getStravaActivities(token) {
@@ -172,18 +172,12 @@ function App() {
     saveToLocalStorage('Coding', JSON.stringify(codingActivities))
   }, [codingActivities])
 
-  // ToDo: see comment above, dependencyArray = [startTime] => then we write in DB
-  // onStop we remove it from localStorGE
   useEffect(() => saveToLocalStorage('Start Time', startTime), [startTime])
 
   useEffect(() => {
     if (isTracking && !startTime) {
       setStartTime(Date.now())
-      // else if can be removed when handleTrackingCompleted is passed along to Modal Dialogue
-    } else if (!isTracking && startTime) {
-      //handleTrackingCompleted()
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTracking])
 

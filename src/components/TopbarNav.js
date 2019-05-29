@@ -40,10 +40,9 @@ export default function TopbarNav({
   startTime,
   activePage,
   setActivePage,
-  getLinkToPage,
 }) {
   const isActive = ({ isCurrent }) => {
-    return isCurrent ? { className: 'active' } : null
+    return isCurrent ? { className: 'topbar-active' } : false
   }
 
   return (
