@@ -13,6 +13,7 @@ const StyledLineActivity = styled.div`
   h6 {
     margin: 0;
     text-align: center;
+    white-space: nowrap;
   }
 
   h5 {
