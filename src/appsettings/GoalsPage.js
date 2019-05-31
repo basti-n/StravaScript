@@ -1,29 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import {
-  StyledMainHeadline,
-  StyledContainer,
-} from '../components/StyledComponents'
+import ToggleSwitch from '../components/ToggleSwitch'
+import GoalSettings from '../components/GoalSettings'
+import { StyledContainer } from '../components/StyledComponents'
 
 const StyledContainerGoalsPage = styled(StyledContainer)`
   display: grid;
-  height: calc(100%);
-  grid-template-rows: 1fr 1fr;
-
-  > h2:not(first-of-type) {
-    margin-top: 0;
-  }
+  grid-template-rows: auto 1fr;
 `
 
-const StyledGoalSettings = styled.section``
+export default function GoalsPage({ weeklyGoal, setWeeklyGoal }) {
+  const [activeGoalPage, setActiveGoalPage] = useState('coding')
+  const goalPages = ['coding', 'sport']
 
-export default function GoalsPage() {
   return (
     <StyledContainerGoalsPage>
-      <StyledGoalSettings>
-        <StyledMainHeadline>Coding</StyledMainHeadline>
-      </StyledGoalSettings>
-      <StyledMainHeadline>Sports</StyledMainHeadline>
+      <ToggleSwitch
+        pages={goalPages}
+        activePage={activeGoalPage}
+        setActivePage={setActiveGoalPage}
+      />
+
+      <GoalSettings
+        page={activeGoalPage}
+        weeklyGoal={weeklyGoal}
+        setWeeklyGoal={setWeeklyGoal}
+      />
     </StyledContainerGoalsPage>
   )
 }

@@ -21,6 +21,7 @@ import FaqPage from '../connect/FaqPage'
 import GoalsPage from '../appsettings/GoalsPage'
 
 const GlobalStyle = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css?family=Libre+Franklin&display=swap');
 :root {
   --primary-color: #2E8B57;
   --grey: rgba(216, 216, 214, 0.44);
@@ -33,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Libre Franklin', sans-serif;
   font-size: 22px;
   margin: 0;
   -webkit-font-smoothing: antialiased;
@@ -50,6 +51,21 @@ body {
   text-decoration: none;
   padding-bottom: 5px;
   border-bottom: 3px solid black;
+  }
+
+  .MuiSlider-track {
+    background: var(--primary-color);
+    height: 2px;
+    border-radius: 10px;
+    }
+
+  .MuiSlider-thumb {
+    width: 30px;
+    height: 30px;
+    background: white;
+    background-image: url('/assets/goal-small.svg');
+    border: 1px solid var(--grey);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   }
 
 }`
@@ -98,10 +114,14 @@ const urlMapping = {
 function App() {
   const token = getTokenFromLocalStorage('token')
   const [stravaActivities, setStravaActivities] = useState(
-    getFromLocalStorage('Strava Activities')
+    getFromLocalStorage('Strava Activities') || []
   )
   const [codingActivities, setCodingActivities] = useState(
     getFromLocalStorage('Coding') || []
+  )
+
+  const [weeklyGoal, setWeeklyGoal] = useState(
+    getFromLocalStorage('Goals') || { coding: 10, sport: 5 }
   )
   const [isStravaLoading, setisStravaLoading] = useState(false)
   const [stravaUser, setStravaUser] = useState({})
@@ -156,6 +176,10 @@ function App() {
   useEffect(() => {
     getStravaProfile(token)
   }, [token])
+
+  useEffect(() => saveToLocalStorage('Goals', JSON.stringify(weeklyGoal)), [
+    weeklyGoal,
+  ])
 
   useEffect(() => {
     setisStravaLoading(true)
@@ -225,7 +249,11 @@ function App() {
           image={stravaUser.profile}
           setActivePage={setActivePage}
         />
-        <GoalsPage path="goals" />
+        <GoalsPage
+          path="goals"
+          weeklyGoal={weeklyGoal}
+          setWeeklyGoal={setWeeklyGoal}
+        />
         <FaqPage path="faq" />
       </Router>
       <NavigationBar

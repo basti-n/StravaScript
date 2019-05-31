@@ -2,25 +2,13 @@ import React from 'react'
 import moment from 'moment'
 import styled from 'styled-components'
 import 'moment/locale/de'
-import { StyledMainHeadline, StyledContainer } from './StyledComponents'
+import {
+  StyledMainHeadline,
+  StyledContainer,
+  StyledSummaryHeadline,
+} from './StyledComponents'
 import ActivityOnLineChart from './ActivityOnLineChart'
 moment.locale('de')
-
-const StyledSummaryHeadline = styled.h3`
-  font-size: 24px;
-  margin: 0 0 30px;
-  display: flex;
-  align-items: flex-end;
-
-  span {
-    color: #b3b3b3;
-    font-size: 0.8rem;
-    font-weight: normal;
-    display: inline-block;
-    margin-left: auto;
-    padding-bottom: 3px;
-  }
-`
 
 const StyledStackedLineChart = styled.section`
   display: flex;
@@ -80,7 +68,11 @@ export default function ActivitySummary({ data, activityType }) {
       )
     } else if (activityType === 'sport') {
       return (
-        (getWeeklyActivitiesMinutesByType(type) / getTotalMinutes(lastWeek)) *
+        (getWeeklyActivitiesMinutesByType(type) /
+          (getWeeklyActivitiesMinutesByType('Workout') +
+            getWeeklyActivitiesMinutesByType('WeightTraining') +
+            getWeeklyActivitiesMinutesByType('Ride') +
+            getWeeklyActivitiesMinutesByType('Run'))) *
         100
       )
     }
@@ -151,7 +143,10 @@ export default function ActivitySummary({ data, activityType }) {
           />
           <ActivityOnLineChart
             color="#2E7357"
-            width={getRelativeTimePerActivityType('WeightTraining')}
+            width={
+              getRelativeTimePerActivityType('WeightTraining') +
+              getRelativeTimePerActivityType('Workout')
+            }
             duration={getHoursAndMinutesFromMinutes(
               getWeeklyActivitiesMinutesByType('WeightTraining') +
                 getWeeklyActivitiesMinutesByType('Workout')

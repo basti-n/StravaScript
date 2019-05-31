@@ -24,7 +24,7 @@ export const getTokenFromLocalStorage = name => {
 
 //set localStorage
 export const saveToLocalStorage = (name, data) => {
-  JSON.stringify(localStorage.setItem(name, data))
+  localStorage.setItem(name, data)
 }
 
 //get localStorage

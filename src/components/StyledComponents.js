@@ -13,6 +13,7 @@ export const StyledMainHeadline = styled.h2`
   font-size: 1.15rem;
   color: var(--primary-color);
   font-weight: 600;
+  text-transform: capitalize;
 `
 
 export const StyledHeadlineWithIcon = styled.section`
@@ -24,6 +25,22 @@ export const StyledHeadlineWithIcon = styled.section`
     align-self: center;
     margin-right: 10px;
     padding-top: 10px;
+  }
+`
+
+export const StyledSummaryHeadline = styled.h3`
+  font-size: 24px;
+  margin: 0 0 30px;
+  display: flex;
+  align-items: flex-end;
+
+  span {
+    color: #b3b3b3;
+    font-size: 0.8rem;
+    font-weight: normal;
+    display: inline-block;
+    margin-left: auto;
+    padding-bottom: 3px;
   }
 `
 
