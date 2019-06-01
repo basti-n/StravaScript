@@ -11,7 +11,7 @@ const StyledGoalHeadline = styled(StyledMainHeadline)`
 
   span {
     color: #b3b3b3;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     font-weight: normal;
     display: inline-block;
     margin-left: auto;
@@ -24,13 +24,32 @@ const Grid = styled.main`
   grid-template-rows: 40px 200px 100px 70px;
 `
 
-export default function GoalSettings({ page, weeklyGoal, setWeeklyGoal }) {
+export default function GoalSettings({
+  page,
+  weeklyGoal,
+  setWeeklyGoal,
+  activitiesPerDay,
+}) {
+  const activityMinutes = Object.values(activitiesPerDay).reduce(
+    (arr, curr) => arr + curr,
+    0
+  )
+  const goalMinutes = weeklyGoal[page] * 60
+
   return (
     <Grid>
       <StyledGoalHeadline>
-        {page} <span>25 min left to reach your goal</span>
+        {page}{' '}
+        <span>
+          {activityMinutes >= goalMinutes
+            ? `Congratulations! Goal Achieved`
+            : `${goalMinutes - activityMinutes} min left to reach your goal`}
+        </span>
       </StyledGoalHeadline>
-      <GoalWeeklyChart />
+      <GoalWeeklyChart
+        weeklyGoal={goalMinutes}
+        activitiesPerDay={activitiesPerDay}
+      />
       <Slider
         weeklyGoal={weeklyGoal}
         setWeeklyGoal={setWeeklyGoal}

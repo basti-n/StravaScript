@@ -9,7 +9,12 @@ const StyledContainerGoalsPage = styled(StyledContainer)`
   grid-template-rows: auto 1fr;
 `
 
-export default function GoalsPage({ weeklyGoal, setWeeklyGoal }) {
+export default function GoalsPage({
+  weeklyGoal,
+  setWeeklyGoal,
+  stravaActivitiesByWeekDay,
+  codingActivitiesByWeekDay,
+}) {
   const [activeGoalPage, setActiveGoalPage] = useState('coding')
   const goalPages = ['coding', 'sport']
 
@@ -23,6 +28,11 @@ export default function GoalsPage({ weeklyGoal, setWeeklyGoal }) {
 
       <GoalSettings
         page={activeGoalPage}
+        activitiesPerDay={
+          activeGoalPage === 'coding'
+            ? codingActivitiesByWeekDay
+            : stravaActivitiesByWeekDay
+        }
         weeklyGoal={weeklyGoal}
         setWeeklyGoal={setWeeklyGoal}
       />

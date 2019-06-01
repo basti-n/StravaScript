@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Router } from '@reach/router'
 import styled, { createGlobalStyle } from 'styled-components'
 import uid from 'uid'
+import moment from 'moment'
 
 import NavigationBar from '../components/NavigationBar'
 import {
@@ -16,7 +17,7 @@ import TopbarNav from '../components/TopbarNav'
 import HomePage from '../home/HomePage'
 import SettingsPage from '../appsettings/SettingsPage'
 import ConnectPage from '../connect/ConnectPage'
-import { sortActivitiesByDate } from '../utils'
+import timeStampLastSevenDays, { sortActivitiesByDate } from '../utils'
 import FaqPage from '../connect/FaqPage'
 import GoalsPage from '../appsettings/GoalsPage'
 
@@ -222,6 +223,36 @@ function App() {
     setStartTime(null)
   }
 
+  //WIP for showing daily goal / actual comparison
+  function getActivitiesForLastWeek(activities) {
+    const timestampsLastWeek = timeStampLastSevenDays()
+
+    let activityMinutesPerWeekday = {}
+    timestampsLastWeek.map((timestamp, index) => {
+      if (index !== 0) {
+        const minutesPerDay = activities
+          .filter(
+            activity =>
+              activity.start_date < timestampsLastWeek[index] &&
+              activity.start_date > timestampsLastWeek[index - 1]
+          )
+          .reduce((acc, curr) => acc + curr.elapsed_time, 0)
+
+        const activityDay = {
+          [moment(timestampsLastWeek[index - 1]).format('dddd')]: Math.round(
+            minutesPerDay / 60
+          ),
+        }
+        activityMinutesPerWeekday = {
+          ...activityMinutesPerWeekday,
+          ...activityDay,
+        }
+      }
+      return activityMinutesPerWeekday
+    })
+    return activityMinutesPerWeekday
+  }
+
   return (
     <Grid>
       <GlobalStyle />
@@ -253,6 +284,8 @@ function App() {
           path="goals"
           weeklyGoal={weeklyGoal}
           setWeeklyGoal={setWeeklyGoal}
+          stravaActivitiesByWeekDay={getActivitiesForLastWeek(stravaActivities)}
+          codingActivitiesByWeekDay={getActivitiesForLastWeek(codingActivities)}
         />
         <FaqPage path="faq" />
       </Router>

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import moment from 'moment'
 
 const StyledWeeklyChart = styled.section`
   display: flex;
@@ -36,36 +37,52 @@ const StyledDailyChart = styled.div`
   }
 `
 
-export default function GoalWeeklyChart({ height }) {
+export default function GoalWeeklyChart({ activitiesPerDay, weeklyGoal }) {
+  const dailyGoalInHrs = weeklyGoal / 7
+
+  function getDayOfWeek(daysBackFromToday) {
+    return moment()
+      .subtract(daysBackFromToday, 'day')
+      .format('dddd')
+  }
+
+  function getPercentageOfGoalAchieved(daysBackFromToday) {
+    const day = getDayOfWeek(daysBackFromToday)
+
+    return activitiesPerDay[day] > dailyGoalInHrs * 1.4
+      ? 140
+      : (activitiesPerDay[day] / dailyGoalInHrs) * 100
+  }
+
   return (
     <StyledWeeklyChart>
-      <StyledDailyChart height={70}>
+      <StyledDailyChart height={getPercentageOfGoalAchieved(7)}>
         <div />
-        <p>Mo</p>
+        <p>{getDayOfWeek(7).substr(0, 2)}</p>
       </StyledDailyChart>
-      <StyledDailyChart height={30}>
+      <StyledDailyChart height={getPercentageOfGoalAchieved(6)}>
         <div />
-        <p>Di</p>
+        <p>{getDayOfWeek(6).substr(0, 2)}</p>
       </StyledDailyChart>
-      <StyledDailyChart height={10}>
+      <StyledDailyChart height={getPercentageOfGoalAchieved(5)}>
         <div />
-        <p>MI</p>
+        <p>{getDayOfWeek(5).substr(0, 2)}</p>
       </StyledDailyChart>
-      <StyledDailyChart height={100}>
+      <StyledDailyChart height={getPercentageOfGoalAchieved(4)}>
         <div />
-        <p>Do</p>
+        <p>{getDayOfWeek(4).substr(0, 2)}</p>
       </StyledDailyChart>
-      <StyledDailyChart height={90}>
+      <StyledDailyChart height={getPercentageOfGoalAchieved(3)}>
         <div />
-        <p>Fr</p>
+        <p>{getDayOfWeek(3).substr(0, 2)}</p>
       </StyledDailyChart>
-      <StyledDailyChart height={90}>
+      <StyledDailyChart height={getPercentageOfGoalAchieved(2)}>
         <div />
-        <p>Sa</p>
+        <p>{getDayOfWeek(2).substr(0, 2)}</p>
       </StyledDailyChart>
-      <StyledDailyChart height={20}>
+      <StyledDailyChart height={getPercentageOfGoalAchieved(1)}>
         <div />
-        <p>So</p>
+        <p>{getDayOfWeek(1).substr(0, 2)}</p>
       </StyledDailyChart>
     </StyledWeeklyChart>
   )

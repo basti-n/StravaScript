@@ -5,9 +5,8 @@ import { Link } from '@reach/router'
 const StyledNavigationBar = styled.nav`
   display: flex;
   background: black;
-  color: white;
-  bottom: 0;
   position: sticky;
+  bottom: 0;
   width: 100%;
   height: 70px;
   z-index: 2;
