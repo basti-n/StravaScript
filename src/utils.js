@@ -25,7 +25,7 @@ export function sortActivitiesByDate(activities) {
 export default function timeStampLastSevenDays() {
   const today = moment
     .utc()
-    .startOf('day')
+    .endOf('day')
     .toISOString()
 
   let dates = []

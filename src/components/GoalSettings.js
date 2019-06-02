@@ -3,6 +3,10 @@ import styled from 'styled-components'
 import { StyledMainHeadline } from './StyledComponents'
 import Slider from './Slider'
 import GoalWeeklyChart from './GoalWeeklyChart'
+import moment from 'moment'
+import 'moment/locale/de'
+import { formatMinutesToHours } from '../services'
+moment.locale('de')
 
 const StyledGoalHeadline = styled(StyledMainHeadline)`
   display: flex;
@@ -30,20 +34,26 @@ export default function GoalSettings({
   setWeeklyGoal,
   activitiesPerDay,
 }) {
-  const activityMinutes = Object.values(activitiesPerDay).reduce(
+  const activititesThisWeek = Object.values(activitiesPerDay).reduce(
     (arr, curr) => arr + curr,
     0
   )
+
   const goalMinutes = weeklyGoal[page] * 60
+  const timeToGoal = goalMinutes - activititesThisWeek
 
   return (
     <Grid>
       <StyledGoalHeadline>
         {page}{' '}
         <span>
-          {activityMinutes >= goalMinutes
+          {activititesThisWeek >= goalMinutes
             ? `Congratulations! Goal Achieved`
-            : `${goalMinutes - activityMinutes} min left to reach your goal`}
+            : `${
+                timeToGoal < 120
+                  ? `${timeToGoal} min`
+                  : `${formatMinutesToHours(timeToGoal)} hours`
+              }  left to reach your goal`}
         </span>
       </StyledGoalHeadline>
       <GoalWeeklyChart

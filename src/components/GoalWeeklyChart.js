@@ -56,10 +56,6 @@ export default function GoalWeeklyChart({ activitiesPerDay, weeklyGoal }) {
 
   return (
     <StyledWeeklyChart>
-      <StyledDailyChart height={getPercentageOfGoalAchieved(7)}>
-        <div />
-        <p>{getDayOfWeek(7).substr(0, 2)}</p>
-      </StyledDailyChart>
       <StyledDailyChart height={getPercentageOfGoalAchieved(6)}>
         <div />
         <p>{getDayOfWeek(6).substr(0, 2)}</p>
@@ -83,6 +79,10 @@ export default function GoalWeeklyChart({ activitiesPerDay, weeklyGoal }) {
       <StyledDailyChart height={getPercentageOfGoalAchieved(1)}>
         <div />
         <p>{getDayOfWeek(1).substr(0, 2)}</p>
+      </StyledDailyChart>
+      <StyledDailyChart height={getPercentageOfGoalAchieved(0)}>
+        <div />
+        <p>{getDayOfWeek(0).substr(0, 2)}</p>
       </StyledDailyChart>
     </StyledWeeklyChart>
   )

@@ -223,7 +223,6 @@ function App() {
     setStartTime(null)
   }
 
-  //WIP for showing daily goal / actual comparison
   function getActivitiesForLastWeek(activities) {
     const timestampsLastWeek = timeStampLastSevenDays()
 

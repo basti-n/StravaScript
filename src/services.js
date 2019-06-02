@@ -36,3 +36,7 @@ export const getFromLocalStorage = name => {
 export const formatToMinutesAndSeconds = seconds => {
   return moment(seconds * 1000).format('mm:ss')
 }
+
+export const formatMinutesToHours = minutes => {
+  return moment(minutes * 60 * 1000).format('h')
+}
