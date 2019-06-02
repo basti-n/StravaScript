@@ -6,6 +6,7 @@ import {
   StyledRegularText,
   ButtonPrimary,
 } from '../components/StyledComponents'
+import styled from 'styled-components'
 import { navigate } from '@reach/router'
 import UserProfile from '../components/UserProfile'
 
@@ -16,8 +17,12 @@ export default function ConnectPage({ username, image, setActivePage }) {
     window.scroll({ top: 0, left: 0, behavior: 'smooth' })
   }
 
+  const StyledConnectPageContainer = styled(StyledContainer)`
+    height: 100vh;
+  `
+
   return (
-    <StyledContainer>
+    <StyledConnectPageContainer>
       <StyledHeadlineWithIcon>
         <img src="/assets/checkbox_white-circle.svg" alt="checked icon" />
         <StyledMainHeadline>Strava Account connected</StyledMainHeadline>
@@ -31,6 +36,6 @@ export default function ConnectPage({ username, image, setActivePage }) {
       <ButtonPrimary onClick={onClickToActivities}>
         View Activities
       </ButtonPrimary>
-    </StyledContainer>
+    </StyledConnectPageContainer>
   )
 }

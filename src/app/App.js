@@ -14,7 +14,6 @@ import {
   saveToLocalStorage,
   getFromLocalStorage,
   getAthlete,
-  formatMinutesToMinutes,
 } from '../services'
 import TopbarNav from '../components/TopbarNav'
 import HomePage from '../home/HomePage'
@@ -256,7 +255,8 @@ function App() {
   }
 
   const showGoalReminder = hoursBetweenNotification => {
-    const timeBetweenNotification = hoursBetweenNotification * 60 * 60
+    // for testing purposes set to fire after 30sec
+    const timeBetweenNotification = hoursBetweenNotification * 24 * 60
     console.log(
       timeBetweenNotification,
       Date.now() - getFromLocalStorage('goalReminderLastSeen')
@@ -279,7 +279,7 @@ function App() {
         .filter(activity => activity.start_date > today)
         .reduce((acc, curr) => acc + curr.elapsed_time, 0) / 60
 
-    return formatMinutesToMinutes(dailyCodingGoalInMinutes - dailyCodingMinutes)
+    return Math.round(dailyCodingGoalInMinutes - dailyCodingMinutes)
   }
 
   return (
@@ -291,7 +291,7 @@ function App() {
         activePage={activePage}
         setActivePage={setActivePage}
       />
-      {showGoalReminder(5) && (
+      {showGoalReminder(30) && (
         <Toast timeLeftDailyGoal={getTimeLeftToDailyCodingGoal()} />
       )}
 
