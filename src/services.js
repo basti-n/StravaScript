@@ -40,3 +40,7 @@ export const formatToMinutesAndSeconds = seconds => {
 export const formatMinutesToHours = minutes => {
   return moment(minutes * 60 * 1000).format('h')
 }
+
+export const formatMinutesToMinutes = minutes => {
+  return moment(minutes * 60 * 1000).format('mm')
+}

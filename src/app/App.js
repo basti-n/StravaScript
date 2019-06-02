@@ -5,6 +5,8 @@ import uid from 'uid'
 import moment from 'moment'
 
 import NavigationBar from '../components/NavigationBar'
+import Toast from '../components/NotificationToast'
+
 import {
   getActivitiesFromStrava,
   getTokenFromLocalStorage,
@@ -12,6 +14,7 @@ import {
   saveToLocalStorage,
   getFromLocalStorage,
   getAthlete,
+  formatMinutesToMinutes,
 } from '../services'
 import TopbarNav from '../components/TopbarNav'
 import HomePage from '../home/HomePage'
@@ -252,6 +255,33 @@ function App() {
     return activityMinutesPerWeekday
   }
 
+  const showGoalReminder = hoursBetweenNotification => {
+    const timeBetweenNotification = hoursBetweenNotification * 60 * 60
+    console.log(
+      timeBetweenNotification,
+      Date.now() - getFromLocalStorage('goalReminderLastSeen')
+    )
+    return Date.now() - getFromLocalStorage('goalReminderLastSeen') >
+      timeBetweenNotification
+      ? true
+      : false
+  }
+
+  const getTimeLeftToDailyCodingGoal = () => {
+    const dailyCodingGoalInMinutes = (weeklyGoal.coding / 7) * 60
+    const today = moment
+      .utc()
+      .startOf('day')
+      .toISOString()
+
+    const dailyCodingMinutes =
+      codingActivities
+        .filter(activity => activity.start_date > today)
+        .reduce((acc, curr) => acc + curr.elapsed_time, 0) / 60
+
+    return formatMinutesToMinutes(dailyCodingGoalInMinutes - dailyCodingMinutes)
+  }
+
   return (
     <Grid>
       <GlobalStyle />
@@ -261,6 +291,10 @@ function App() {
         activePage={activePage}
         setActivePage={setActivePage}
       />
+      {showGoalReminder(5) && (
+        <Toast timeLeftDailyGoal={getTimeLeftToDailyCodingGoal()} />
+      )}
+
       <Router primary={false}>
         <HomePage
           path="/*"
