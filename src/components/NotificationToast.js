@@ -5,7 +5,7 @@ import { css } from 'glamor'
 
 export default function Toast({ timeLeftDailyGoal }) {
   const duration = 5000
-  const goal = toast(<ToastText timeLeftDailyGoal={timeLeftDailyGoal} />, {
+  toast(<ToastText timeLeftDailyGoal={timeLeftDailyGoal} />, {
     toastId: 'goal',
     onOpen: () => {
       setTimeout(
@@ -32,7 +32,7 @@ export default function Toast({ timeLeftDailyGoal }) {
   })
 
   return (
-    toast.isActive(goal) || (
+    toast.isActive('goal') || (
       <ToastContainer
         autoClose={duration}
         transition={Flip}
@@ -42,9 +42,9 @@ export default function Toast({ timeLeftDailyGoal }) {
   )
 }
 
-function ToastText({timeLeftDailyGoal}) {
+function ToastText({ timeLeftDailyGoal }) {
   return (
-  <>
+    <>
       <h6
         style={{
           margin: 0,
@@ -53,9 +53,15 @@ function ToastText({timeLeftDailyGoal}) {
           paddingBottom: '5px',
         }}
       >
-        {timeLeftDailyGoal < 0 ? `Daily Goal Achieved!` : `Your daily goal reminder`}
+        {timeLeftDailyGoal < 0
+          ? `Daily Goal Achieved!`
+          : `Your daily goal reminder`}
       </h6>
       <p style={{ margin: 0, fontSize: '12px' }}>
-        {timeLeftDailyGoal < 0 ? `Congrats, you have already achieved your daily coding goal` : `${timeLeftDailyGoal} min left to achieve your daily coding goal. Go for it!`} </p>
-    </>)
+        {timeLeftDailyGoal < 0
+          ? `Congrats, you have already achieved your daily coding goal`
+          : `${timeLeftDailyGoal} min left to achieve your daily coding goal. Go for it!`}{' '}
+      </p>
+    </>
+  )
 }
