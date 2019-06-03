@@ -1,0 +1,10 @@
+
+<svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Settings-Screen" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-43.000000, -204.000000)" fill="#000000" fill-rule="nonzero">
+            <g id="moon-half-visible-face-on-light-and-half-on-darkness" transform="translate(43.000000, 204.000000)">
+                <path d="M12.4871762,0 C5.60172712,0 0,5.60172712 0,12.4871762 C0,19.3726252 5.60172712,24.9743092 12.4871762,24.9743092 C19.3726252,24.9743092 24.9743092,19.3726252 24.9743092,12.4871762 C24.9743092,5.60172712 19.3726252,0 12.4871762,0 Z M1.23316062,12.487133 C1.23316062,6.28151986 6.28156304,1.23316062 12.4871762,1.23316062 L12.4871762,1.23316062 L12.4871762,23.7411917 L12.4871762,23.7411917 C6.28173575,23.7411917 1.23316062,18.6927893 1.23316062,12.487133 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -3,15 +3,12 @@ import { ToastContainer, toast, Flip } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { css } from 'glamor'
 
-export default function Toast({ timeLeftDailyGoal }) {
+export default function Toast({ timeLeftDailyGoal, setTimeToastLastSeen }) {
   const duration = 5000
   toast(<ToastText timeLeftDailyGoal={timeLeftDailyGoal} />, {
     toastId: 'goal',
     onOpen: () => {
-      setTimeout(
-        () => localStorage.setItem('goalReminderLastSeen', Date.now()),
-        duration
-      )
+      setTimeout(() => setTimeToastLastSeen(Date.now()), duration)
     },
     className: css({
       position: 'absolute',

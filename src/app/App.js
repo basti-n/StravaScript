@@ -5,7 +5,7 @@ import uid from 'uid'
 import moment from 'moment'
 
 import NavigationBar from '../components/NavigationBar'
-import Toast from '../components/NotificationToast'
+import Toast from '../components/Toast'
 
 import {
   getActivitiesFromStrava,
@@ -129,6 +129,14 @@ function App() {
   const [isStravaLoading, setisStravaLoading] = useState(false)
   const [stravaUser, setStravaUser] = useState({})
 
+  const [settings, setSettings] = useState(
+    getFromLocalStorage('Settings') || {
+      darkMode: false,
+      notifications: true,
+      goalReminderLastSeen: null,
+    }
+  )
+
   const [startTime, setStartTime] = useState(
     getFromLocalStorage('Start Time') || null
   )
@@ -175,6 +183,10 @@ function App() {
       setActivePage(newActivePage)
     }
   }, [])
+
+  useEffect(() => {
+    saveToLocalStorage('Settings', JSON.stringify(settings))
+  }, [settings])
 
   useEffect(() => {
     getStravaProfile(token)
@@ -256,13 +268,15 @@ function App() {
 
   const showGoalReminder = hoursBetweenNotification => {
     // for testing purposes set to fire after 30sec
+    if (!settings.notifications) {
+      return
+    }
     const timeBetweenNotification = hoursBetweenNotification * 24 * 60
     console.log(
       timeBetweenNotification,
-      Date.now() - getFromLocalStorage('goalReminderLastSeen')
+      Date.now() - settings.goalReminderLastSeen
     )
-    return Date.now() - getFromLocalStorage('goalReminderLastSeen') >
-      timeBetweenNotification
+    return Date.now() - settings.goalReminderLastSeen > timeBetweenNotification
       ? true
       : false
   }
@@ -292,7 +306,15 @@ function App() {
         setActivePage={setActivePage}
       />
       {showGoalReminder(30) && (
-        <Toast timeLeftDailyGoal={getTimeLeftToDailyCodingGoal()} />
+        <Toast
+          timeLeftDailyGoal={getTimeLeftToDailyCodingGoal()}
+          setTimeToastLastSeen={lastSeen =>
+            setSettings(prevState => ({
+              ...prevState,
+              goalReminderLastSeen: lastSeen,
+            }))
+          }
+        />
       )}
 
       <Router primary={false}>
@@ -306,7 +328,11 @@ function App() {
           showModal={(!isTracking && startTime) > 0}
           onTrackingCompleted={handleTrackingCompleted}
         />
-        <SettingsPage path="settings" />
+        <SettingsPage
+          path="settings"
+          settings={settings}
+          setSettings={setSettings}
+        />
         <ConnectPage
           path="connect"
           username={stravaUser.username}

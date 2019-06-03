@@ -41,20 +41,3 @@ export default function SliderGoal({ weeklyGoal, setWeeklyGoal, page }) {
     </StyledContainer>
   )
 }
-
-/*const StyledSlider = withStyles({
-    thumb: {
-      height: 35,
-      width: 35,
-      border: '1px solid var(--grey)',
-      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
-      backgroundColor: 'var(--light-font)',
-    },
-    track: {
-      backgroundColor: 'var(--primary-color)',
-      height: 3,
-    },
-    trackAfter: {
-      backgroundColor: 'var(--bg-grey)',
-    },
-  })(Slider)*/
