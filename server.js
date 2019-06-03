@@ -10,6 +10,10 @@ app.get('/token', (req, res) =>
   })
 )
 
+app.post('/feedback', (req, res) => {
+  console.log(req.body)
+})
+
 const fetchOptions = (method, type = 'application/json') => ({
   method,
   headers: {

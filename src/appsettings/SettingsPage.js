@@ -59,7 +59,15 @@ export default function SettingsPage({ settings, setSettings }) {
       return
     }
     console.log('event', formValue.current.value)
-    //send email
+    //send email (use nodemailer https://nodemailer.com/about/)
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ data: submitValue, user: 'basti' }),
+    }
+    fetch('/feedback', options)
 
     //showModal with setTimeout
     setShowModal(true)
