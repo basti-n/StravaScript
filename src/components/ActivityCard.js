@@ -16,7 +16,7 @@ const activityTypeImg = {
 }
 
 const StyledCard = styled.article`
-  background: var(--grey);
+  background: ${props => props.theme.secondaryColor1};
   border-radius: 10px;
   padding: 10px 15px;
   margin-bottom: 20px;
@@ -24,7 +24,7 @@ const StyledCard = styled.article`
 
 const StyledCardHeader = styled.div`
   align-items: center;
-  border-bottom: 1px solid var(--dark-font);
+  border-bottom: 1px solid #000000;
   display: flex;
   height: 30px;
   padding: 0 10px 5px;
@@ -60,7 +60,7 @@ const StyledCardBody = styled.section`
     grid-template-columns: 1fr max-content;
     justify-items: end;
     align-self: start;
-    color: var(--red-font);
+    color: ${props => props.theme.red};
 
     img {
       grid-column: 2 / -1;

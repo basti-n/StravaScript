@@ -14,7 +14,7 @@ const StyledActivityListHeadline = styled.div`
 
   h2 {
     font-size: 0.9em;
-    color: var(--primary-color);
+    color: ${props => props.theme.fontColorHeadline};
     font-weight: 600;
   }
 

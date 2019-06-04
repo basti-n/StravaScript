@@ -4,8 +4,8 @@ import { Link } from '@reach/router'
 import TimerClock from './TimerClock'
 
 const StyledTopbar = styled.header`
-  background: var(--primary-color);
-  color: var(--light-font);
+  background: ${props => props.theme.primaryColor};
+  color: ${props => props.theme.fontColorNav};
   font-size: 16px;
   display: grid;
   position: sticky;

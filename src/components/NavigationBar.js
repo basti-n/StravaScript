@@ -4,7 +4,7 @@ import { Link } from '@reach/router'
 
 const StyledNavigationBar = styled.nav`
   display: flex;
-  background: black;
+  background: ${props => props.theme.colorNavBar};
   position: sticky;
   bottom: 0;
   width: 100%;

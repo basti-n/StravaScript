@@ -9,8 +9,8 @@ const StyledTimeTracker = styled.section`
 const StyledTimerButton = styled.button`
   justify-self: center;
   align-self: center;
-  color: var(--light-font);
-  background: var(--primary-color);
+  color: white;
+  background: ${props => props.theme.primaryColor};
   outline: none;
   border-radius: 50%;
   border: none;

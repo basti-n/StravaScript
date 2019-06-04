@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Router } from '@reach/router'
-import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 import uid from 'uid'
 
 import NavigationBar from '../components/NavigationBar'
@@ -26,64 +26,9 @@ import ConnectPage from '../connect/ConnectPage'
 import { sortActivitiesByDate } from '../utils'
 import FaqPage from '../connect/FaqPage'
 import GoalsPage from '../appsettings/GoalsPage'
-
-const GlobalStyle = createGlobalStyle`
-
-@import url('https://fonts.googleapis.com/css?family=Libre+Franklin&display=swap');
-:root {
-  --primary-color: #2E8B57;
-  --grey: rgba(216, 216, 214, 0.44);
-  --yellow: #FDE100;
-  --blue: #0072C2;
-  --bg-grey: #D8D8D8;
-  --light-font: #FFFFFF;
-  --dark-font: #000000;
-  --red-font:#DF4D60;
-}
-body {
-  font-family: 'Libre Franklin', sans-serif;
-  font-size: 22px;
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  .nav-active {
-    transition: all 0.7s ease-in;
-    transform: rotateY(360deg);
-  }
-
-  .topbar-active {
-  font-weight: bold;
-  color: var(--font-light);
-  text-decoration: none;
-  padding-bottom: 5px;
-  border-bottom: 3px solid black;
-  }
-  
-  .MuiSlider-track {
-    background: var(--primary-color);
-    height: 2px;
-    border-radius: 10px;
-    color: white;
-    }
-
-  .MuiSlider-thumb {
-    width: 30px;
-    height: 30px;
-    background: white;
-    background-image: url('/assets/goal-small.svg');
-    border: 1px solid var(--grey);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  }
-
-}`
-
-/*Add overflow auto if topbar should not be removed after specific scroll position */
-const Grid = styled.div`
-  display: grid;
-  height: 100vh;
-  grid-template-rows: 80px 1fr;
-`
+import getTheme from '../theme'
+import GlobalStyles from '../components/GlobalStyles'
+import { Grid } from '../components/StyledComponents'
 
 const subPages = {
   home: {
@@ -147,6 +92,8 @@ function App() {
   const [activePage, setActivePage] = useState(
     getMainPagefromSubPage(window.location.pathname.substr(1)) || 'home'
   )
+
+  const theme = getTheme(settings.darkMode)
 
   function getStravaActivities(token) {
     getActivitiesFromStrava(token).then(data => {
@@ -251,14 +198,10 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTracking])
 
-  const theme = {
-    grey: 'var(--grey)',
-  }
-
   return (
     <ThemeProvider theme={theme}>
       <Grid>
-        <GlobalStyle />
+        <GlobalStyles />
         <TopbarNav
           subPages={subPages}
           startTime={startTime}
