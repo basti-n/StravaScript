@@ -23,16 +23,20 @@ const StyledGeneralSettingsContainer = styled(StyledActivityContainer)`
 
 const StyledFeedbackForm = styled.form`
   textarea {
+    background: ${props => props.theme.background};
     box-sizing: border-box;
-    width: 100%;
-    height: 60px;
-    border: 1px solid var(--bg-grey);
+    border: 1px solid;
+    border-color: #d8d8d8;
     border-radius: 3px;
-    padding: 5px;
+    color: ${props => props.theme.fontColor};
     font-family: 'Libre Franklin', sans-serif;
+    height: 60px;
+    padding: 5px;
+    width: 100%;
     &:focus {
+      border: 2px solid;
+      border-color: ${props => props.theme.fontColorHeadline};
       outline: none;
-      border: 2px solid var(--primary-color);
     }
   }
 `

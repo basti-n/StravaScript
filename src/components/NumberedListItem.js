@@ -9,6 +9,7 @@ const StyledNumberedListItem = styled.li`
   align-items: center;
 
   h4 {
+    color: ${props => props.theme.fontColor};
     font-size: 15px;
     margin: 0;
     padding-bottom: 2px;
@@ -28,9 +29,6 @@ const StyledListItemNumber = styled.div`
   border-radius: 100%;
   color: ${props => props.theme.fontColorHeadline};
   font-weight: bolder;
-  h4 {
-    color: ${props => props.theme.fontColor};
-  }
 `
 
 export default function NumberedListItem({ number, children }) {

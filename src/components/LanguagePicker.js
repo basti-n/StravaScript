@@ -13,17 +13,17 @@ const StyledLanguagePicker = styled.div`
   background: ${props =>
     props.active
       ? props.language === 'backend'
-        ? 'var(--bg-grey)'
+        ? '#D8D8D8'
         : props.language === 'css'
-        ? 'var(--blue)'
-        : 'var(--yellow)'
-      : 'var(--grey)'};
+        ? props.theme.secondaryColor2
+        : props.theme.secondaryColor3
+      : props.theme.secondaryColor1};
   color: ${props =>
     props.active
       ? props.language === 'backend'
-        ? 'var(--dark-font)'
-        : 'var(--light-font)'
-      : 'var(--dark-font)'};
+        ? '#000000;'
+        : '#FFFFFF;'
+      : '#000000'};
   height: 36px;
   width: 30%;
   font-size: ${props => (props.active ? '14px' : '12px')};

@@ -18,7 +18,7 @@ export default function Toast({
       top: '80px',
       boxShadow: 'none',
       left: '0px',
-      background: 'rgba(46, 139, 87, 0.9)',
+      background: 'var(--toast-background)',
       width: '100vw',
     }),
     bodyClassName: css({

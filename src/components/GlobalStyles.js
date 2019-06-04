@@ -5,10 +5,12 @@ const GlobalStyle = createGlobalStyle`
 
 @import url('https://fonts.googleapis.com/css?family=Libre+Franklin&display=swap');
 :root {
-  --primary-color: #2E8B57;
-  --grey: rgba(216, 216, 214, 0.44);
-  --yellow: #FDE100;
-  --blue: #0072C2;
+  --primary-color: ${props => props.theme.primaryColor};
+  --grey: ${props => props.theme.secondaryColor1};
+  --yellow: ${props => props.theme.secondaryColor2};
+  --blue: ${props => props.theme.secondaryColor3};
+  --highlight-color: ${props => props.theme.fontColorHeadline};
+  --toast-background: ${props => props.theme.toastBackground};
   --bg-grey: #D8D8D8;
   --light-font: #FFFFFF;
   --dark-font: #000000;
@@ -28,29 +30,29 @@ body {
   }
 
   .topbar-active {
-  font-weight: bold;
+  border-bottom: 3px solid;
+  border-color: ${props => props.theme.borderColorNav};
   color: white;
   text-decoration: none;
   padding-bottom: 5px;
-  border-bottom: 3px solid;
-  border-color: ${props => props.theme.borderColorNav};
+  font-weight: bold;
   }
   
   .MuiSlider-track {
-    background: ${props => props.theme.primaryColor};
-    height: 2px;
+    background: ${props => props.theme.fontColorHeadline};
     border-radius: 10px;
     color: white;
+    height: 2px;
     }
 
   .MuiSlider-thumb {
-    width: 30px;
-    height: 30px;
     background: 1px solid;
     background-color: ${props => props.theme.background};
     background-image: url('/assets/goal-small.svg');
     border: 1px solid ${props => props.theme.secondaryColor1};
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    width: 30px;
+    height: 30px;
   }
 
 }`
