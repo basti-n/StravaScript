@@ -16,7 +16,7 @@ const StyledDailyChart = styled.div`
   display: flex;
   justify-content: center;
   border-radius: 10px;
-  background: var(--bg-grey);
+  background: ${props => props.theme.grey};
   position: relative;
 
   > div {

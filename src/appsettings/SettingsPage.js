@@ -29,6 +29,7 @@ const StyledFeedbackForm = styled.form`
     border: 1px solid var(--bg-grey);
     border-radius: 3px;
     padding: 5px;
+    font-family: 'Libre Franklin', sans-serif;
     &:focus {
       outline: none;
       border: 2px solid var(--primary-color);
