@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 import {
   StyledContainer,
@@ -12,7 +12,6 @@ import Modal from '../components/Modal'
 
 const StyledSettingsPageContainer = styled(StyledContainer)`
   display: grid;
-  height: calc(100vh - 180px);
   grid-template-rows: auto 1fr;
 `
 
@@ -47,33 +46,23 @@ const SubmitButton = styled(ButtonPrimary)`
   justify-content: center;
 `
 
-export default function SettingsPage({ settings, setSettings }) {
+export default function SettingsPage({
+  settings,
+  setSettings,
+  handleFeedbackSubmit,
+  modalDuration,
+  showModal,
+}) {
   const formValue = useRef()
-  const [showModal, setShowModal] = useState(false)
-  const durationModalSec = 3
 
-  function handleSubmit(event) {
+  function onSubmit(event) {
     event.preventDefault()
     const submitValue = formValue.current.value
     if (!submitValue) {
       return
     }
-    console.log('event', formValue.current.value)
-    //send email (use nodemailer https://nodemailer.com/about/)
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ data: submitValue, user: 'basti' }),
-    }
-    fetch('/feedback', options)
 
-    //showModal with setTimeout
-    setShowModal(true)
-    setTimeout(() => {
-      setShowModal(false)
-    }, durationModalSec * 1000)
+    handleFeedbackSubmit(submitValue)
     event.target.reset()
   }
 
@@ -103,7 +92,7 @@ export default function SettingsPage({ settings, setSettings }) {
         <StyledRegularText>
           Found any Bugs? Let us know and we’ll fix it ASAP.
         </StyledRegularText>
-        <StyledFeedbackForm onSubmit={handleSubmit}>
+        <StyledFeedbackForm onSubmit={onSubmit}>
           <textarea
             placeholder="Describe your findings or ideas here"
             ref={formValue}
@@ -116,7 +105,7 @@ export default function SettingsPage({ settings, setSettings }) {
           title="Feedback sent"
           text="We will review your feedback and get back to you as soon possible."
           icon="/assets/checkbox_green.svg"
-          duration={durationModalSec}
+          duration={modalDuration}
         />
       )}
     </StyledSettingsPageContainer>

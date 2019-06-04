@@ -24,6 +24,7 @@ import FaqPage from '../connect/FaqPage'
 import GoalsPage from '../appsettings/GoalsPage'
 
 const GlobalStyle = createGlobalStyle`
+
 @import url('https://fonts.googleapis.com/css?family=Libre+Franklin&display=swap');
 :root {
   --primary-color: #2E8B57;
@@ -35,7 +36,6 @@ const GlobalStyle = createGlobalStyle`
   --dark-font: #000000;
   --red-font:#DF4D60;
 }
-
 body {
   font-family: 'Libre Franklin', sans-serif;
   font-size: 22px;
@@ -55,11 +55,12 @@ body {
   padding-bottom: 5px;
   border-bottom: 3px solid black;
   }
-
+  
   .MuiSlider-track {
     background: var(--primary-color);
     height: 2px;
     border-radius: 10px;
+    color: white;
     }
 
   .MuiSlider-thumb {
@@ -136,6 +137,8 @@ function App() {
       goalReminderLastSeen: null,
     }
   )
+
+  const [showModal, setShowModal] = useState(false)
 
   const [startTime, setStartTime] = useState(
     getFromLocalStorage('Start Time') || null
@@ -296,6 +299,26 @@ function App() {
     return Math.round(dailyCodingGoalInMinutes - dailyCodingMinutes)
   }
 
+  function handleFeedbackSubmit(text) {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ data: text, user: stravaUser.username }),
+    }
+    fetch('/feedback', options)
+      .then(data => {
+        if (data.status === 200) {
+          setShowModal(true)
+          setTimeout(() => {
+            setShowModal(false)
+          }, 3 * 1000)
+        }
+      })
+      .catch(error => console.log(error))
+  }
+
   return (
     <Grid>
       <GlobalStyle />
@@ -332,6 +355,9 @@ function App() {
           path="settings"
           settings={settings}
           setSettings={setSettings}
+          modalDuration={3}
+          showModal={showModal}
+          handleFeedbackSubmit={handleFeedbackSubmit}
         />
         <ConnectPage
           path="connect"

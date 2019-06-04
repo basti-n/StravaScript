@@ -22,7 +22,6 @@ const StyledModalDialog = styled.section`
   display: grid;
   grid-template-rows: 80px 1fr;
   border-radius: 12px;
-  transition: all 1s ease;
 
   animation-duration: ${props => props.duration}s;
   animation-name: anim-open;
