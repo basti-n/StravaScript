@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import 'moment/locale/de'
 import {
   StyledMainHeadline,
@@ -15,7 +15,7 @@ const StyledStackedLineChart = styled.section`
   margin: 0 0 30px;
 `
 
-export default function ActivitySummary({ data, activityType }) {
+function ActivitySummary({ data, activityType, theme }) {
   const lastWeek = moment()
     .subtract(7, 'd')
     .format()
@@ -97,7 +97,7 @@ export default function ActivitySummary({ data, activityType }) {
       {activityType === 'code' ? (
         <StyledStackedLineChart>
           <ActivityOnLineChart
-            color="var(--bg-grey)"
+            color={theme.secondaryColor1}
             width={getRelativeTimePerActivityType('backend')}
             duration={getHoursAndMinutesFromMinutes(
               getWeeklyActivitiesMinutesByType('backend')
@@ -105,7 +105,7 @@ export default function ActivitySummary({ data, activityType }) {
             title="Backend"
           />
           <ActivityOnLineChart
-            color="var(--blue)"
+            color={theme.secondaryColor3}
             width={getRelativeTimePerActivityType('css')}
             duration={getHoursAndMinutesFromMinutes(
               getWeeklyActivitiesMinutesByType('css')
@@ -113,7 +113,7 @@ export default function ActivitySummary({ data, activityType }) {
             title="CSS"
           />
           <ActivityOnLineChart
-            color="var(--yellow)"
+            color={theme.secondaryColor2}
             width={getRelativeTimePerActivityType('js')}
             duration={getHoursAndMinutesFromMinutes(
               getWeeklyActivitiesMinutesByType('js')
@@ -130,7 +130,7 @@ export default function ActivitySummary({ data, activityType }) {
               getWeeklyActivitiesMinutesByType('Ride')
             )}
             title="Ride"
-            icon="/assets/bike-small.svg"
+            icon={theme.sportIcons.bike}
           />
           <ActivityOnLineChart
             color="#2E8B57"
@@ -139,7 +139,7 @@ export default function ActivitySummary({ data, activityType }) {
               getWeeklyActivitiesMinutesByType('Run')
             )}
             title="Run"
-            icon="/assets/run-small.svg"
+            icon={theme.sportIcons.run}
           />
           <ActivityOnLineChart
             color="#2E7357"
@@ -152,10 +152,12 @@ export default function ActivitySummary({ data, activityType }) {
                 getWeeklyActivitiesMinutesByType('Workout')
             )}
             title="Strength"
-            icon="/assets/weighttraining-small.svg"
+            icon={theme.sportIcons.strength}
           />
         </StyledStackedLineChart>
       )}
     </StyledContainer>
   )
 }
+
+export default withTheme(ActivitySummary)

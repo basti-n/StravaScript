@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import {
   StyledContainer,
   StyledMainHeadline,
@@ -23,15 +23,20 @@ const StyledGeneralSettingsContainer = styled(StyledActivityContainer)`
 
 const StyledFeedbackForm = styled.form`
   textarea {
+    background: ${props => props.theme.background};
     box-sizing: border-box;
-    width: 100%;
-    height: 60px;
-    border: 1px solid var(--bg-grey);
+    border: 1px solid;
+    border-color: #d8d8d8;
     border-radius: 3px;
+    color: ${props => props.theme.fontColor};
+    font-family: 'Libre Franklin', sans-serif;
+    height: 60px;
     padding: 5px;
+    width: 100%;
     &:focus {
+      border: 2px solid;
+      border-color: ${props => props.theme.fontColorHeadline};
       outline: none;
-      border: 2px solid var(--primary-color);
     }
   }
 `
@@ -46,12 +51,13 @@ const SubmitButton = styled(ButtonPrimary)`
   justify-content: center;
 `
 
-export default function SettingsPage({
+function SettingsPage({
   settings,
   setSettings,
   handleFeedbackSubmit,
   modalDuration,
   showModal,
+  theme,
 }) {
   const formValue = useRef()
 
@@ -72,7 +78,7 @@ export default function SettingsPage({
         <StyledMainHeadline>General</StyledMainHeadline>
         <SettingsItem
           label="Dark Mode"
-          icon="/assets/darkMode-icon.svg"
+          icon={theme.darkModeIcon}
           setValue={value =>
             setSettings(prevState => ({ ...prevState, darkMode: value }))
           }
@@ -80,7 +86,7 @@ export default function SettingsPage({
         />
         <SettingsItem
           label="Goal Reminder"
-          icon="/assets/notifications-icon.svg"
+          icon={theme.notificationIcon}
           setValue={value =>
             setSettings(prevState => ({ ...prevState, notifications: value }))
           }
@@ -111,3 +117,5 @@ export default function SettingsPage({
     </StyledSettingsPageContainer>
   )
 }
+
+export default withTheme(SettingsPage)

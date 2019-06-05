@@ -16,12 +16,12 @@ const StyledDailyChart = styled.div`
   display: flex;
   justify-content: center;
   border-radius: 10px;
-  background: var(--bg-grey);
+  background: ${props => props.theme.secondaryColor1};
   position: relative;
 
   > div {
     border-radius: 10px;
-    background: var(--primary-color);
+    background: ${props => props.theme.fontColorHeadline};
     height: ${props => props.height}%;
     width: 10px;
     position: absolute;
@@ -29,6 +29,7 @@ const StyledDailyChart = styled.div`
   }
 
   p {
+    color: ${props => props.theme.fontColor};
     position: absolute;
     bottom: -15px;
     font-size: 12px;

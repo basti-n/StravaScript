@@ -9,15 +9,15 @@ import { formatMinutesToHours } from '../services'
 moment.locale('de')
 
 const StyledGoalHeadline = styled(StyledMainHeadline)`
-  display: flex;
   align-items: flex-end;
+  display: flex;
   padding: 0 10px;
 
   span {
     color: #b3b3b3;
+    display: inline-block;
     font-size: 0.8rem;
     font-weight: normal;
-    display: inline-block;
     margin-left: auto;
     padding-bottom: 3px;
   }

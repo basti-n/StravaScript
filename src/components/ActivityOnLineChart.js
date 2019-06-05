@@ -17,7 +17,8 @@ const StyledLineActivity = styled.div`
   }
 
   h5 {
-    color: initial;
+    color: ${props =>
+      props.theme.name === 'dark' ? props.color : props.theme.fontColor};
     font-weight: normal;
     font-size: 0.85rem;
   }

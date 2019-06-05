@@ -3,10 +3,10 @@ import styled from 'styled-components'
 
 const StyledUserProfile = styled.section`
   display: flex;
-
   margin-bottom: 40px;
 
   p {
+    color: ${props => props.theme.fontColor};
     padding: 0 4px;
     font-size: 16px;
     span {

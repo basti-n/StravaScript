@@ -1,5 +1,12 @@
 import styled from 'styled-components'
 
+/*Add overflow auto if topbar should not be removed after specific scroll position */
+export const Grid = styled.div`
+  display: grid;
+  height: 100vh;
+  grid-template-rows: 80px 1fr;
+`
+
 export const StyledActivityContainer = styled.section`
   margin: 10px;
 `
@@ -11,7 +18,7 @@ export const StyledContainer = styled(StyledActivityContainer)`
 export const StyledMainHeadline = styled.h2`
   margin: 30px 0 15px 0;
   font-size: 1.15rem;
-  color: var(--primary-color);
+  color: ${props => props.theme.fontColorHeadline};
   font-weight: 600;
   text-transform: capitalize;
 `
@@ -29,6 +36,7 @@ export const StyledHeadlineWithIcon = styled.section`
 `
 
 export const StyledSummaryHeadline = styled.h3`
+  color: ${props => props.theme.fontColor};
   font-size: 24px;
   margin: 0 0 30px;
   display: flex;
@@ -57,12 +65,12 @@ const Button = styled.button`
 `
 
 export const ButtonPrimary = styled(Button)`
-  background: var(--primary-color);
-  color: var(--light-font);
+  background: ${props => props.theme.fontColorHeadline};
+  color: white;
 `
 
 export const StyledRegularText = styled.p`
-  color: var(--dark-font);
+  color: ${props => props.theme.fontColor};
   letter-spacing: 0.6px;
   font-size: 14px;
   font-weight: lighter;

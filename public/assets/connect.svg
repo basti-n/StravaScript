@@ -1,11 +1,10 @@
-
 <svg width="47px" height="52px" viewBox="0 0 47 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="Settings-Screen" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Artboard" transform="translate(-162.000000, -604.000000)">
             <g id="Group-2" transform="translate(143.000000, 600.000000)">
                 <g id="StravaConnectIcon" transform="translate(0.000000, 44.000000)" fill="#FFFFFF" font-family="SFProText-Regular, SF Pro Text" font-size="10" font-weight="normal" letter-spacing="1.166667">
                     <text id="Connect">
-                        <tspan x="19.0699538" y="10.5245902">Connect </tspan>
+                        <tspan x="18.0699538" y="10.5245902">Connect </tspan>
                     </text>
                 </g>
                 <g id="connect" transform="translate(19.000000, 0.000000)">

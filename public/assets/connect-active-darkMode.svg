@@ -1,0 +1,17 @@
+<svg width="47px" height="52px" viewBox="0 0 47 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Home-Screen" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="StravaConnectIcon" transform="translate(-19.000000, -4.000000)">
+            <text id="Connect" font-family="SFProText-Regular, SF Pro Text" font-size="10" font-weight="normal" letter-spacing="1.166667" fill="#FFFFFF">
+                <tspan x="18.0699538" y="54.5245902">Connect </tspan>
+            </text>
+            <g id="connect" opacity="0.996837798" transform="translate(19.000000, 0.000000)">
+                <path d="M22.5,45 C10.0875,45 0,34.9125 0,22.5 C0,10.0875 10.0875,0 22.5,0 C34.9125,0 45,10.0875 45,22.5 C45,34.9125 34.9125,45 22.5,45 Z M22.5,3.69375 C12.13125,3.69375 3.69375,12.13125 3.69375,22.5 C3.69375,32.86875 12.13125,41.30625 22.5,41.30625 C32.86875,41.30625 41.30625,32.86875 41.30625,22.5 C41.30625,12.13125 32.86875,3.69375 22.5,3.69375 Z" id="Shape"></path>
+                <path d="M22.9166667,4.16666667 C12.5789299,4.16666667 4.16666667,12.5789299 4.16666667,22.9166667 C4.16666667,33.2544035 12.5789299,41.6666667 22.9166667,41.6666667 C33.2544035,41.6666667 41.6666667,33.2544035 41.6666667,22.9166667 C41.6666667,12.5789299 33.2544035,4.16666667 22.9166667,4.16666667 Z" id="Path" fill="#BB86FC" fill-rule="nonzero"></path>
+                <g id="Group" transform="translate(14.166667, 10.833333)" fill="#FFFFFF" fill-rule="nonzero">
+                    <polyline id="Path" points="11.5555556 23.2037037 6.53703704 13.3518519 9.51851852 13.3518519 11.5555556 17.3333333 13.5555556 13.3518519 16.537037 13.3518519 11.5555556 23.2037037"></polyline>
+                    <polygon id="Path" points="6.83333333 8 9.55555556 13.3703704 13.537037 13.3703704 6.7962963 0.12962963 0.12962963 13.3703704 4.12962963 13.3703704"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

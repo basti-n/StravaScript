@@ -15,20 +15,20 @@ const StyledModalBackdrop = styled.div`
 `
 
 const StyledModalDialog = styled.section`
-  position: fixed;
-  margin: 20vh 10vw;
-  background: var(--light-font);
-  width: 80vw;
-  height: 340px;
-  display: grid;
-  grid-template-rows: 80px 1fr 50px;
+  background: ${props => props.theme.primaryColor};
   border-radius: 12px;
+  display: grid;
+  height: 340px;
+  grid-template-rows: 80px 1fr 50px;
+  margin: 20vh 10vw;
+  position: fixed;
+  width: 80vw;
 `
 
 const StyledModalHeader = styled.header`
-  background: var(--primary-color);
-  position: relative;
+  background: ${props => props.theme.fontColorHeadline};
   border-radius: 10px 10px 0 0;
+  position: relative;
   img {
     position: absolute;
     left: 16vw;
@@ -37,19 +37,21 @@ const StyledModalHeader = styled.header`
 `
 
 const StyledModalBody = styled.main`
+  background: ${props => props.theme.background};
   display: grid;
   grid-template-rows: 50px 60px 1fr;
   padding: 10px 15px;
   h2 {
-    color: var(--primary-color);
+    color: ${props => props.theme.fontColorHeadline};
     margin-top: 10px;
     text-align: center;
     font-size: 28px;
   }
 `
 const StyledModalButton = styled.button`
-  background: ${props => (props.active ? 'var(--primary-color)' : 'grey')};
-  color: var(--light-font);
+  background: ${props =>
+    props.active ? props.theme.fontColorHeadline : 'grey'};
+  color: #ffffff;
   font-weight: bolder;
   border: none;
   border-radius: 0 0 10px 10px;

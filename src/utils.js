@@ -22,7 +22,7 @@ export function sortActivitiesByDate(activities) {
   return activities.sort((a, b) => (b.start_date > a.start_date ? 1 : -1))
 }
 
-export default function timeStampLastSevenDays() {
+export function timeStampLastSevenDays() {
   const today = moment
     .utc()
     .endOf('day')

@@ -1,4 +1,5 @@
 import React from 'react'
+import { withTheme } from 'styled-components'
 import {
   StyledMainHeadline,
   StyledContainer,
@@ -9,7 +10,7 @@ import {
 import { navigate } from '@reach/router'
 import UserProfile from '../components/UserProfile'
 
-export default function ConnectPage({ username, image, setActivePage }) {
+function ConnectPage({ username, image, setActivePage, theme }) {
   function onClickToActivities() {
     navigate('sport')
     setActivePage('home')
@@ -19,7 +20,7 @@ export default function ConnectPage({ username, image, setActivePage }) {
   return (
     <StyledContainer>
       <StyledHeadlineWithIcon>
-        <img src="/assets/checkbox_white-circle.svg" alt="checked icon" />
+        <img src={theme.checkboxIcon} alt="checked icon" />
         <StyledMainHeadline>Strava Account connected</StyledMainHeadline>
       </StyledHeadlineWithIcon>
       <UserProfile username={username} image={image} />
@@ -34,3 +35,5 @@ export default function ConnectPage({ username, image, setActivePage }) {
     </StyledContainer>
   )
 }
+
+export default withTheme(ConnectPage)

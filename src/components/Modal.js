@@ -9,14 +9,13 @@ const ModalBackground = styled.section`
   left: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.5);
-  padding: 50;
   z-index: 3;
 `
 
 const StyledModalDialog = styled.section`
   position: fixed;
   margin: 25vh 10vw;
-  background: var(--light-font);
+  background: ${props => props.theme.background};
   width: 80vw;
   height: 20px;
   display: grid;
@@ -47,11 +46,11 @@ const StyledModalDialog = styled.section`
 `
 
 const StyledModalHeader = styled.header`
-  background: var(--primary-color);
+  background: ${props => props.theme.fontColorHeadline};
   width: 100%;
   display: flex;
   align-items: center;
-  color: var(--light-font);
+  color: #ffffff;
   position: relative;
   border-radius: 10px 10px 0 0;
   h2 {
@@ -64,10 +63,10 @@ const StyledModalHeader = styled.header`
 `
 
 const StyledModalBody = styled.main`
-  background: var(--light-font);
+  background: ${props => props.theme.background};
+  border-radius: 0 0 10px 10px;
   grid-template-rows: 50px 60px;
   padding: 10px 15px;
-  border-radius: 0 0 10px 10px;
 `
 
 export default function Modal({ title, text, icon, duration }) {

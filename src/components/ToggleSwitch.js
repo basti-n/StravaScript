@@ -8,16 +8,17 @@ const StyledToggleSwitch = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-auto-rows: 35px;
-  border-bottom: 1px solid var(--bg-grey);
+  border-bottom: 1px solid;
+  border-color: ${props => props.theme.toggleBorder};
   font-size: 15px;
 `
 
 const StyledToggle = styled.li`
   align-items: center;
   background: ${props =>
-    props.active ? 'var(--primary-color)' : 'transparent'};
+    props.active ? props.theme.fontColorHeadline : 'transparent'};
   border-radius: ${props => (props.active ? '5px' : '0')};
-  color: ${props => (props.active ? 'var(--light-font)' : 'var(--bg-grey)')};
+  color: ${props => (props.active ? '#FFFFFF' : '#D8D8D8')};
   cursor: pointer;
   display: flex;
   font-weight: ${props => (props.active ? 'bold' : 'normal')};

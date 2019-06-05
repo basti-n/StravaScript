@@ -1,10 +1,10 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import { Link } from '@reach/router'
 
 const StyledNavigationBar = styled.nav`
   display: flex;
-  background: black;
+  background: ${props => props.theme.colorNavBar};
   position: sticky;
   bottom: 0;
   width: 100%;
@@ -31,7 +31,7 @@ const StyledNavLink = styled(Link)`
   text-decoration: none;
 `
 
-export default function NavigationBar({ subPages, activePage, setActivePage }) {
+function NavigationBar({ subPages, activePage, setActivePage, theme }) {
   const names = Object.keys(subPages)
 
   const isActive = ({ isCurrent }) => {
@@ -54,9 +54,9 @@ export default function NavigationBar({ subPages, activePage, setActivePage }) {
           >
             <img
               src={
-                subPages[page].page === activePage
-                  ? subPages[page].srcActive
-                  : subPages[page].src
+                theme.navIcons[page].page === activePage
+                  ? theme.navIcons[page].srcActive
+                  : theme.navIcons[page].src
               }
               alt={`${subPages[page].page} icon`}
             />
@@ -66,3 +66,5 @@ export default function NavigationBar({ subPages, activePage, setActivePage }) {
     </StyledNavigationBar>
   )
 }
+
+export default withTheme(NavigationBar)

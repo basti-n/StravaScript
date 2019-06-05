@@ -10,6 +10,7 @@ export default function SliderGoal({ weeklyGoal, setWeeklyGoal, page }) {
 
   const StyledSliderHeadline = styled.h5`
     align-items: center;
+    color: ${props => props.theme.fontColor};
     display: flex;
     font-size: 18px;
     font-weight: 100;
@@ -19,8 +20,8 @@ export default function SliderGoal({ weeklyGoal, setWeeklyGoal, page }) {
       padding-right: 8px;
     }
     span {
-      padding-left: 5px;
       font-weight: 600;
+      padding-left: 5px;
     }
   `
 
