@@ -1,5 +1,5 @@
 
-<svg width="45px" height="52px" viewBox="0 0 45 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="45px" height="50px" viewBox="0 0 45 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="Home-Screen" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Artboard" transform="translate(-31.000000, -601.000000)">
             <g id="Home-Icon" transform="translate(9.000000, 601.000000)">
@@ -9,7 +9,7 @@
                     <polygon id="Path" points="39.2802198 4.50824176 34.8923077 4.50824176 34.9104396 9.82912088 39.2802198 13.5362637"></polygon>
                 </g>
                 <text id="Home" font-family="SFProText-Regular, SF Pro Text" font-size="10" font-weight="normal" letter-spacing="1.166667" fill="#FFFFFF">
-                    <tspan x="28.2945957" y="53">Home</tspan>
+                    <tspan x="26.2945957" y="53">Home</tspan>
                 </text>
             </g>
         </g>

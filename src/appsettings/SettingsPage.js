@@ -51,12 +51,13 @@ const SubmitButton = styled(ButtonPrimary)`
   justify-content: center;
 `
 
-export default function SettingsPage({
+function SettingsPage({
   settings,
   setSettings,
   handleFeedbackSubmit,
   modalDuration,
   showModal,
+  theme,
 }) {
   const formValue = useRef()
 
@@ -77,7 +78,7 @@ export default function SettingsPage({
         <StyledMainHeadline>General</StyledMainHeadline>
         <SettingsItem
           label="Dark Mode"
-          icon="/assets/darkMode-icon.svg"
+          icon={theme.darkModeIcon}
           setValue={value =>
             setSettings(prevState => ({ ...prevState, darkMode: value }))
           }
@@ -85,7 +86,7 @@ export default function SettingsPage({
         />
         <SettingsItem
           label="Goal Reminder"
-          icon="/assets/notifications-icon.svg"
+          icon={theme.notificationIcon}
           setValue={value =>
             setSettings(prevState => ({ ...prevState, notifications: value }))
           }
@@ -116,3 +117,5 @@ export default function SettingsPage({
     </StyledSettingsPageContainer>
   )
 }
+
+export default withTheme(SettingsPage)

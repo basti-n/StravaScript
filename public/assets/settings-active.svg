@@ -1,5 +1,5 @@
 
-<svg width="47px" height="52px" viewBox="0 0 47 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="49px" height="54px" viewBox="0 0 47 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="Settings-Screen" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Artboard" transform="translate(-297.000000, -606.000000)">
             <g id="SettingsIcon" transform="translate(277.000000, 606.000000)">
@@ -15,7 +15,7 @@
                     <rect id="Rectangle" x="23.1597222" y="3.03819444" width="6.07638889" height="7.29166667"></rect>
                 </g>
                 <text id="Settings" font-family="SFProText-Regular, SF Pro Text" font-size="10" font-weight="normal" letter-spacing="1.166667" fill="#FFFFFF">
-                    <tspan x="20.3460273" y="48">Settings</tspan>
+                    <tspan x="18.3460273" y="48">Settings</tspan>
                 </text>
             </g>
         </g>
