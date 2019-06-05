@@ -4,6 +4,7 @@ import 'moment/locale/de'
 moment.locale('de')
 
 // Strava API
+const stravaClientId = 35264
 export const getActivitiesFromStrava = token =>
   fetch(
     `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`
@@ -16,12 +17,26 @@ export const getAthlete = token =>
     .then(res => res.json())
     .catch(error => error.json({ errors: [error] }))
 
+export const disconnectStravaAccount = token =>
+  fetch(
+    `https://www.strava.com/oauth/deauthorize?client_id=${stravaClientId}&access_token=${token}`,
+    { method: 'POST' }
+  )
+    .then(res => res.json())
+    .catch(error => error.json({ errors: [error] }))
+
 // getTokenFromStrava
-export const getTokenFromStrava = () => fetch('/token').then(res => res.json())
+export const getTokenFromStrava = code =>
+  fetch(`/token?code=${code}`).then(res => res.json())
 
 //saveTokenToLocalStorage
 export const getTokenFromLocalStorage = name => {
   return localStorage.getItem(name)
+}
+
+//RemoveFromLocalStorage
+export const removeFromLocalStorage = name => {
+  return localStorage.removeItem(name)
 }
 
 //Activities

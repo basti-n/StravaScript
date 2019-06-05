@@ -5,11 +5,11 @@ require('dotenv').config()
 
 const fetch = require('node-fetch')
 
-app.get('/token', (req, res) =>
-  getAccessTokenFromStrava().then(data => {
+app.get('/token', (req, res) => {
+  getAccessTokenFromStrava(req.query.code).then(data => {
     res.json(data)
   })
-)
+})
 
 const fetchOptions = (method, type = 'application/json') => ({
   method,
@@ -18,13 +18,13 @@ const fetchOptions = (method, type = 'application/json') => ({
   },
 })
 
-const getAccessTokenFromStrava = () =>
+const getAccessTokenFromStrava = code =>
   fetch(
     `https://www.strava.com/oauth/token?client_id=${
       process.env.STRAVA_CLIENT_ID
-    }&client_secret=${process.env.STRAVA_CLIENT_SECRET}&code=${
-      process.env.STRAVA_CODE
-    }&grant_type=authorization_code`,
+    }&client_secret=${
+      process.env.STRAVA_CLIENT_SECRET
+    }&code=${code}&grant_type=authorization_code`,
     fetchOptions('POST')
   )
     .then(response => response.json())

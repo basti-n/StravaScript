@@ -12,12 +12,14 @@ import {
   getTokenFromStrava,
   saveToLocalStorage,
   getFromLocalStorage,
+  removeFromLocalStorage,
   getAthlete,
   getMainPagefromSubPage,
   getTrackingTimeInSeconds,
   getActivitiesForLastWeek,
   showGoalReminder,
   getTimeLeftToDailyCodingGoal,
+  disconnectStravaAccount,
 } from '../services'
 import TopbarNav from '../components/TopbarNav'
 import HomePage from '../home/HomePage'
@@ -56,6 +58,7 @@ const subPages = {
 
 function App() {
   const token = getTokenFromLocalStorage('token')
+  const code = getTokenFromLocalStorage('strava_code')
   const [stravaActivities, setStravaActivities] = useState(
     getFromLocalStorage('Strava Activities') || []
   )
@@ -76,6 +79,7 @@ function App() {
 
   const [settings, setSettings] = useState(
     getFromLocalStorage('Settings') || {
+      isLoggedIn: false,
       darkMode: false,
       notifications: true,
       goalReminderLastSeen: null,
@@ -143,7 +147,20 @@ function App() {
           }, 3 * 1000)
         }
       })
-      .catch(error => console.log(error))
+      .catch(error => console.log(error.message))
+  }
+
+  function handleStravaDisconnect() {
+    disconnectStravaAccount(token)
+      .then(data => {
+        removeFromLocalStorage('token')
+        removeFromLocalStorage('strava_code')
+        setSettings(prevState => ({
+          ...prevState,
+          isLoggedIn: false,
+        }))
+      })
+      .catch(error => console.log(error.message))
   }
 
   function setTimeGoalReminderLastSeen(time) {
@@ -178,12 +195,19 @@ function App() {
     setisStravaLoading(true)
     token
       ? getStravaActivities(token)
-      : getTokenFromStrava().then(data => {
+      : code &&
+        getTokenFromStrava(code).then(data => {
           const token = data.access_token
           saveToLocalStorage('token', token)
           getStravaActivities(token)
+          if (!settings.isLoggedIn) {
+            setSettings(prevState => ({
+              ...prevState,
+              isLoggedIn: true,
+            }))
+          }
         })
-  }, [token])
+  }, [token, code, settings.isLoggedIn])
 
   useEffect(() => {
     saveToLocalStorage('Coding', JSON.stringify(codingActivities))
@@ -235,10 +259,12 @@ function App() {
             handleFeedbackSubmit={handleFeedbackSubmit}
           />
           <ConnectPage
-            path="connect"
+            path="connect/*"
             username={stravaUser.username}
             image={stravaUser.profile}
             setActivePage={setActivePage}
+            isLoggedIn={settings.isLoggedIn}
+            handleDisconnect={handleStravaDisconnect}
           />
           <GoalsPage
             path="goals"

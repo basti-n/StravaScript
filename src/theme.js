@@ -15,6 +15,7 @@ export default function getTheme(darkMode) {
       red: '#CD6679',
       rideColor: '#BB86FC',
       runColor: '#985EFF',
+      secondaryButtonColor: '#2c2c2c',
       strengthColor: '#7F39FB',
       toastBackground: 'rgba(187, 134, 252, 0.9)',
 
@@ -64,6 +65,7 @@ export default function getTheme(darkMode) {
       red: '#DF4D60',
       rideColor: '#62A881',
       runColor: '#2E8B57',
+      secondaryButtonColor: '#fc4c02',
       strengthColor: '#2E7357',
       toastBackground: 'rgba(46, 139, 87, 0.9)',
 
