@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { defaults } from 'react-chartjs-2'
 import 'chartjs-plugin-labels'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import { hexToRgb } from '../utils'
 
 defaults.global.defaultFontFamily =
@@ -26,12 +26,7 @@ const StyledTagClose = styled(StyledTag)`
   top: 53px;
 `
 
-export default function PieChart({
-  codingData,
-  stravaData,
-  labels,
-  totalData,
-}) {
+function PieChart({ codingData, stravaData, labels, totalData, theme }) {
   const [activeFilter, setActiveFilter] = useState('totalData')
   function getLabel(activeFilter) {
     return activeFilter === 'stravaData'
@@ -53,8 +48,8 @@ export default function PieChart({
     return activeFilter === 'stravaData'
       ? ['#F8F8F8', '#E8E8E8', '#D8D8D8']
       : activeFilter === 'codingData'
-      ? ['#D8D8D8', '#0072C2', '#FDE100']
-      : ['#2E8B57', '#E8E8E8']
+      ? ['#D8D8D8', theme.secondaryColor3, theme.secondaryColor2]
+      : [theme.fontColorHeadline, '#E8E8E8']
   }
 
   const options = {
@@ -129,3 +124,5 @@ export default function PieChart({
     </StyledDonutContainer>
   )
 }
+
+export default withTheme(PieChart)

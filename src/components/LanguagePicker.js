@@ -15,8 +15,8 @@ const StyledLanguagePicker = styled.div`
       ? props.language === 'backend'
         ? '#D8D8D8'
         : props.language === 'css'
-        ? props.theme.secondaryColor2
-        : props.theme.secondaryColor3
+        ? props.theme.secondaryColor3
+        : props.theme.secondaryColor2
       : props.theme.secondaryColor1};
   color: ${props =>
     props.active

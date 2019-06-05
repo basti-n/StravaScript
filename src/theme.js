@@ -1,6 +1,7 @@
 export default function getTheme(darkMode) {
   if (darkMode) {
     return {
+      name: 'dark',
       background: '#121212',
       borderColorNav: '#BB86FC',
       colorNavBar: '#2c2c2c',
@@ -17,10 +18,17 @@ export default function getTheme(darkMode) {
       strengthColor: '#7F39FB',
       toastBackground: 'rgba(187, 134, 252, 0.9)',
 
+      checkboxIcon: '/assets/checkbox_white-circle-darkMode.svg',
       darkModeIcon: '/assets/darkMode-icon-darkMode.svg',
       notificationIcon: '/assets/notification-icon-darkMode.svg',
       connectNavBar: '/assets/connect.svg',
       connectNavBarActive: '/assets/connect-active-darkMode.svg',
+
+      sportIcons: {
+        bike: '/assets/bike-small-darkMode.svg',
+        run: '/assets/run-small-darkMode.svg',
+        strength: '/assets/weighttraining-small-darkMode.svg',
+      },
 
       navIcons: {
         home: {
@@ -42,6 +50,7 @@ export default function getTheme(darkMode) {
     }
   } else {
     return {
+      name: 'light',
       background: '#FFFFFF',
       borderColorNav: '#000000',
       colorNavBar: '#000000',
@@ -58,8 +67,15 @@ export default function getTheme(darkMode) {
       strengthColor: '#2E7357',
       toastBackground: 'rgba(46, 139, 87, 0.9)',
 
+      checkboxIcon: '/assets/checkbox_white-circle.svg',
       darkModeIcon: '/assets/darkMode-icon.svg',
       notificationIcon: '/assets/notification-icon.svg',
+
+      sportIcons: {
+        bike: '/assets/bike-small.svg',
+        run: '/assets/run-small.svg',
+        strength: '/assets/weighttraining-small.svg',
+      },
 
       navIcons: {
         home: {
