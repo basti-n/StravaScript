@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer')
 require('dotenv').config()
 
 const fetch = require('node-fetch')
+const User = require('./models/User')
 
 app.get('/token', (req, res) => {
   getAccessTokenFromStrava(req.query.code).then(data => {
@@ -36,6 +37,33 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL_USERNAME,
     pass: process.env.EMAIL_PASSWORD,
   },
+})
+
+app.get('/user/:id', (req, res) => {
+  const { id } = req.params
+
+  User.find({ id: id })
+    .then(user => {
+      return res.json(user)
+    })
+    .catch(err => res.json(err))
+})
+
+app.patch('/user/:id', (req, res) => {
+  const { id } = req.params
+  const data = req.body
+  User.findOneAndUpdate({ id: id }, data, { new: true })
+    .then(user => res.json(user))
+    .catch(err => res.json(err))
+})
+
+app.post('/user/', (req, res) => {
+  const { id, username } = req.body
+
+  id &&
+    User.create({ id, username })
+      .then(user => res.json(user))
+      .catch(err => res.json(err))
 })
 
 app.post('/feedback', (req, res) => {

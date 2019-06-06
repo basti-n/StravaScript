@@ -9,12 +9,31 @@ export const getActivitiesFromStrava = token =>
   fetch(
     `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`
   )
-    .then(res => res.json())
+    .then(res => {
+      if (res.status === 401) {
+        const code = getTokenFromLocalStorage('strava_code')
+        return getTokenFromStrava(code).then(data => {
+          const { access_token } = data
+          saveToLocalStorage('token', access_token)
+          return getActivitiesFromStrava(access_token)
+        })
+      }
+
+      return res.json()
+    })
     .catch(error => error.json({ errors: [error] }))
 
 export const getAthlete = token =>
   fetch(`https://www.strava.com/api/v3/athlete?access_token=${token}`)
     .then(res => res.json())
+    .then(data => {
+      const { username, id } = data
+      const userData = { username, id }
+      getUser(id).then(user => {
+        user.length ? updateUser(userData, id) : createUser(userData)
+      })
+      return data
+    })
     .catch(error => error.json({ errors: [error] }))
 
 export const disconnectStravaAccount = token =>
@@ -27,7 +46,29 @@ export const disconnectStravaAccount = token =>
 
 // getTokenFromStrava
 export const getTokenFromStrava = code =>
-  fetch(`/token?code=${code}`).then(res => res.json())
+  fetch(`/token?code=${code}`)
+    .then(res => res.json())
+    .then(data => {
+      const {
+        access_token,
+        refresh_token,
+        expires_at,
+        athlete: { id, username },
+      } = data
+
+      const userData = {
+        username,
+        access_token,
+        refresh_token,
+        expires_at,
+      }
+
+      getUser(id).then(user => {
+        user.length ? updateUser(userData, id) : createUser(userData)
+      })
+
+      return data
+    })
 
 //saveTokenToLocalStorage
 export const getTokenFromLocalStorage = name => {
@@ -37,6 +78,38 @@ export const getTokenFromLocalStorage = name => {
 //RemoveFromLocalStorage
 export const removeFromLocalStorage = name => {
   return localStorage.removeItem(name)
+}
+
+//Database
+
+export const getUsers = id => {
+  return fetch('/user').then(res => res.json())
+}
+
+export const getUser = id => {
+  return fetch(`user/${id}`).then(res => res.json())
+}
+
+export const createUser = user => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  }
+  return fetch(`/user`, options).then(res => res.json())
+}
+
+export const updateUser = (data, id) => {
+  const options = {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  }
+  return fetch(`user/${id}`, options).then(res => res.json())
 }
 
 //Activities

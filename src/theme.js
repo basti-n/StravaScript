@@ -20,10 +20,9 @@ export default function getTheme(darkMode) {
       toastBackground: 'rgba(187, 134, 252, 0.9)',
 
       checkboxIcon: '/assets/checkbox_white-circle-darkMode.svg',
+      connectIcon: '/assets/connect-icon-darkMode.svg',
       darkModeIcon: '/assets/darkMode-icon-darkMode.svg',
       notificationIcon: '/assets/notification-icon-darkMode.svg',
-      connectNavBar: '/assets/connect.svg',
-      connectNavBarActive: '/assets/connect-active-darkMode.svg',
 
       sportIcons: {
         bike: '/assets/bike-small-darkMode.svg',
@@ -70,6 +69,7 @@ export default function getTheme(darkMode) {
       toastBackground: 'rgba(46, 139, 87, 0.9)',
 
       checkboxIcon: '/assets/checkbox_white-circle.svg',
+      connectIcon: '/assets/connect-icon.svg',
       darkModeIcon: '/assets/darkMode-icon.svg',
       notificationIcon: '/assets/notification-icon.svg',
 

@@ -92,3 +92,8 @@ export const StyledRegularText = styled.p`
 export const StyledOrderedList = styled.ol`
   padding-left: 25px;
 `
+export const StyledTextLink = styled.a`
+  appearance: none;
+  color: ${props => props.theme.fontColor};
+  font-size: 12px;
+`

@@ -151,7 +151,7 @@ function App() {
   }
 
   function handleStravaDisconnect() {
-    disconnectStravaAccount(token)
+    return disconnectStravaAccount(token)
       .then(data => {
         removeFromLocalStorage('token')
         removeFromLocalStorage('strava_code')
@@ -159,6 +159,7 @@ function App() {
           ...prevState,
           isLoggedIn: false,
         }))
+        return true
       })
       .catch(error => console.log(error.message))
   }
@@ -184,8 +185,8 @@ function App() {
   }, [settings])
 
   useEffect(() => {
-    getStravaProfile(token)
-  }, [token])
+    settings.isLoggedIn && getStravaProfile(token)
+  }, [settings.isLoggedIn, token])
 
   useEffect(() => saveToLocalStorage('Goals', JSON.stringify(weeklyGoal)), [
     weeklyGoal,
@@ -193,10 +194,14 @@ function App() {
 
   useEffect(() => {
     setisStravaLoading(true)
-    token
+    !code
+      ? setSettings(prevState => ({
+          ...prevState,
+          isLoggedIn: false,
+        }))
+      : token
       ? getStravaActivities(token)
-      : code &&
-        getTokenFromStrava(code).then(data => {
+      : getTokenFromStrava(code).then(data => {
           const token = data.access_token
           saveToLocalStorage('token', token)
           getStravaActivities(token)
