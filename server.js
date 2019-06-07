@@ -8,7 +8,7 @@ const User = require('./models/User')
 
 app.get('/token', (req, res) => {
   getAccessTokenFromStrava(req.query.code).then(data => {
-    res.json(data)
+    return res.json(data)
   })
 })
 

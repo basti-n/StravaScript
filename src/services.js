@@ -45,6 +45,7 @@ export const disconnectStravaAccount = token =>
     .catch(error => error.json({ errors: [error] }))
 
 // getTokenFromStrava
+
 export const getTokenFromStrava = code =>
   fetch(`/token?code=${code}`)
     .then(res => res.json())
@@ -83,11 +84,11 @@ export const removeFromLocalStorage = name => {
 //Database
 
 export const getUsers = id => {
-  return fetch('/user').then(res => res.json())
+  return id && fetch('/user').then(res => res.json())
 }
 
 export const getUser = id => {
-  return fetch(`user/${id}`).then(res => res.json())
+  return id && fetch(`user/${id}`).then(res => res.json())
 }
 
 export const createUser = user => {
