@@ -25,7 +25,18 @@ export const getActivitiesFromStrava = token =>
 
 export const getAthlete = token =>
   fetch(`https://www.strava.com/api/v3/athlete?access_token=${token}`)
-    .then(res => res.json())
+    .then(res => {
+      if (res.status === 401) {
+        const code = getTokenFromLocalStorage('strava_code')
+        return getTokenFromStrava(code).then(data => {
+          const { access_token } = data
+          saveToLocalStorage('token', access_token)
+          return getAthlete(access_token)
+        })
+      }
+      return res.json()
+    })
+
     .then(data => {
       const { username, id } = data
       const userData = { username, id }
@@ -34,7 +45,7 @@ export const getAthlete = token =>
       })
       return data
     })
-    .catch(error => error.json({ errors: [error] }))
+    .catch(error => console.log(error))
 
 export const disconnectStravaAccount = token =>
   fetch(
@@ -78,6 +89,7 @@ export const getTokenFromLocalStorage = name => {
 
 //RemoveFromLocalStorage
 export const removeFromLocalStorage = name => {
+  console.log('localStorage:', name)
   return localStorage.removeItem(name)
 }
 
@@ -120,13 +132,18 @@ export function getActivitiesForLastWeek(activities) {
   let activityMinutesPerWeekday = {}
   timestampsLastWeek.map((timestamp, index) => {
     if (index !== 0) {
-      const minutesPerDay = activities
-        .filter(
-          activity =>
-            activity.start_date < timestampsLastWeek[index] &&
-            activity.start_date > timestampsLastWeek[index - 1]
-        )
-        .reduce((acc, curr) => acc + curr.elapsed_time, 0)
+      let minutesPerDay
+      try {
+        minutesPerDay = activities
+          .filter(
+            activity =>
+              activity.start_date < timestampsLastWeek[index] &&
+              activity.start_date > timestampsLastWeek[index - 1]
+          )
+          .reduce((acc, curr) => acc + curr.elapsed_time, 0)
+      } catch (err) {
+        minutesPerDay = 0
+      }
 
       const activityDay = {
         [moment(timestampsLastWeek[index - 1]).format('dddd')]: Math.round(

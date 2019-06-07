@@ -39,7 +39,7 @@
   "scripts": {
     "start": "run-p react server",
     "react": "craco start",
-    "server": "nodemon -w server.js -w models/* server.js",
+    "server": "nodemon -w server.js -w models server.js",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",

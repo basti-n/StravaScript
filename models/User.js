@@ -21,6 +21,27 @@ const userSchema = new mongoose.Schema({
   code: {
     type: String,
   },
+  weeklyGoal: {
+    coding: {
+      type: Number,
+    },
+    sport: {
+      type: Number,
+    },
+  },
+  settings: {
+    darkMode: {
+      type: Boolean,
+      Default: false,
+    },
+    notifications: {
+      type: Boolean,
+      Default: false,
+    },
+  },
+  codingActivities: {
+    type: Array,
+  },
 })
 
 module.exports = mongoose.model('User', userSchema)

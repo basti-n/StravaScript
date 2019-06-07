@@ -28,8 +28,8 @@ const getAccessTokenFromStrava = code =>
     }&code=${code}&grant_type=authorization_code`,
     fetchOptions('POST')
   )
-    .then(response => response.json())
-    .catch(error => error.json({ errors: [error] }))
+    .then(res => res.json())
+    .catch(err => err.json({ errors: [err] }))
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',

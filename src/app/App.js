@@ -20,6 +20,8 @@ import {
   showGoalReminder,
   getTimeLeftToDailyCodingGoal,
   disconnectStravaAccount,
+  updateUser,
+  getUser,
 } from '../services'
 import TopbarNav from '../components/TopbarNav'
 import HomePage from '../home/HomePage'
@@ -75,10 +77,14 @@ function App() {
   )
 
   const [isStravaLoading, setisStravaLoading] = useState(false)
-  const [stravaUser, setStravaUser] = useState({})
+  const [stravaUser, setStravaUser] = useState({
+    username: 'not connected',
+    profile: '/assets/placeholder-profile.svg',
+  })
 
   const [settings, setSettings] = useState(
     getFromLocalStorage('Settings') || {
+      userId: null,
       isLoggedIn: false,
       darkMode: false,
       notifications: true,
@@ -110,6 +116,10 @@ function App() {
   function getStravaProfile(token) {
     return getAthlete(token).then(data => {
       setStravaUser(data)
+      setSettings(prevState => ({
+        ...prevState,
+        userId: data.id,
+      }))
     })
   }
 
@@ -159,6 +169,8 @@ function App() {
           ...prevState,
           isLoggedIn: false,
         }))
+        console.log('Coding Activities', codingActivities)
+        removeFromLocalStorage('Coding')
         return true
       })
       .catch(error => console.log(error.message))
@@ -169,6 +181,26 @@ function App() {
       ...prevState,
       goalReminderLastSeen: time,
     }))
+  }
+
+  function getUserDataFromDatabase() {
+    console.log(
+      'getUserDataFromDatabase',
+      settings.userId,
+      'Login Status: ',
+      settings.isLoggedIn
+    )
+
+    getUser(settings.userId).then(res => {
+      const codingActivities = res.map(data => data.codingActivities)
+      console.log(
+        'getUserDataFromDatabase Ac',
+        ...codingActivities,
+        'Login Status: ',
+        settings.isLoggedIn
+      )
+      setCodingActivities(...codingActivities)
+    })
   }
 
   useEffect(() => {
@@ -182,41 +214,60 @@ function App() {
 
   useEffect(() => {
     saveToLocalStorage('Settings', JSON.stringify(settings))
+
+    updateUser(
+      {
+        settings: {
+          darkMode: settings.darkMode,
+          notifications: settings.notifications,
+        },
+      },
+      settings.userId
+    )
   }, [settings])
 
   useEffect(() => {
     settings.isLoggedIn && getStravaProfile(token)
   }, [settings.isLoggedIn, token])
 
-  useEffect(() => saveToLocalStorage('Goals', JSON.stringify(weeklyGoal)), [
-    weeklyGoal,
-  ])
+  useEffect(() => {
+    saveToLocalStorage('Goals', JSON.stringify(weeklyGoal))
+    settings.isLoggedIn &&
+      updateUser(
+        { weeklyGoal: { coding: weeklyGoal.coding, sport: weeklyGoal.sport } },
+        settings.userId
+      )
+  }, [settings.isLoggedIn, settings.userId, weeklyGoal])
 
   useEffect(() => {
     setisStravaLoading(true)
-    !code
-      ? setSettings(prevState => ({
-          ...prevState,
-          isLoggedIn: false,
-        }))
-      : token
-      ? getStravaActivities(token)
-      : getTokenFromStrava(code).then(data => {
-          const token = data.access_token
-          saveToLocalStorage('token', token)
-          getStravaActivities(token)
-          if (!settings.isLoggedIn) {
-            setSettings(prevState => ({
-              ...prevState,
-              isLoggedIn: true,
-            }))
-          }
-        })
+    if (!code) {
+      setSettings(prevState => ({
+        ...prevState,
+        isLoggedIn: false,
+      }))
+      setisStravaLoading(false)
+    } else {
+      setSettings(prevState => ({
+        ...prevState,
+        isLoggedIn: true,
+      }))
+      token
+        ? getStravaActivities(token)
+        : getTokenFromStrava(code).then(data => {
+            const token = data.access_token
+            saveToLocalStorage('token', token)
+            getStravaActivities(token)
+          })
+    }
   }, [token, code, settings.isLoggedIn])
 
   useEffect(() => {
     saveToLocalStorage('Coding', JSON.stringify(codingActivities))
-  }, [codingActivities])
+    if (settings.isLoggedIn && codingActivities.length) {
+      updateUser({ codingActivities }, settings.userId)
+    }
+  }, [codingActivities, settings.isLoggedIn, settings.userId])
 
   useEffect(() => saveToLocalStorage('Start Time', startTime), [startTime])
 
@@ -226,6 +277,12 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTracking])
+
+  useEffect(() => {
+    console.log('Getting User Data from DB')
+    getUserDataFromDatabase()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <ThemeProvider theme={theme}>

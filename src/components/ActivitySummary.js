@@ -97,7 +97,7 @@ function ActivitySummary({ data, activityType, theme }) {
       {activityType === 'code' ? (
         <StyledStackedLineChart>
           <ActivityOnLineChart
-            color={theme.secondaryColor1}
+            color={theme.fontColorGrey}
             width={getRelativeTimePerActivityType('backend')}
             duration={getHoursAndMinutesFromMinutes(
               getWeeklyActivitiesMinutesByType('backend')

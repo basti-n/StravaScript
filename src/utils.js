@@ -19,7 +19,11 @@ export function hexToRgb(hex) {
 }
 
 export function sortActivitiesByDate(activities) {
-  return activities.sort((a, b) => (b.start_date > a.start_date ? 1 : -1))
+  try {
+    return activities.sort((a, b) => (b.start_date > a.start_date ? 1 : -1))
+  } catch (err) {
+    return []
+  }
 }
 
 export function timeStampLastSevenDays() {

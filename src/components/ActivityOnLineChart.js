@@ -6,6 +6,7 @@ const StyledLineActivity = styled.div`
   grid-template-rows: auto 6px auto;
   grid-row-gap: 5px;
   align-items: center;
+  min-width: fit-content;
   width: ${props => props.width}%;
   color: ${props => props.color};
 
@@ -42,10 +43,12 @@ export default function ActivityOnLineChart({
   duration,
 }) {
   return (
-    <StyledLineActivity color={color} width={width}>
-      <h6>{duration}</h6>
-      <div />
-      {icon ? <img src={icon} alt={`${title} icon`} /> : <h5>{title}</h5>}
-    </StyledLineActivity>
+    width > 0 && (
+      <StyledLineActivity color={color} width={width}>
+        <h6>{duration}</h6>
+        <div />
+        {icon ? <img src={icon} alt={`${title} icon`} /> : <h5>{title}</h5>}
+      </StyledLineActivity>
+    )
   )
 }
