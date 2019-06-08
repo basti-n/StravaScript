@@ -288,7 +288,7 @@ function App() {
     console.log('Getting User Data from DB')
     settings.isLoggedIn && getUserDataFromDatabase()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [settings.isLoggedIn])
+  }, [settings.userId])
 
   return (
     <ThemeProvider theme={theme}>

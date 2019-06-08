@@ -10,7 +10,7 @@ const activityTypeImg = {
   Ride: { src: '/assets/bike.svg', alt: 'ride icon' },
   Workout: { src: '/assets/dumbbell.svg', alt: 'weight icon' },
   WeightTraining: { src: '/assets/dumbbell.svg', alt: 'weight icon' },
-  Run: { src: '/assets/run.svg', alt: 'run icon' },
+  Run: { src: './assets/run.svg', alt: 'run icon' },
   Walk: { src: '/assets/run.svg', alt: 'run icon' },
   Code: { src: '/assets/code.svg', alt: 'code tag icon' },
 }
