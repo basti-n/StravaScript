@@ -16,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
   --dark-font: #000000;
   --red-font:#DF4D60;
 }
+
 body {
   background: ${props => props.theme.background};
   font-family: 'Libre Franklin', sans-serif;
@@ -23,6 +24,15 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  @media (min-width: 600px) {
+   display: flex;
+   justify-content: center;
+    #root {
+    width: 375px;
+    height: 667px;
+    }
+  }
+
 
   .nav-active {
     transition: all 0.7s ease-in;

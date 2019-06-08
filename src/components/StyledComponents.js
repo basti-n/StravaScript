@@ -62,6 +62,9 @@ const Button = styled.button`
   font-size: 15px;
   display: block;
   margin: 25px auto;
+  @media screen and (min-width: 600px) {
+    width: 200px;
+  }
 `
 
 export const ButtonPrimary = styled(Button)`

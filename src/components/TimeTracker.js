@@ -25,6 +25,11 @@ const StyledTimerButton = styled.button`
     height: 40px;
     width: 40px;
   }
+  @media (min-width: 600px) {
+    height: 138px;
+    width: 138px;
+    margin: 0 -69px;
+  }
 `
 
 export default function TimeTracker({

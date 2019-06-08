@@ -23,6 +23,11 @@ const StyledModalDialog = styled.section`
   margin: 20vh 10vw;
   position: fixed;
   width: 80vw;
+  @media (min-width: 600px) {
+    margin: 100px auto;
+    position: relative;
+    width: 300px;
+  }
 `
 
 const StyledModalHeader = styled.header`
@@ -33,6 +38,9 @@ const StyledModalHeader = styled.header`
     position: absolute;
     left: 16vw;
     top: -70px;
+    @media (min-width: 600px) {
+      left: 60px;
+    }
   }
 `
 
