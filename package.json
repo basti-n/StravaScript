@@ -1,9 +1,6 @@
 {
   "name": "stravascript",
   "version": "0.1.0",
-  "engines": {
-    "node": "10.15.3"
-  },
   "author": {
     "name": "Sebastian Neumair",
     "email": "sebastian.neumair@gmail.com",
