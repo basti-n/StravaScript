@@ -79,7 +79,7 @@ function App() {
   const [isStravaLoading, setisStravaLoading] = useState(false)
   const [stravaUser, setStravaUser] = useState({
     username: 'not connected',
-    profile: '/assets/placeholder-profile.svg',
+    profile: '/assets/placeholder_profile.svg',
   })
 
   const [settings, setSettings] = useState(
@@ -169,7 +169,11 @@ function App() {
           ...prevState,
           isLoggedIn: false,
         }))
-        console.log('Coding Activities', codingActivities)
+        setCodingActivities([])
+        setSettings(prevState => ({
+          ...prevState,
+          userId: null,
+        }))
         removeFromLocalStorage('Coding')
         return true
       })
@@ -184,23 +188,23 @@ function App() {
   }
 
   function getUserDataFromDatabase() {
-    console.log(
-      'getUserDataFromDatabase',
-      settings.userId,
-      'Login Status: ',
-      settings.isLoggedIn
-    )
-
-    getUser(settings.userId).then(res => {
-      const codingActivities = res.map(data => data.codingActivities)
-      console.log(
-        'getUserDataFromDatabase Ac',
-        ...codingActivities,
-        'Login Status: ',
-        settings.isLoggedIn
-      )
-      setCodingActivities(...codingActivities)
-    })
+    try {
+      getUser(settings.userId).then(res => {
+        const codingActivities = res.map(data => data.codingActivities)
+        console.log(res)
+        const { weeklyGoal, settings } = Object.assign(...res)
+        console.log(weeklyGoal)
+        setCodingActivities(...codingActivities)
+        setWeeklyGoal(weeklyGoal)
+        console.log(settings)
+        setSettings(prevState => ({
+          ...prevState,
+          ...settings,
+        }))
+      })
+    } catch (err) {
+      console.log(err.message)
+    }
   }
 
   useEffect(() => {
@@ -227,7 +231,9 @@ function App() {
   }, [settings])
 
   useEffect(() => {
-    settings.isLoggedIn && getStravaProfile(token)
+    if (settings.isLoggedIn && token) {
+      getStravaProfile(token)
+    }
   }, [settings.isLoggedIn, token])
 
   useEffect(() => {
@@ -263,8 +269,8 @@ function App() {
   }, [token, code, settings.isLoggedIn])
 
   useEffect(() => {
-    saveToLocalStorage('Coding', JSON.stringify(codingActivities))
     if (settings.isLoggedIn && codingActivities.length) {
+      saveToLocalStorage('Coding', JSON.stringify(codingActivities))
       updateUser({ codingActivities }, settings.userId)
     }
   }, [codingActivities, settings.isLoggedIn, settings.userId])
@@ -280,9 +286,9 @@ function App() {
 
   useEffect(() => {
     console.log('Getting User Data from DB')
-    getUserDataFromDatabase()
+    settings.isLoggedIn && getUserDataFromDatabase()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [settings.isLoggedIn])
 
   return (
     <ThemeProvider theme={theme}>

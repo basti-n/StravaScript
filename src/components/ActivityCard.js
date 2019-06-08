@@ -42,7 +42,7 @@ const StyledCardBody = styled.section`
   align-items: center;
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(2, 1fr);
-  height: min-content;
+  height: fit-content;
   font-size: 15px;
 
   img {
