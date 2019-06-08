@@ -38,7 +38,8 @@
     "react-scripts": "3.0.1",
     "react-toastify": "^5.2.1",
     "styled-components": "^4.2.0",
-    "uid": "0.0.2"
+    "uid": "0.0.2",
+    "webpack": "^4.29.6"
   },
   "scripts": {
     "start": "run-p react server",
