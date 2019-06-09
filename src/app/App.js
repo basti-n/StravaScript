@@ -191,12 +191,9 @@ function App() {
     try {
       getUser(settings.userId).then(res => {
         const codingActivities = res.map(data => data.codingActivities)
-        console.log(res)
         const { weeklyGoal, settings } = Object.assign(...res)
-        console.log(weeklyGoal)
         setCodingActivities(...codingActivities)
         setWeeklyGoal(weeklyGoal)
-        console.log(settings)
         setSettings(prevState => ({
           ...prevState,
           ...settings,

@@ -17,12 +17,8 @@ export default function Toast({
       position: 'absolute',
       top: '80px',
       boxShadow: 'none',
-      left: '0',
       background: 'var(--toast-background)',
       width: '100%',
-      '@media(min-width: 600px)': {
-        display: 'none',
-      },
     }),
     bodyClassName: css({
       color: 'white',

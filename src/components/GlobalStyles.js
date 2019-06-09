@@ -65,6 +65,16 @@ body {
     height: 30px;
   }
 
+  .Toastify {
+    @media(min-width: 600px) {
+      position: absolute;
+      > * {
+        position: relative;
+
+      }
+      }
+  }
+
 }`
 
 export default function GlobalStyles() {
