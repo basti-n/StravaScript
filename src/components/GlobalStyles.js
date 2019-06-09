@@ -14,7 +14,6 @@ const GlobalStyle = createGlobalStyle`
   --bg-grey: #D8D8D8;
   --light-font: #FFFFFF;
   --dark-font: #000000;
-  --red-font:#DF4D60;
 }
 
 body {

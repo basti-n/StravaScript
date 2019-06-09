@@ -12,6 +12,105 @@
   },
   "props": [
     {
+      "key": "src/app/App.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "App",
+          "methods": [],
+          "actualName": "App"
+        }
+      ]
+    },
+    {
+      "key": "src/appsettings/GoalsPage.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "GoalsPage",
+          "methods": [],
+          "actualName": "GoalsPage"
+        }
+      ]
+    },
+    {
+      "key": "src/appsettings/SettingsPage.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SettingsPage",
+          "methods": [],
+          "actualName": "SettingsPage"
+        }
+      ]
+    },
+    {
+      "key": "src/components/ActivityOnLineChart.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ActivityOnLineChart",
+          "methods": [],
+          "actualName": "ActivityOnLineChart"
+        }
+      ]
+    },
+    {
+      "key": "src/components/ActivitySummary.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ActivitySummary",
+          "methods": [],
+          "actualName": "ActivitySummary"
+        }
+      ]
+    },
+    {
+      "key": "src/components/GoalSettings.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "GoalSettings",
+          "methods": [],
+          "actualName": "GoalSettings"
+        }
+      ]
+    },
+    {
+      "key": "src/components/GoalWeeklyChart.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "GoalWeeklyChart",
+          "methods": [],
+          "actualName": "GoalWeeklyChart"
+        }
+      ]
+    },
+    {
+      "key": "src/components/LanguagePicker.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "LanguagePicker",
+          "methods": [],
+          "actualName": "LanguagePicker"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Modal.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Modal",
+          "methods": [],
+          "actualName": "Modal"
+        }
+      ]
+    },
+    {
       "key": "src/components/NavigationBar.js",
       "value": [
         {
@@ -23,13 +122,211 @@
       ]
     },
     {
-      "key": "src/app/App.js",
+      "key": "src/components/NumberedListItem.js",
       "value": [
         {
           "description": "",
-          "displayName": "App",
+          "displayName": "NumberedListItem",
           "methods": [],
-          "actualName": "App"
+          "actualName": "NumberedListItem"
+        }
+      ]
+    },
+    {
+      "key": "src/components/PieChart.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PieChart",
+          "methods": [],
+          "actualName": "PieChart"
+        }
+      ]
+    },
+    {
+      "key": "src/components/SettingsItem.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SettingsItem",
+          "methods": [],
+          "actualName": "SettingsItem"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Slider.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SliderGoal",
+          "methods": [],
+          "actualName": "SliderGoal"
+        }
+      ]
+    },
+    {
+      "key": "src/components/TimeTracker.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TimeTracker",
+          "methods": [],
+          "actualName": "TimeTracker"
+        }
+      ]
+    },
+    {
+      "key": "src/components/TimerClock.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TimerClock",
+          "methods": [],
+          "actualName": "TimerClock"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Toast.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Toast",
+          "methods": [],
+          "actualName": "Toast"
+        }
+      ]
+    },
+    {
+      "key": "src/components/ToggleSwitch.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ToggleSwitch",
+          "methods": [],
+          "actualName": "ToggleSwitch"
+        }
+      ]
+    },
+    {
+      "key": "src/components/TopbarNav.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TopbarNav",
+          "methods": [],
+          "actualName": "TopbarNav"
+        }
+      ]
+    },
+    {
+      "key": "src/components/TrackingConfirmationModal.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TrackingConfirmationModal",
+          "methods": [],
+          "actualName": "TrackingConfirmationModal"
+        }
+      ]
+    },
+    {
+      "key": "src/components/UserProfile.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "UserProfile",
+          "methods": [],
+          "actualName": "UserProfile"
+        }
+      ]
+    },
+    {
+      "key": "src/home/CodingActivitiesPage.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "CodingActivitiesPage",
+          "methods": [],
+          "actualName": "CodingActivitiesPage"
+        }
+      ]
+    },
+    {
+      "key": "src/home/HomePage.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "HomePage",
+          "methods": [],
+          "actualName": "HomePage"
+        }
+      ]
+    },
+    {
+      "key": "src/home/OverviewPage.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "OverviewPage",
+          "methods": [],
+          "actualName": "OverviewPage"
+        }
+      ]
+    },
+    {
+      "key": "src/home/SportActivitiesPage.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SportActivityPage",
+          "methods": [],
+          "actualName": "SportActivityPage"
+        }
+      ]
+    },
+    {
+      "key": "src/connect/ConnectPage.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ConnectPage",
+          "methods": [],
+          "actualName": "ConnectPage"
+        }
+      ]
+    },
+    {
+      "key": "src/connect/FaqPage.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FaqPage",
+          "methods": [],
+          "actualName": "FaqPage"
+        }
+      ]
+    },
+    {
+      "key": "src/components/GlobalStyles.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "GlobalStyles",
+          "methods": [],
+          "actualName": "GlobalStyles"
+        }
+      ]
+    },
+    {
+      "key": "src/components/CodingLanguagesTags.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "CodingLanguagesTags",
+          "methods": [],
+          "actualName": "CodingLanguagesTags"
         }
       ]
     },
@@ -58,14 +355,14 @@
   ],
   "entries": [
     {
-      "key": "src/components/ActivityCard.mdx",
+      "key": "src/components/docz/ActivityCard.mdx",
       "value": {
         "name": "ActivityCard",
-        "id": "6d24fd0f9c65ceafdf7371f43c77b0d0",
-        "filepath": "src/components/ActivityCard.mdx",
+        "id": "ee7e91b762fc0d2fc66e0198fd723702",
+        "filepath": "src/components/docz/ActivityCard.mdx",
         "link": "",
-        "slug": "src-components-activity-card",
-        "route": "/src-components-activity-card",
+        "slug": "src-components-docz-activity-card",
+        "route": "/src-components-docz-activity-card",
         "menu": "",
         "headings": [
           {
@@ -82,14 +379,110 @@
       }
     },
     {
-      "key": "src/components/index.mdx",
+      "key": "src/components/docz/CodingLanguagesTags.mdx",
+      "value": {
+        "name": "CodingLanguagesTags",
+        "id": "229e14eba92400354f1e987abfad0c20",
+        "filepath": "src/components/docz/CodingLanguagesTags.mdx",
+        "link": "",
+        "slug": "src-components-docz-coding-languages-tags",
+        "route": "/src-components-docz-coding-languages-tags",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          },
+          {
+            "slug": "basic-usage",
+            "depth": 2,
+            "value": "Basic Usage"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/docz/PieChart.mdx",
+      "value": {
+        "name": "PieChart",
+        "id": "d1db53461fcf36113ef39a50594b1b39",
+        "filepath": "src/components/docz/PieChart.mdx",
+        "link": "",
+        "slug": "src-components-docz-pie-chart",
+        "route": "/src-components-docz-pie-chart",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          },
+          {
+            "slug": "basic-usage",
+            "depth": 2,
+            "value": "Basic Usage"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/docz/TimeTracker.mdx",
+      "value": {
+        "name": "TimeTracker",
+        "id": "4aad3b67114587de88c5275b3dd5d2e7",
+        "filepath": "src/components/docz/TimeTracker.mdx",
+        "link": "",
+        "slug": "src-components-docz-time-tracker",
+        "route": "/src-components-docz-time-tracker",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          },
+          {
+            "slug": "basic-usage",
+            "depth": 2,
+            "value": "Basic Usage"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/docz/TimerClock.mdx",
+      "value": {
+        "name": "TimerClock",
+        "id": "95eaaee8d1e135cee655038fc238d22b",
+        "filepath": "src/components/docz/TimerClock.mdx",
+        "link": "",
+        "slug": "src-components-docz-timer-clock",
+        "route": "/src-components-docz-timer-clock",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          },
+          {
+            "slug": "basic-usage",
+            "depth": 2,
+            "value": "Basic Usage"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/docz/index.mdx",
       "value": {
         "name": "Home",
         "route": "/",
-        "id": "8f6609a989594e49bce5582173f1be02",
-        "filepath": "src/components/index.mdx",
+        "id": "f1ebbc181c17aa75e694296d0c69704d",
+        "filepath": "src/components/docz/index.mdx",
         "link": "",
-        "slug": "src-components-index",
+        "slug": "src-components-docz-index",
         "menu": "",
         "headings": [
           {

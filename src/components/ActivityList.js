@@ -1,10 +1,7 @@
 import React from 'react'
 import ActivityCard from './ActivityCard'
 import styled from 'styled-components'
-
-const StyledActivityContainer = styled.section`
-  margin: 10px;
-`
+import { StyledActivityContainer } from './StyledComponents'
 
 const StyledActivityListHeadline = styled.div`
   display: flex;

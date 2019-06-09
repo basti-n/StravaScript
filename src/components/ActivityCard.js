@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import styled from 'styled-components'
 import CodingLanguagesTags from './CodingLanguagesTags'
@@ -18,8 +17,8 @@ const activityTypeImg = {
 const StyledCard = styled.article`
   background: ${props => props.theme.secondaryColor1};
   border-radius: 10px;
-  padding: 10px 15px;
   margin-bottom: 20px;
+  padding: 10px 15px;
 `
 
 const StyledCardHeader = styled.div`
@@ -27,9 +26,9 @@ const StyledCardHeader = styled.div`
   border-bottom: 1px solid #000000;
   display: flex;
   height: 30px;
+  margin-bottom: 3px;
   padding: 0 10px 5px;
   justify-content: space-between;
-  margin-bottom: 3px;
   h2,
   p {
     font-size: 15px;
@@ -37,18 +36,18 @@ const StyledCardHeader = styled.div`
 `
 
 const StyledCardBody = styled.section`
-  display: grid;
-  padding: 0 5px;
   align-items: center;
+  display: grid;
+  font-size: 15px;
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(2, 1fr);
   height: fit-content;
-  font-size: 15px;
+  padding: 0 5px;
 
   img {
     grid-row: 1 / 3;
-    width: 75px;
     padding-left: 5px;
+    width: 75px;
   }
   p,
   label {
@@ -72,26 +71,30 @@ const StyledCardBody = styled.section`
 `
 
 export default function ActivityCard({ activity }) {
+  const startDate = moment(activity.start_date).format('Do MMM YYYY')
+  const activityImage = activityTypeImg[activity.type]
+  const activityTime =
+    activity.elapsed_time < 60
+      ? `${Math.round(activity.elapsed_time)} sec`
+      : `${Math.round(activity.elapsed_time / 60)} min`
+  const activitySportInformation = activity.average_heartrate
+    ? `Avg. HR ${Math.round(activity.average_heartrate)}`
+    : `n/a`
+
   return (
     <StyledCard>
       <StyledCardHeader>
         <h2>{activity.name}</h2>
-        <p>{moment(activity.start_date).format('Do MMM YYYY')}</p>
+        <p>{startDate}</p>
       </StyledCardHeader>
       <StyledCardBody>
-        <img {...activityTypeImg[activity.type]} />
-        <p>
-          {activity.elapsed_time < 60
-            ? `${Math.round(activity.elapsed_time)} sec`
-            : `${Math.round(activity.elapsed_time / 60)} min`}
-        </p>
+        <img {...activityImage} alt="activity" />
+        <p>{activityTime}</p>
         <label>
           {activity.type === 'Code' ? (
             <CodingLanguagesTags languages={activity.languages} />
-          ) : activity.average_heartrate ? (
-            `Avg. HR ${Math.round(activity.average_heartrate)}`
           ) : (
-            `n/a`
+            activitySportInformation
           )}
 
           {activity.type !== 'Code' && (

@@ -12,10 +12,10 @@ const StyledLanguageTagsContainer = styled.div`
 const StyledLanguageTags = styled.span`
   background: ${props =>
     props.language === 'backend'
-      ? 'var(--bg-grey)'
+      ? props.theme.fontColorGrey
       : props.language === 'css'
-      ? 'var(--blue)'
-      : 'var(--yellow)'};
+      ? props.theme.secondaryColor3
+      : props.theme.secondaryColor2};
   color: ${props =>
     props.language === 'backend' ? 'var(--dark-font)' : 'var(--light-font)'};
   padding: 5px 10px;
