@@ -1,36 +1,42 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ActivityCard from './ActivityCard'
 import styled from 'styled-components'
 import { StyledActivityContainer } from './StyledComponents'
 
-const StyledActivityListHeadline = styled.div`
+const StyledActivityFeedHeadline = styled.h2`
+  align-items: flex-end;
+  color: ${props => props.theme.fontColorHeadline};
   display: flex;
-  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
   justify-content: space-between;
+  margin: 25px 0 16px;
   padding: 0 10px;
 
-  h2 {
-    font-size: 0.9em;
-    color: ${props => props.theme.fontColorHeadline};
-    font-weight: 600;
-  }
-
-  p {
-    font-size: 0.6em;
+  span {
+    color: ${props => props.theme.fontColor};
+    font-size: 14px;
+    font-weight: normal;
+    margin-right: 5px;
   }
 `
 
 export default function ActivityList({ activities }) {
   return (
     <StyledActivityContainer>
-      <StyledActivityListHeadline>
-        <h2>Recent activities</h2>
-        <p>by date ↓</p>
-      </StyledActivityListHeadline>
+      <StyledActivityFeedHeadline>
+        Recent activities
+        <span>by date ↓</span>
+      </StyledActivityFeedHeadline>
       {activities &&
         activities.map(activity => (
           <ActivityCard activity={activity} key={activity.id} />
         ))}
     </StyledActivityContainer>
   )
+}
+
+ActivityList.propTypes = {
+  activities: PropTypes.arrayOf(PropTypes.object),
 }

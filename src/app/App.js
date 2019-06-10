@@ -3,9 +3,6 @@ import { Router } from '@reach/router'
 import { ThemeProvider } from 'styled-components'
 import uid from 'uid'
 
-import NavigationBar from '../components/NavigationBar'
-import Toast from '../components/Toast'
-
 import {
   getActivitiesFromStrava,
   getTokenFromLocalStorage,
@@ -23,13 +20,17 @@ import {
   updateUser,
   getUser,
 } from '../services'
+import { sortActivitiesByDate } from '../utils'
+
 import TopbarNav from '../components/TopbarNav'
 import HomePage from '../home/HomePage'
-import SettingsPage from '../appsettings/SettingsPage'
+import Toast from '../components/Toast'
+import NavigationBar from '../components/NavigationBar'
 import ConnectPage from '../connect/ConnectPage'
-import { sortActivitiesByDate } from '../utils'
 import FaqPage from '../connect/FaqPage'
 import GoalsPage from '../appsettings/GoalsPage'
+import SettingsPage from '../appsettings/SettingsPage'
+
 import getTheme from '../theme'
 import GlobalStyles from '../components/GlobalStyles'
 import { Grid } from '../components/StyledComponents'
@@ -78,7 +79,7 @@ function App() {
 
   const [isStravaLoading, setisStravaLoading] = useState(false)
   const [stravaUser, setStravaUser] = useState({
-    username: 'not connected',
+    username: '...loading',
     profile: '/assets/placeholder_profile.svg',
   })
 
@@ -282,7 +283,6 @@ function App() {
   }, [isTracking])
 
   useEffect(() => {
-    console.log('Getting User Data from DB')
     settings.isLoggedIn && getUserDataFromDatabase()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settings.userId])
@@ -315,6 +315,7 @@ function App() {
             showModal={(!isTracking && startTime) > 0}
             onTrackingCompleted={handleTrackingCompleted}
           />
+
           <SettingsPage
             path="settings"
             settings={settings}
@@ -323,6 +324,7 @@ function App() {
             showModal={showModal}
             handleFeedbackSubmit={handleFeedbackSubmit}
           />
+
           <ConnectPage
             path="connect/*"
             username={stravaUser.username}
@@ -331,6 +333,7 @@ function App() {
             isLoggedIn={settings.isLoggedIn}
             handleDisconnect={handleStravaDisconnect}
           />
+
           <GoalsPage
             path="goals"
             weeklyGoal={weeklyGoal}
@@ -342,6 +345,7 @@ function App() {
               codingActivities
             )}
           />
+
           <FaqPage path="faq" />
         </Router>
         <NavigationBar

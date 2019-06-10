@@ -1,78 +1,71 @@
 import React from 'react'
-import moment from 'moment'
 import styled, { withTheme } from 'styled-components'
-import 'moment/locale/de'
 import {
   StyledMainHeadline,
   StyledContainer,
   StyledSummaryHeadline,
 } from './StyledComponents'
-import ActivityOnLineChart from './ActivityOnLineChart'
+import ActivityLineChart from './ActivityLineChart'
+import moment from 'moment'
+import {
+  getHoursAndMinutesFromMinutes,
+  DateLastWeek,
+  DateTwoWeeksAgo,
+} from '../utils'
 moment.locale('de')
 
-const StyledStackedLineChart = styled.section`
+const StyledActivitySummary = styled.section`
   display: flex;
   margin: 0 0 30px;
 `
 
-function ActivitySummary({ data, activityType, theme }) {
-  const lastWeek = moment()
-    .subtract(7, 'd')
-    .format()
-
-  const twoWeeksAgo = moment()
-    .subtract(14, 'd')
-    .format()
-
-  function getHoursAndMinutesFromMinutes(minutes) {
-    return minutes < 60
-      ? `${minutes % 60}m`
-      : `${Math.floor(minutes / 60)}h ${minutes % 60}m`
-  }
-
-  function getTotalMinutes(startDate) {
+function ActivitySummary({ activities, activityType, theme }) {
+  function getTotalActivityMinutes(startDate) {
     return Math.round(
-      data
-        .filter(data => data.start_date > startDate)
+      activities
+        .filter(activity => activity.start_date > startDate)
         .reduce((acc, curr) => acc + curr.elapsed_time, 0) / 60
     )
   }
 
-  function getWeeklyActivitiesMinutesByType(type) {
+  function getLastWeeksActivityMinutesByActivityType(type) {
     const filter =
       activityType === 'code'
         ? activity => activity.languages.includes(type)
         : activity => activity.type === type
 
     return Math.round(
-      data
-        .filter(data => data.start_date > lastWeek)
+      activities
+        .filter(activity => activity.start_date > DateLastWeek)
         .filter(filter)
         .reduce((arr, curr) => arr + curr.elapsed_time, 0) / 60
     )
   }
 
-  const timeLastWeek = getHoursAndMinutesFromMinutes(getTotalMinutes(lastWeek))
-  const weeklyComparison =
-    getTotalMinutes(lastWeek) -
-    (getTotalMinutes(twoWeeksAgo) - getTotalMinutes(lastWeek))
+  const getLastWeeksActivitiesInMinutesAndHours = getHoursAndMinutesFromMinutes(
+    getTotalActivityMinutes(DateLastWeek)
+  )
+  const getWeekOverWeekActivityMinutesComparison =
+    getTotalActivityMinutes(DateLastWeek) -
+    (getTotalActivityMinutes(DateTwoWeeksAgo) -
+      getTotalActivityMinutes(DateLastWeek))
 
-  function getRelativeTimePerActivityType(type) {
+  function getLastWeeksRelativeActivityTimePerActivityType(type) {
     if (activityType === 'code') {
       return (
-        (getWeeklyActivitiesMinutesByType(type) /
-          (getWeeklyActivitiesMinutesByType('backend') +
-            getWeeklyActivitiesMinutesByType('css') +
-            getWeeklyActivitiesMinutesByType('js'))) *
+        (getLastWeeksActivityMinutesByActivityType(type) /
+          (getLastWeeksActivityMinutesByActivityType('backend') +
+            getLastWeeksActivityMinutesByActivityType('css') +
+            getLastWeeksActivityMinutesByActivityType('js'))) *
         100
       )
     } else if (activityType === 'sport') {
       return (
-        (getWeeklyActivitiesMinutesByType(type) /
-          (getWeeklyActivitiesMinutesByType('Workout') +
-            getWeeklyActivitiesMinutesByType('WeightTraining') +
-            getWeeklyActivitiesMinutesByType('Ride') +
-            getWeeklyActivitiesMinutesByType('Run'))) *
+        (getLastWeeksActivityMinutesByActivityType(type) /
+          (getLastWeeksActivityMinutesByActivityType('Workout') +
+            getLastWeeksActivityMinutesByActivityType('WeightTraining') +
+            getLastWeeksActivityMinutesByActivityType('Ride') +
+            getLastWeeksActivityMinutesByActivityType('Run'))) *
         100
       )
     }
@@ -82,79 +75,80 @@ function ActivitySummary({ data, activityType, theme }) {
     <StyledContainer>
       <StyledMainHeadline>This Week</StyledMainHeadline>
       <StyledSummaryHeadline>
-        {timeLastWeek}
+        {getLastWeeksActivitiesInMinutesAndHours}
         <span>
-          {weeklyComparison > 0
+          {getWeekOverWeekActivityMinutesComparison > 0
             ? `${getHoursAndMinutesFromMinutes(
-                Math.abs(weeklyComparison)
+                Math.abs(getWeekOverWeekActivityMinutesComparison)
               )}in more than last week`
             : `${getHoursAndMinutesFromMinutes(
-                Math.abs(weeklyComparison)
+                Math.abs(getWeekOverWeekActivityMinutesComparison)
               )}in less than last week`}
         </span>
       </StyledSummaryHeadline>
 
       {activityType === 'code' ? (
-        <StyledStackedLineChart>
-          <ActivityOnLineChart
+        <StyledActivitySummary>
+          <ActivityLineChart
             color={theme.fontColorGrey}
-            width={getRelativeTimePerActivityType('backend')}
+            width={getLastWeeksRelativeActivityTimePerActivityType('backend')}
             duration={getHoursAndMinutesFromMinutes(
-              getWeeklyActivitiesMinutesByType('backend')
+              getLastWeeksActivityMinutesByActivityType('backend')
             )}
             title="Backend"
           />
-          <ActivityOnLineChart
+          <ActivityLineChart
             color={theme.secondaryColor3}
-            width={getRelativeTimePerActivityType('css')}
+            width={getLastWeeksRelativeActivityTimePerActivityType('css')}
             duration={getHoursAndMinutesFromMinutes(
-              getWeeklyActivitiesMinutesByType('css')
+              getLastWeeksActivityMinutesByActivityType('css')
             )}
             title="CSS"
           />
-          <ActivityOnLineChart
+          <ActivityLineChart
             color={theme.secondaryColor2}
-            width={getRelativeTimePerActivityType('js')}
+            width={getLastWeeksRelativeActivityTimePerActivityType('js')}
             duration={getHoursAndMinutesFromMinutes(
-              getWeeklyActivitiesMinutesByType('js')
+              getLastWeeksActivityMinutesByActivityType('js')
             )}
             title="JS"
           />
-        </StyledStackedLineChart>
+        </StyledActivitySummary>
       ) : (
-        <StyledStackedLineChart>
-          <ActivityOnLineChart
+        <StyledActivitySummary>
+          <ActivityLineChart
             color="#62A881"
-            width={getRelativeTimePerActivityType('Ride')}
+            width={getLastWeeksRelativeActivityTimePerActivityType('Ride')}
             duration={getHoursAndMinutesFromMinutes(
-              getWeeklyActivitiesMinutesByType('Ride')
+              getLastWeeksActivityMinutesByActivityType('Ride')
             )}
             title="Ride"
             icon={theme.sportIcons.bike}
           />
-          <ActivityOnLineChart
+          <ActivityLineChart
             color="#2E8B57"
-            width={getRelativeTimePerActivityType('Run')}
+            width={getLastWeeksRelativeActivityTimePerActivityType('Run')}
             duration={getHoursAndMinutesFromMinutes(
-              getWeeklyActivitiesMinutesByType('Run')
+              getLastWeeksActivityMinutesByActivityType('Run')
             )}
             title="Run"
             icon={theme.sportIcons.run}
           />
-          <ActivityOnLineChart
+          <ActivityLineChart
             color="#2E7357"
             width={
-              getRelativeTimePerActivityType('WeightTraining') +
-              getRelativeTimePerActivityType('Workout')
+              getLastWeeksRelativeActivityTimePerActivityType(
+                'WeightTraining'
+              ) + getLastWeeksRelativeActivityTimePerActivityType('Workout')
             }
             duration={getHoursAndMinutesFromMinutes(
-              getWeeklyActivitiesMinutesByType('WeightTraining') +
-                getWeeklyActivitiesMinutesByType('Workout')
+              getLastWeeksActivityMinutesByActivityType('WeightTraining') +
+                getLastWeeksActivityMinutesByActivityType('Workout')
             )}
             title="Strength"
             icon={theme.sportIcons.strength}
           />
-        </StyledStackedLineChart>
+        </StyledActivitySummary>
       )}
     </StyledContainer>
   )

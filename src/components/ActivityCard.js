@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import CodingLanguagesTags from './CodingLanguagesTags'
 import moment from 'moment'
@@ -6,12 +7,12 @@ import 'moment/locale/de'
 moment.locale('de')
 
 const activityTypeImg = {
+  Code: { src: '/assets/code.svg', alt: 'code tag icon' },
   Ride: { src: '/assets/bike.svg', alt: 'ride icon' },
-  Workout: { src: '/assets/dumbbell.svg', alt: 'weight icon' },
-  WeightTraining: { src: '/assets/dumbbell.svg', alt: 'weight icon' },
   Run: { src: './assets/run.svg', alt: 'run icon' },
   Walk: { src: '/assets/run.svg', alt: 'run icon' },
-  Code: { src: '/assets/code.svg', alt: 'code tag icon' },
+  WeightTraining: { src: '/assets/dumbbell.svg', alt: 'weight icon' },
+  Workout: { src: '/assets/dumbbell.svg', alt: 'weight icon' },
 }
 
 const StyledCard = styled.article`
@@ -55,11 +56,11 @@ const StyledCardBody = styled.section`
   }
 
   label {
+    align-self: start;
+    color: ${props => props.theme.red};
     display: grid;
     grid-template-columns: 1fr max-content;
     justify-items: end;
-    align-self: start;
-    color: ${props => props.theme.red};
 
     img {
       grid-column: 2 / -1;
@@ -71,7 +72,7 @@ const StyledCardBody = styled.section`
 `
 
 export default function ActivityCard({ activity }) {
-  const startDate = moment(activity.start_date).format('Do MMM YYYY')
+  const activityStartDate = moment(activity.start_date).format('Do MMM YYYY')
   const activityImage = activityTypeImg[activity.type]
   const activityTime =
     activity.elapsed_time < 60
@@ -80,28 +81,45 @@ export default function ActivityCard({ activity }) {
   const activitySportInformation = activity.average_heartrate
     ? `Avg. HR ${Math.round(activity.average_heartrate)}`
     : `n/a`
+  const activityLabel =
+    activity.type === 'Code' ? (
+      <CodingLanguagesTags languages={activity.languages} />
+    ) : (
+      <>
+        {activitySportInformation}
+        <img src="/assets/heart-rate.svg" alt="heartrate monitor" />
+      </>
+    )
 
   return (
     <StyledCard>
       <StyledCardHeader>
         <h2>{activity.name}</h2>
-        <p>{startDate}</p>
+        <p>{activityStartDate}</p>
       </StyledCardHeader>
       <StyledCardBody>
         <img {...activityImage} alt="activity" />
         <p>{activityTime}</p>
-        <label>
-          {activity.type === 'Code' ? (
-            <CodingLanguagesTags languages={activity.languages} />
-          ) : (
-            activitySportInformation
-          )}
-
-          {activity.type !== 'Code' && (
-            <img src="/assets/heart-rate.svg" alt="heartrate monitor" />
-          )}
-        </label>
+        <label>{activityLabel}</label>
       </StyledCardBody>
     </StyledCard>
   )
+}
+
+ActivityCard.propTypes = {
+  activity: PropTypes.shape({
+    elapsed_time: PropTypes.number,
+    languages: PropTypes.arrayOf(PropTypes.string),
+    name: PropTypes.string,
+    start_date: PropTypes.string,
+    type: PropTypes.string,
+  }),
+}
+
+ActivityCard.defaultProps = {
+  elapsed_time: 0,
+  languages: ['backend', 'css', 'js'],
+  name: 'Coding Activity',
+  startDate: moment().toISOString(),
+  type: 'Code',
 }

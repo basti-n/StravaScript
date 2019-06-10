@@ -115,6 +115,9 @@ export const createUser = user => {
 }
 
 export const updateUser = (data, id) => {
+  if (!id) {
+    return
+  }
   const options = {
     method: 'PATCH',
     headers: {

@@ -34,7 +34,6 @@ export default function OverviewPage({
         onTimerClick={onTimerClick}
       />
       <ActivityList activities={allActivities} />
-      {isStravaLoading && <p>...Loading</p>}
     </>
   )
 }

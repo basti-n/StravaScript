@@ -5,7 +5,7 @@ import ActivityList from '../components/ActivityList'
 export default function CodingActivitiesPage({ codingActivities }) {
   return (
     <>
-      <ActivitySummary data={codingActivities} activityType="code" />
+      <ActivitySummary activities={codingActivities} activityType="code" />
       <ActivityList activities={codingActivities} />
     </>
   )

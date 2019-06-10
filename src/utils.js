@@ -44,3 +44,17 @@ export function timeStampLastSevenDays() {
 
   return dates.sort((a, b) => (a > b ? 1 : -1))
 }
+
+export function getHoursAndMinutesFromMinutes(minutes) {
+  return minutes < 60
+    ? `${minutes % 60}m`
+    : `${Math.floor(minutes / 60)}h ${minutes % 60}m`
+}
+
+export const DateLastWeek = moment()
+  .subtract(7, 'd')
+  .format()
+
+export const DateTwoWeeksAgo = moment()
+  .subtract(14, 'd')
+  .format()

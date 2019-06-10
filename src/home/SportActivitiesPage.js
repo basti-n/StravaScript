@@ -5,7 +5,7 @@ import ActivityList from '../components/ActivityList'
 export default function SportActivityPage({ stravaActivities }) {
   return (
     <>
-      <ActivitySummary data={stravaActivities} activityType="sport" />
+      <ActivitySummary activities={stravaActivities} activityType="sport" />
       <ActivityList activities={stravaActivities} />
     </>
   )
