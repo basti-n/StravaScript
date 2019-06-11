@@ -17,7 +17,7 @@ moment.locale('de')
 
 const StyledActivitySummary = styled.section`
   display: flex;
-  margin: 0 0 30px;
+  margin: 0 0 40px;
 `
 
 function ActivitySummary({ activities, activityType, theme }) {

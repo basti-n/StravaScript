@@ -1,29 +1,28 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Slider from '@material-ui/lab/Slider'
-import { StyledContainer } from '../components/StyledComponents'
+import { StyledContainer } from './StyledComponents'
 
-export default function SliderGoal({ weeklyGoal, setWeeklyGoal, page }) {
+const StyledSliderHeadline = styled.h5`
+  align-items: center;
+  color: ${props => props.theme.fontColor};
+  display: flex;
+  font-size: 18px;
+  font-weight: 100;
+  justify-content: center;
+  margin-bottom: 35px;
+
+  span {
+    font-weight: 600;
+    padding-left: 5px;
+  }
+`
+
+export default function GoalSlider({ page, setWeeklyGoal, weeklyGoal }) {
   function handleGoalChange(event, value) {
     setWeeklyGoal(weeklyGoal => ({ ...weeklyGoal, [page]: value }))
   }
-
-  const StyledSliderHeadline = styled.h5`
-    align-items: center;
-    color: ${props => props.theme.fontColor};
-    display: flex;
-    font-size: 18px;
-    font-weight: 100;
-    margin-bottom: 35px;
-    justify-content: center;
-    img {
-      padding-right: 8px;
-    }
-    span {
-      font-weight: 600;
-      padding-left: 5px;
-    }
-  `
 
   return (
     <StyledContainer>
@@ -42,4 +41,10 @@ export default function SliderGoal({ weeklyGoal, setWeeklyGoal, page }) {
       />
     </StyledContainer>
   )
+}
+
+GoalSlider.propTypes = {
+  page: PropTypes.string,
+  setWeeklyGoal: PropTypes.func,
+  weeklyGoal: PropTypes.objectOf(PropTypes.number),
 }

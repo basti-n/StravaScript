@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
 /*Add overflow auto if topbar should not be removed after specific scroll position */
-export const Grid = styled.div`
+export const Grid = styled.main`
   display: grid;
-  height: 100vh;
   grid-template-rows: 80px 1fr;
+  height: 100vh;
 `
 
 export const StyledActivityContainer = styled.section`
@@ -16,26 +16,25 @@ export const StyledContainer = styled(StyledActivityContainer)`
 `
 
 export const StyledMainHeadline = styled.h2`
-  margin: 30px 0 15px 0;
-  font-size: 1.15rem;
   color: ${props => props.theme.fontColorHeadline};
+  font-size: 18.5px;
   font-weight: 600;
+  margin: 30px 0 15px;
   text-transform: capitalize;
 
   span {
     color: #b3b3b3;
     font-size: 13px;
     font-weight: normal;
-    display: inline-block;
     margin-left: auto;
     padding-bottom: 2px;
   }
 `
 
 export const StyledHeadlineWithIcon = styled.section`
-  display: flex;
   align-items: center;
-  margin: 34px 0 40px 0;
+  display: flex;
+  margin: 34px 0 40px;
 
   img {
     align-self: center;
@@ -45,32 +44,31 @@ export const StyledHeadlineWithIcon = styled.section`
 `
 
 export const StyledSummaryHeadline = styled.h3`
+  align-items: flex-end;
   color: ${props => props.theme.fontColor};
+  display: flex;
   font-size: 24px;
   margin: 0 0 30px;
-  display: flex;
-  align-items: flex-end;
 
   span {
     color: #b3b3b3;
     font-size: 13px;
     font-weight: normal;
-    display: inline-block;
     margin-left: auto;
     padding-bottom: 3px;
   }
 `
 
 const Button = styled.button`
-  border-radius: 10px;
-  padding: 15px 20px;
-  width: 60vw;
-  outline: none;
   border: none;
+  border-radius: 10px;
+  display: block;
   font-weight: bolder;
   font-size: 15px;
-  display: block;
   margin: 25px auto;
+  outline: none;
+  padding: 15px 20px;
+  width: 60vw;
   @media screen and (min-width: 600px) {
     width: 200px;
   }
@@ -78,14 +76,14 @@ const Button = styled.button`
 
 export const ButtonPrimary = styled(Button)`
   background: ${props => props.theme.fontColorHeadline};
-  color: white;
+  color: ${props => props.theme.lightFont};
 `
 
 export const StyledRegularText = styled.p`
   color: ${props => props.theme.fontColor};
-  letter-spacing: 0.6px;
   font-size: 14px;
   font-weight: lighter;
+  letter-spacing: 0.6px;
   padding: 0 4px;
   text-align: justify;
   span:first-child {

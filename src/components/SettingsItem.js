@@ -25,7 +25,7 @@ const StyledSettingsItem = styled.form`
   }
 `
 
-function SettingsItem({ icon, label, isChecked, setValue, theme }) {
+function SettingsItem({ icon, isChecked, label, setValue, theme }) {
   function handleChange() {
     setValue(!isChecked)
   }
@@ -58,3 +58,11 @@ function SettingsItem({ icon, label, isChecked, setValue, theme }) {
 }
 
 export default withTheme(SettingsItem)
+
+SettingsItem.propTypes = {
+  icon: PropTypes.string,
+  isChecked: PropTypes.bool,
+  label: PropTypes.string,
+  setValue: PropTypes.func,
+  theme: PropTypes.object,
+}
