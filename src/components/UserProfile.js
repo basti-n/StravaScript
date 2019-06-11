@@ -24,7 +24,7 @@ export default function UserProfile({ username, image }) {
   return (
     <StyledUserProfile>
       <p>
-        username: <span>{username || '...loading'}</span>
+        username: <span>{username}</span>
       </p>
       <img
         src={image || '/assets/placeholder_profile.svg'}

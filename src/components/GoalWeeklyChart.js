@@ -1,90 +1,77 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import moment from 'moment'
+import { getDayOfWeek } from '../utils'
 
 const StyledWeeklyChart = styled.section`
-  display: flex;
-  padding: 0 15px;
-  height: 100%;
   align-items: center;
+  display: flex;
+  height: 100%;
   justify-content: space-between;
+  padding: 0 15px;
 `
 
-const StyledDailyChart = styled.div`
-  width: 10px;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  border-radius: 10px;
+const StyledDailyBar = styled.div`
   background: ${props => props.theme.secondaryColor1};
+  border-radius: 10px;
+  display: flex;
+  height: 100px;
+  justify-content: center;
   position: relative;
-
-  > div {
-    border-radius: 10px;
-    background: ${props => props.theme.fontColorHeadline};
-    height: ${props => props.height}%;
-    width: 10px;
-    position: absolute;
-    bottom: 0;
-  }
+  width: 10px;
 
   p {
-    color: ${props => props.theme.fontColor};
-    position: absolute;
     bottom: -15px;
+    color: ${props => props.theme.fontColor};
     font-size: 12px;
     font-weight: lighter;
     margin: 0;
+    position: absolute;
   }
 `
 
-export default function GoalWeeklyChart({ activitiesPerDay, weeklyGoal }) {
-  const dailyGoalInHrs = weeklyGoal / 7
+const StyledDailyBarCompleted = styled.div`
+  background: ${props => props.theme.fontColorHeadline};
+  border-radius: 10px;
+  bottom: 0;
+  height: ${props => props.height}%;
+  position: absolute;
+  width: 10px;
+`
 
-  function getDayOfWeek(daysBackFromToday) {
-    return moment()
-      .subtract(daysBackFromToday, 'day')
-      .format('dddd')
+export default function GoalWeeklyChart({
+  activitiesLastWeekByWeekday,
+  dailyGoal,
+}) {
+  function getAbbreviatedDayOfWeek(daysBackFromToday) {
+    return getDayOfWeek(daysBackFromToday).substr(0, 2)
   }
-
   function getPercentageOfGoalAchieved(daysBackFromToday) {
     const day = getDayOfWeek(daysBackFromToday)
 
-    return activitiesPerDay[day] > dailyGoalInHrs * 1.4
+    return activitiesLastWeekByWeekday[day] > dailyGoal * 1.4
       ? 140
-      : (activitiesPerDay[day] / dailyGoalInHrs) * 100
+      : (activitiesLastWeekByWeekday[day] / dailyGoal) * 100
   }
 
   return (
     <StyledWeeklyChart>
-      <StyledDailyChart height={getPercentageOfGoalAchieved(6)}>
-        <div />
-        <p>{getDayOfWeek(6).substr(0, 2)}</p>
-      </StyledDailyChart>
-      <StyledDailyChart height={getPercentageOfGoalAchieved(5)}>
-        <div />
-        <p>{getDayOfWeek(5).substr(0, 2)}</p>
-      </StyledDailyChart>
-      <StyledDailyChart height={getPercentageOfGoalAchieved(4)}>
-        <div />
-        <p>{getDayOfWeek(4).substr(0, 2)}</p>
-      </StyledDailyChart>
-      <StyledDailyChart height={getPercentageOfGoalAchieved(3)}>
-        <div />
-        <p>{getDayOfWeek(3).substr(0, 2)}</p>
-      </StyledDailyChart>
-      <StyledDailyChart height={getPercentageOfGoalAchieved(2)}>
-        <div />
-        <p>{getDayOfWeek(2).substr(0, 2)}</p>
-      </StyledDailyChart>
-      <StyledDailyChart height={getPercentageOfGoalAchieved(1)}>
-        <div />
-        <p>{getDayOfWeek(1).substr(0, 2)}</p>
-      </StyledDailyChart>
-      <StyledDailyChart height={getPercentageOfGoalAchieved(0)}>
-        <div />
-        <p>{getDayOfWeek(0).substr(0, 2)}</p>
-      </StyledDailyChart>
+      {Object.entries(activitiesLastWeekByWeekday)
+        .map((activityOnWeekday, index) => index)
+        .sort((a, b) => b - a)
+        .map(daysBackFromToday => (
+          <StyledDailyBar key={daysBackFromToday}>
+            <StyledDailyBarCompleted
+              height={getPercentageOfGoalAchieved(daysBackFromToday)}
+            />
+            <p>{getAbbreviatedDayOfWeek(daysBackFromToday)}</p>
+          </StyledDailyBar>
+        ))}
     </StyledWeeklyChart>
   )
+}
+
+GoalWeeklyChart.propTypes = {
+  activitiesLastWeekByWeekday: PropTypes.objectOf(PropTypes.number),
+  dailyGoal: PropTypes.number,
 }

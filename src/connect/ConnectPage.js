@@ -91,7 +91,7 @@ function ConnectPage({
 
   return (
     <>
-      {username === '...loading' && <Loading />}
+      {username === '...loading' && isLoggedIn && <Loading />}
       <StyledContainer>
         {showModal.disconnect && (
           <Modal
@@ -148,8 +148,19 @@ function ConnectPage({
         ) : (
           <>
             <StyledHeadlineWithIcon>
-              <img src={theme.checkboxIcon} alt="checked icon" />
-              <StyledMainHeadline>Strava Account connected</StyledMainHeadline>
+              <img
+                src={theme.checkboxIcon}
+                alt="checked icon"
+                style={{
+                  visibility: username === '...loading' ? 'hidden' : 'visible',
+                }}
+              />
+
+              <StyledMainHeadline>
+                {username === '...loading' && isLoggedIn
+                  ? '...Loading User Information'
+                  : 'Strava Account connected'}
+              </StyledMainHeadline>
             </StyledHeadlineWithIcon>
             <UserProfile username={username} image={image} />
             <StyledRegularText>

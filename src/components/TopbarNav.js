@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import { Link } from '@reach/router'
 import TimerClock from './TimerClock'
 
@@ -35,6 +35,16 @@ const StyledTopbarLink = styled(Link)`
   text-decoration: none;
 `
 
+const TopBarActive = createGlobalStyle`
+  .topbar-active {
+  border-bottom: 3px solid;
+  border-color: ${props => props.theme.borderColorNav};
+  color: white;
+  text-decoration: none;
+  padding-bottom: 5px;
+  font-weight: bold;
+  }`
+
 export default function TopbarNav({
   subPages,
   startTime,
@@ -49,13 +59,13 @@ export default function TopbarNav({
     <StyledTopbar>
       <TimerClock startTime={startTime} />
       <StyledTopbarNav>
+        <TopBarActive />
         <ul>
           {subPages[activePage].name.map((page, index) => (
             <StyledTopbarLink
               to={subPages[activePage].path[index]}
               getProps={isActive}
               key={page}
-              suppressClassNameWarning
               onClick={() => {
                 setActivePage(subPages[activePage].page)
                 window.scroll({ top: 0, left: 0, behavior: 'smooth' })

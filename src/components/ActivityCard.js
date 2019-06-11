@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import CodingLanguagesTags from './CodingLanguagesTags'
+import Tags from './Tags'
 import moment from 'moment'
 import 'moment/locale/de'
 moment.locale('de')
@@ -83,7 +83,7 @@ export default function ActivityCard({ activity }) {
     : `n/a`
   const activityLabel =
     activity.type === 'Code' ? (
-      <CodingLanguagesTags languages={activity.languages} />
+      <Tags languages={activity.languages} />
     ) : (
       <>
         {activitySportInformation}

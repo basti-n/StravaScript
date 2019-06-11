@@ -25,7 +25,7 @@ import { sortActivitiesByDate } from '../utils'
 import TopbarNav from '../components/TopbarNav'
 import HomePage from '../home/HomePage'
 import Toast from '../components/Toast'
-import NavigationBar from '../components/NavigationBar'
+import NavBar from '../components/NavBar'
 import ConnectPage from '../connect/ConnectPage'
 import FaqPage from '../connect/FaqPage'
 import GoalsPage from '../appsettings/GoalsPage'
@@ -348,7 +348,7 @@ function App() {
 
           <FaqPage path="faq" />
         </Router>
-        <NavigationBar
+        <NavBar
           subPages={subPages}
           activePage={activePage}
           setActivePage={setActivePage}

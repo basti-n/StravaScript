@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import {
   StyledMainHeadline,
@@ -6,12 +7,12 @@ import {
   StyledSummaryHeadline,
 } from './StyledComponents'
 import ActivityLineChart from './ActivityLineChart'
-import moment from 'moment'
 import {
   getHoursAndMinutesFromMinutes,
   DateLastWeek,
   DateTwoWeeksAgo,
 } from '../utils'
+import moment from 'moment'
 moment.locale('de')
 
 const StyledActivitySummary = styled.section`
@@ -155,3 +156,9 @@ function ActivitySummary({ activities, activityType, theme }) {
 }
 
 export default withTheme(ActivitySummary)
+
+ActivitySummary.propTypes = {
+  activities: PropTypes.arrayOf(PropTypes.object),
+  activityType: PropTypes.string,
+  theme: PropTypes.object,
+}

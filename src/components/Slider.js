@@ -1,6 +1,6 @@
 import React from 'react'
-import Slider from '@material-ui/lab/Slider'
 import styled from 'styled-components'
+import Slider from '@material-ui/lab/Slider'
 import { StyledContainer } from '../components/StyledComponents'
 
 export default function SliderGoal({ weeklyGoal, setWeeklyGoal, page }) {
@@ -30,6 +30,7 @@ export default function SliderGoal({ weeklyGoal, setWeeklyGoal, page }) {
       <StyledSliderHeadline>
         weekly goal: <span> {weeklyGoal[page]}h</span>
       </StyledSliderHeadline>
+
       <Slider
         style={{ touchAction: 'none' }}
         type="range"

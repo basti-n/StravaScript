@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import PieChart from './PieChart'
 
 const StyledTimeTracker = styled.section`
@@ -32,11 +32,12 @@ const StyledTimerButton = styled.button`
   }
 `
 
-export default function TimeTracker({
+function TimeTracker({
   isTracking,
   onTimerClick,
   codingActivities,
   stravaActivities,
+  theme,
 }) {
   const handleClick = () => {
     onTimerClick()
@@ -98,6 +99,12 @@ export default function TimeTracker({
     ),
   ]
 
+  const backgroundColor = {
+    stravaData: ['#F8F8F8', '#E8E8E8', '#D8D8D8'],
+    codingData: ['#D8D8D8', theme.secondaryColor3, theme.secondaryColor2],
+    totalData: [theme.fontColorHeadline, '#E8E8E8'],
+  }
+
   return (
     <StyledTimeTracker>
       <PieChart
@@ -108,6 +115,7 @@ export default function TimeTracker({
           stravaWorkoutDuration,
         ]}
         totalData={totalDurationPerActivityType}
+        backgroundColor={backgroundColor}
         labels={{
           codingData: ['Backend', 'CSS', 'JS'],
           stravaData: ['Bike', 'Run', 'Workout'],
@@ -124,3 +132,5 @@ export default function TimeTracker({
     </StyledTimeTracker>
   )
 }
+
+export default withTheme(TimeTracker)

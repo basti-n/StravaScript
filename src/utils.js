@@ -58,3 +58,9 @@ export const DateLastWeek = moment()
 export const DateTwoWeeksAgo = moment()
   .subtract(14, 'd')
   .format()
+
+export function getDayOfWeek(daysBackFromToday) {
+  return moment()
+    .subtract(daysBackFromToday, 'day')
+    .format('dddd')
+}

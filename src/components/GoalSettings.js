@@ -1,26 +1,18 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { StyledMainHeadline } from './StyledComponents'
 import Slider from './Slider'
 import GoalWeeklyChart from './GoalWeeklyChart'
+import { formatMinutesToHours } from '../services'
 import moment from 'moment'
 import 'moment/locale/de'
-import { formatMinutesToHours } from '../services'
 moment.locale('de')
 
 const StyledGoalHeadline = styled(StyledMainHeadline)`
   align-items: flex-end;
   display: flex;
   padding: 0 10px;
-
-  span {
-    color: #b3b3b3;
-    display: inline-block;
-    font-size: 0.8rem;
-    font-weight: normal;
-    margin-left: auto;
-    padding-bottom: 3px;
-  }
 `
 
 const Grid = styled.main`
@@ -29,36 +21,34 @@ const Grid = styled.main`
 `
 
 export default function GoalSettings({
+  activitiesLastWeekByWeekday,
   page,
-  weeklyGoal,
   setWeeklyGoal,
-  activitiesPerDay,
+  weeklyGoal,
 }) {
-  const activititesThisWeek = Object.values(activitiesPerDay).reduce(
-    (arr, curr) => arr + curr,
-    0
-  )
-
-  const goalMinutes = weeklyGoal[page] * 60
-  const timeToGoal = goalMinutes - activititesThisWeek
+  const activityMinutesThisWeek = Object.values(
+    activitiesLastWeekByWeekday
+  ).reduce((arr, curr) => arr + curr, 0)
+  const weeklyGoalInMinutes = weeklyGoal[page] * 60
+  const MinutesToGoal = weeklyGoalInMinutes - activityMinutesThisWeek
+  const goalStatus =
+    activityMinutesThisWeek >= weeklyGoalInMinutes
+      ? `Congratulations! Goal Achieved`
+      : `${
+          MinutesToGoal < 120
+            ? `${MinutesToGoal} min`
+            : `${formatMinutesToHours(MinutesToGoal)} hours`
+        }  left to reach your goal`
 
   return (
     <Grid>
       <StyledGoalHeadline>
-        {page}{' '}
-        <span>
-          {activititesThisWeek >= goalMinutes
-            ? `Congratulations! Goal Achieved`
-            : `${
-                timeToGoal < 120
-                  ? `${timeToGoal} min`
-                  : `${formatMinutesToHours(timeToGoal)} hours`
-              }  left to reach your goal`}
-        </span>
+        {page}
+        <span>{goalStatus}</span>
       </StyledGoalHeadline>
       <GoalWeeklyChart
-        weeklyGoal={goalMinutes}
-        activitiesPerDay={activitiesPerDay}
+        dailyGoal={weeklyGoalInMinutes / 7}
+        activitiesLastWeekByWeekday={activitiesLastWeekByWeekday}
       />
       <Slider
         weeklyGoal={weeklyGoal}
@@ -67,4 +57,11 @@ export default function GoalSettings({
       />
     </Grid>
   )
+}
+
+GoalSettings.propTypes = {
+  activitiesLastWeekByWeekday: PropTypes.objectOf(PropTypes.number),
+  page: PropTypes.string,
+  setWeeklyGoal: PropTypes.func,
+  weeklyGoal: PropTypes.objectOf(PropTypes.number),
 }

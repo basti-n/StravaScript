@@ -31,22 +31,8 @@ body {
     height: 667px;
     }
   }
-
-
-  .nav-active {
-    transition: all 0.7s ease-in;
-    transform: rotateY(360deg);
-  }
-
-  .topbar-active {
-  border-bottom: 3px solid;
-  border-color: ${props => props.theme.borderColorNav};
-  color: white;
-  text-decoration: none;
-  padding-bottom: 5px;
-  font-weight: bold;
-  }
-  
+ 
+/* Styling for Slider */
   .MuiSlider-track {
     background: ${props => props.theme.fontColorHeadline};
     border-radius: 10px;
@@ -57,21 +43,20 @@ body {
   .MuiSlider-thumb {
     background: 1px solid;
     background-color: ${props => props.theme.background};
-    background-image: url('/assets/goal-small.svg');
+    background-image: url('/assets/goal-small.svg') ;
     border: 1px solid ${props => props.theme.secondaryColor1};
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     width: 30px;
-    height: 30px;
-  }
+    height: 30px;}
 
+/* Styling for Toast Notification */
   .Toastify {
     @media(min-width: 600px) {
       position: absolute;
       > * {
         position: relative;
-
       }
-      }
+    }
   }
 
 }`

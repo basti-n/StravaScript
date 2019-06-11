@@ -28,7 +28,7 @@ export default function GoalsPage({
 
       <GoalSettings
         page={activeGoalPage}
-        activitiesPerDay={
+        activitiesLastWeekByWeekday={
           activeGoalPage === 'coding'
             ? codingActivitiesByWeekDay
             : stravaActivitiesByWeekDay

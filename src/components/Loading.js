@@ -1,28 +1,32 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const StyledLoading = styled.div`
+const StyledLoadingContainer = styled.div`
+  height: 6px;
   position: absolute;
   top: 80px;
   width: 100%;
-  height: 6px;
 
-  > div {
-    position: absolute;
-    width: 0;
-    height: 100%;
-    left: 50%;
+  @media (min-width: 600px) {
+    width: 375px;
   }
+`
 
-  div:nth-of-type(1) {
+const StyledLoader = styled.div`
+  height: 100%;
+  left: 50%;
+  position: absolute;
+  width: 0;
+
+  :nth-of-type(1) {
     animation: loading 3s linear infinite;
     background: ${props => props.theme.secondaryColor1};
   }
-  div:nth-of-type(2) {
+  :nth-of-type(2) {
     animation: loading 3s linear 1s infinite;
     background: ${props => props.theme.secondaryColor2};
   }
-  div:nth-of-type(3) {
+  :nth-of-type(3) {
     animation: loading 3s linear 2s infinite;
     background-color: ${props => props.theme.secondaryColor3};
   }
@@ -46,10 +50,10 @@ const StyledLoading = styled.div`
 
 export default function Loading() {
   return (
-    <StyledLoading>
-      <div />
-      <div />
-      <div />
-    </StyledLoading>
+    <StyledLoadingContainer>
+      <StyledLoader />
+      <StyledLoader />
+      <StyledLoader />
+    </StyledLoadingContainer>
   )
 }

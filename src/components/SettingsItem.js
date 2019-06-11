@@ -1,9 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Switch from '@material-ui/core/Switch'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import { withStyles } from '@material-ui/core/styles'
 
-const StyledSettingsForm = styled.form`
+const StyledSettingsItem = styled.form`
   display: flex;
   font-size: 15px;
   margin: 18px 0;
@@ -24,19 +25,19 @@ const StyledSettingsForm = styled.form`
   }
 `
 
-export default function SettingsItem({ icon, label, isChecked, setValue }) {
+function SettingsItem({ icon, label, isChecked, setValue, theme }) {
   function handleChange() {
     setValue(!isChecked)
   }
 
-  const SettingsSwitch = withStyles({
+  const SettingsToggle = withStyles({
     switchBase: {
-      color: 'var(--light-font)',
+      color: theme.lightFont,
       '&$checked': {
-        color: 'var(--highlight-color)',
+        color: theme.fontColorHeadline,
       },
       '&$checked + $track': {
-        backgroundColor: 'var(--highlight-color)',
+        backgroundColor: theme.fontColorHeadline,
       },
     },
     track: {
@@ -46,16 +47,14 @@ export default function SettingsItem({ icon, label, isChecked, setValue }) {
   })(Switch)
 
   return (
-    <StyledSettingsForm>
+    <StyledSettingsItem>
       <label>
         <img src={icon} alt="settings icon" />
         {label}
-        <SettingsSwitch
-          value={isChecked}
-          checked={isChecked}
-          onChange={handleChange}
-        />
+        <SettingsToggle checked={isChecked} onChange={handleChange} />
       </label>
-    </StyledSettingsForm>
+    </StyledSettingsItem>
   )
 }
+
+export default withTheme(SettingsItem)

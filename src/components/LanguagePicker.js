@@ -1,42 +1,43 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const StyledLanguagePickerContainer = styled.section`
+  align-items: center;
   display: flex;
-  padding: 5px;
-  justify-content: space-between;
   flex-wrap: none;
+  justify-content: space-between;
+  padding: 5px;
 `
 
 const StyledLanguagePicker = styled.div`
-  align-self: center;
+  align-items: center;
   background: ${props =>
     props.active
       ? props.language === 'backend'
-        ? '#D8D8D8'
+        ? props.theme.fontColorGrey
         : props.language === 'css'
         ? props.theme.secondaryColor3
         : props.theme.secondaryColor2
       : props.theme.secondaryColor1};
+  border-radius: 6px;
   color: ${props =>
     props.active
       ? props.language === 'backend'
-        ? '#000000;'
-        : '#FFFFFF;'
-      : '#000000'};
-  height: 36px;
-  width: 30%;
+        ? props.theme.darkFont
+        : props.theme.lightFont
+      : props.theme.darkFont};
+  display: flex;
   font-size: ${props => (props.active ? '14px' : '12px')};
   font-weight: ${props => (props.active ? 'bold' : 'light')};
-  display: flex;
+  height: 36px;
   justify-content: center;
-  align-items: center;
-  border-radius: 6px;
   position: relative;
+  width: 30%;
   img {
     position: absolute;
-    top: -8px;
     right: -3px;
+    top: -8px;
   }
 `
 
@@ -58,7 +59,7 @@ export default function LanguagePicker({
   return (
     <StyledLanguagePickerContainer selectedLanguages={selectedLanguages}>
       {availableLanguages.map(language => {
-        let active = selectedLanguages.includes(language)
+        const active = selectedLanguages.includes(language)
         return (
           <StyledLanguagePicker
             key={language}
@@ -75,4 +76,10 @@ export default function LanguagePicker({
       })}
     </StyledLanguagePickerContainer>
   )
+}
+
+StyledLanguagePicker.propTypes = {
+  availableLanguages: PropTypes.arrayOf(PropTypes.string),
+  selectedLanguages: PropTypes.arrayOf(PropTypes.string),
+  setSelectedLanguages: PropTypes.func,
 }

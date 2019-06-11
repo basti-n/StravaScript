@@ -8,7 +8,6 @@ export default function OverviewPage({
   stravaActivities,
   isTracking,
   onTimerClick,
-  isStravaLoading,
   onTrackingCompleted,
   showModal,
 }) {

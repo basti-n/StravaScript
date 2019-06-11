@@ -21,6 +21,15 @@ export const StyledMainHeadline = styled.h2`
   color: ${props => props.theme.fontColorHeadline};
   font-weight: 600;
   text-transform: capitalize;
+
+  span {
+    color: #b3b3b3;
+    font-size: 13px;
+    font-weight: normal;
+    display: inline-block;
+    margin-left: auto;
+    padding-bottom: 2px;
+  }
 `
 
 export const StyledHeadlineWithIcon = styled.section`
@@ -44,7 +53,7 @@ export const StyledSummaryHeadline = styled.h3`
 
   span {
     color: #b3b3b3;
-    font-size: 0.8rem;
+    font-size: 13px;
     font-weight: normal;
     display: inline-block;
     margin-left: auto;

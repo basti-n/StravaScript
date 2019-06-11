@@ -1,26 +1,27 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { StyledRegularText } from './StyledComponents'
 
 const ModalBackground = styled.section`
-  position: fixed;
-  top: 0;
+  background: ${props => props.theme.modalBackground};
   bottom: 0;
   left: 0;
+  position: fixed;
   right: 0;
-  background: rgba(0, 0, 0, 0.5);
+  top: 0;
   z-index: 3;
 `
 
-const StyledModalDialog = styled.section`
-  position: fixed;
-  margin: 25vh 10vw;
+const StyledModal = styled.section`
   background: ${props => props.theme.background};
-  width: 80vw;
-  height: 20px;
+  border-radius: 12px;
   display: grid;
   grid-template-rows: 80px 1fr;
-  border-radius: 12px;
+  height: 20px;
+  margin: 25vh 10vw;
+  position: fixed;
+  width: 80vw;
 
   @media (min-width: 600px) {
     margin: 100px auto;
@@ -52,16 +53,16 @@ const StyledModalDialog = styled.section`
 `
 
 const StyledModalHeader = styled.header`
-  background: ${props => props.theme.fontColorHeadline};
-  width: 100%;
-  display: flex;
   align-items: center;
-  color: #ffffff;
-  position: relative;
+  background: ${props => props.theme.fontColorHeadline};
   border-radius: 10px 10px 0 0;
+  color: ${props => props.theme.lightFont};
+  display: flex;
+  position: relative;
+  width: 100%;
   h2 {
-    margin: 0;
     font-size: 22px;
+    margin: 0;
   }
   img {
     margin: 0 15px 0 25px;
@@ -75,10 +76,10 @@ const StyledModalBody = styled.main`
   padding: 10px 15px;
 `
 
-export default function Modal({ title, text, icon, duration }) {
+export default function Modal({ duration, icon, text, title }) {
   return (
     <ModalBackground>
-      <StyledModalDialog duration={duration}>
+      <StyledModal duration={duration}>
         <StyledModalHeader>
           {icon && <img src={icon} alt={`${title} icon`} />}
           <h2>{title}</h2>
@@ -86,7 +87,18 @@ export default function Modal({ title, text, icon, duration }) {
         <StyledModalBody>
           <StyledRegularText>{text}</StyledRegularText>
         </StyledModalBody>
-      </StyledModalDialog>
+      </StyledModal>
     </ModalBackground>
   )
+}
+
+Modal.propTypes = {
+  duration: PropTypes.number,
+  icon: PropTypes.string,
+  text: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+}
+
+Modal.defaultProps = {
+  duration: 3,
 }

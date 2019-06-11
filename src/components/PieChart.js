@@ -1,33 +1,39 @@
 import React, { useState } from 'react'
-import { Doughnut } from 'react-chartjs-2'
-import { defaults } from 'react-chartjs-2'
+import PropTypes from 'prop-types'
+import { Doughnut, defaults } from 'react-chartjs-2'
 import 'chartjs-plugin-labels'
 import styled, { withTheme } from 'styled-components'
 import { hexToRgb } from '../utils'
 
-defaults.global.defaultFontFamily =
-  '-apple-system, BlinkMacSystemFont, sans-serif;'
+defaults.global.defaultFontFamily = 'Libre Franklin, sans-serif;'
 
-const StyledDonutContainer = styled.section`
+const StyledPieChart = styled.section`
   display: flex;
   justify-content: center;
 `
 
 const StyledTag = styled.img`
-  width: 100px;
   position: absolute;
+  top: 53px;
+  width: 100px;
 `
 const StyledTagOpen = styled(StyledTag)`
   left: 5px;
-  top: 53px;
 `
 const StyledTagClose = styled(StyledTag)`
   right: 5px;
-  top: 53px;
 `
 
-function PieChart({ codingData, stravaData, labels, totalData, theme }) {
+function PieChart({
+  backgroundColor,
+  codingData,
+  labels,
+  stravaData,
+  theme,
+  totalData,
+}) {
   const [activeFilter, setActiveFilter] = useState('totalData')
+
   function getLabel(activeFilter) {
     return activeFilter === 'stravaData'
       ? labels.stravaData
@@ -45,11 +51,7 @@ function PieChart({ codingData, stravaData, labels, totalData, theme }) {
   }
 
   function getBgColor(activeFilter) {
-    return activeFilter === 'stravaData'
-      ? ['#F8F8F8', '#E8E8E8', '#D8D8D8']
-      : activeFilter === 'codingData'
-      ? ['#D8D8D8', theme.secondaryColor3, theme.secondaryColor2]
-      : [theme.fontColorHeadline, '#E8E8E8']
+    return backgroundColor[activeFilter]
   }
 
   const options = {
@@ -69,7 +71,7 @@ function PieChart({ codingData, stravaData, labels, totalData, theme }) {
           var rgb = hexToRgb(pie.dataset.backgroundColor[pie.index])
           var threshold = 140
           var luminance = 0 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b
-          return luminance > threshold ? '#000000' : '#FFFFFF'
+          return luminance > threshold ? theme.darkFont : theme.lightFont
         },
         fontSize: '12',
         fontStyle: 'bold',
@@ -85,7 +87,7 @@ function PieChart({ codingData, stravaData, labels, totalData, theme }) {
     },
   }
 
-  const view = {
+  const data = {
     labels: getLabel(activeFilter),
     datasets: [
       {
@@ -97,32 +99,51 @@ function PieChart({ codingData, stravaData, labels, totalData, theme }) {
 
   function handleFilterChange(direction) {
     setActiveFilter(prevState => {
-      if (prevState === 'codingData') {
-        return direction === 'right' ? 'stravaData' : 'totalData'
-      }
-      if (prevState === 'stravaData') {
-        return direction === 'right' ? 'totalData' : 'codingData'
-      } else {
-        return direction === 'right' ? 'codingData' : 'stravaData'
+      const filters = Object.keys(labels)
+      const index = filters.indexOf(prevState)
+      switch (direction) {
+        case 'right':
+          return index < filters.length - 1 ? filters[index + 1] : filters[0]
+        case 'left':
+          return index < 1 ? filters[filters.length - 1] : filters[index - 1]
+        default:
+          return filters[index]
       }
     })
   }
 
   return (
-    <StyledDonutContainer>
+    <StyledPieChart>
       <StyledTagOpen
         src="/assets/openTag.svg"
         alt="html tag open"
         onClick={() => handleFilterChange('left')}
       />
-      <Doughnut data={view} options={options} />
+      <Doughnut data={data} options={options} />
       <StyledTagClose
         src="/assets/closeTag.svg"
         alt="html tag close"
         onClick={() => handleFilterChange('right')}
       />
-    </StyledDonutContainer>
+    </StyledPieChart>
   )
 }
 
 export default withTheme(PieChart)
+
+PieChart.propTypes = {
+  backgroundColor: PropTypes.shape({
+    stravaData: PropTypes.arrayOf(PropTypes.string),
+    codingData: PropTypes.arrayOf(PropTypes.string),
+    totalData: PropTypes.arrayOf(PropTypes.string),
+  }),
+  codingData: PropTypes.arrayOf(PropTypes.number),
+  labels: PropTypes.shape({
+    stravaData: PropTypes.arrayOf(PropTypes.string),
+    codingData: PropTypes.arrayOf(PropTypes.string),
+    totalData: PropTypes.arrayOf(PropTypes.string),
+  }),
+  stravaData: PropTypes.arrayOf(PropTypes.number),
+  theme: PropTypes.object,
+  totalData: PropTypes.arrayOf(PropTypes.number),
+}
