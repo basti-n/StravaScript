@@ -4,8 +4,13 @@ import styled, { withTheme } from 'styled-components'
 import PieChart from './PieChart'
 import { getTypeOf } from '../utils'
 
-const StyledTimerButtonContainer = styled.section`
-  padding: 10px 0;
+const StyledTimerChartContainer = styled.section`
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  padding: 25px 0 10px;
+  position: relative;
 `
 
 const StyledTimerButton = styled.button`
@@ -14,16 +19,12 @@ const StyledTimerButton = styled.button`
   border-radius: 50%;
   color: ${props => props.theme.lightFont};
   height: 36.8vw;
-  left: 50%;
-  margin-left: calc(-36.8vw / 2);
   outline: none;
   position: absolute;
-  top: 34px;
   width: 36.8vw;
   @media (min-width: 600px) {
-    height: 138px;
-    width: 138px;
-    margin: 0 -69px;
+    height: 135px;
+    width: 135px;
   }
   img {
     height: 40px;
@@ -32,7 +33,7 @@ const StyledTimerButton = styled.button`
   }
 `
 
-function TimerButton({
+function TimerChart({
   codingActivities,
   handleTimerClick,
   isTracking,
@@ -118,7 +119,7 @@ function TimerButton({
   }
 
   return (
-    <StyledTimerButtonContainer>
+    <StyledTimerChartContainer>
       <PieChart
         codingData={[backendDuration, cssDuration, jsDuration]}
         stravaData={[
@@ -141,13 +142,13 @@ function TimerButton({
         />
         <p>{isTracking ? 'Stop' : 'Start'}</p>
       </StyledTimerButton>
-    </StyledTimerButtonContainer>
+    </StyledTimerChartContainer>
   )
 }
 
-export default withTheme(TimerButton)
+export default withTheme(TimerChart)
 
-TimerButton.propTypes = {
+TimerChart.propTypes = {
   codingActivities: PropTypes.arrayOf(
     PropTypes.shape({
       duration: PropTypes.number,

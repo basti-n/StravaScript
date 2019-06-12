@@ -8,13 +8,15 @@ import { hexToRgb } from '../utils'
 defaults.global.defaultFontFamily = 'Libre Franklin, sans-serif;'
 
 const StyledPieChart = styled.section`
+  align-items: center;
   display: flex;
+  height: auto;
   justify-content: center;
+  width: 100%;
 `
 
 const StyledTag = styled.img`
   position: absolute;
-  top: 53px;
   width: 100px;
 `
 const StyledTagOpen = styled(StyledTag)`

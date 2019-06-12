@@ -321,6 +321,7 @@ function App() {
         <Router primary={false}>
           <HomePage
             path="/*"
+            availableLanguages={['backend', 'js', 'css']}
             codingActivities={sortActivitiesByDate(codingActivities)}
             stravaActivities={sortActivitiesByDate(stravaActivities)}
             isTracking={isTracking}

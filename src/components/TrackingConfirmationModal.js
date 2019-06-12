@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { StyledRegularText } from './StyledComponents'
 import LanguagePicker from './LanguagePicker'
@@ -67,11 +68,13 @@ const StyledModalButton = styled.button`
   text-align: center;
 `
 
-export default function TrackingConfirmationModal({ onTrackingCompleted }) {
-  const availableLanguages = ['backend', 'js', 'css']
+export default function TrackingConfirmationModal({
+  availableLanguages,
+  onTrackingCompleted,
+}) {
   const [selectedLanguages, setSelectedLanguages] = useState([])
 
-  function onLanguageSelection() {
+  function onLanguageSelect() {
     selectedLanguages.length &&
       onTrackingCompleted(
         selectedLanguages.sort(
@@ -100,11 +103,16 @@ export default function TrackingConfirmationModal({ onTrackingCompleted }) {
         </StyledModalBody>
         <StyledModalButton
           active={selectedLanguages.length}
-          onClick={onLanguageSelection}
+          onClick={onLanguageSelect}
         >
           Save
         </StyledModalButton>
       </StyledModalDialog>
     </StyledModalBackdrop>
   )
+}
+
+TrackingConfirmationModal.propTypes = {
+  availableLanguages: PropTypes.arrayOf(PropTypes.string),
+  onTrackingCompleted: PropTypes.func,
 }

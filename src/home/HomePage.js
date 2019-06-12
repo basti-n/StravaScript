@@ -12,6 +12,7 @@ const HomepageLayout = styled.main`
 `
 
 export default function HomePage({
+  availableLanguages,
   codingActivities,
   stravaActivities,
   handleTimerClick,
@@ -25,6 +26,7 @@ export default function HomePage({
       <Router primary={false}>
         <OverviewPage
           path="/"
+          availableLanguages={availableLanguages}
           codingActivities={codingActivities}
           stravaActivities={stravaActivities}
           isTracking={isTracking}
