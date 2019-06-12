@@ -22,7 +22,7 @@ import {
 } from '../services'
 import { sortActivitiesByDate } from '../utils'
 
-import TopbarNav from '../components/TopbarNav'
+import NavBarTop from '../components/NavBarTop'
 import HomePage from '../home/HomePage'
 import Toast from '../components/Toast'
 import NavBar from '../components/NavBar'
@@ -35,7 +35,7 @@ import getTheme from '../theme'
 import GlobalStyles from '../components/GlobalStyles'
 import { Grid } from '../components/StyledComponents'
 
-const subPages = {
+const pages = {
   home: {
     page: 'home',
     name: ['View All', 'Coding', 'Sports'],
@@ -93,6 +93,7 @@ function App() {
     }
   )
 
+  const [mailPending, setMailPending] = useState(false)
   const [showModal, setShowModal] = useState(false)
 
   const [startTime, setStartTime] = useState(
@@ -124,6 +125,10 @@ function App() {
     })
   }
 
+  function handleTimerClick() {
+    setIsTracking(prevState => !prevState)
+  }
+
   function handleTrackingCompleted(languages) {
     const completedCodingActivity = {
       name: 'Coding Activity',
@@ -142,6 +147,7 @@ function App() {
   }
 
   function handleFeedbackSubmit(feedbackText) {
+    setMailPending(true)
     const options = {
       method: 'POST',
       headers: {
@@ -152,6 +158,7 @@ function App() {
     fetch('/feedback', options)
       .then(data => {
         if (data.status === 200) {
+          setMailPending(false)
           setShowModal(true)
           setTimeout(() => {
             setShowModal(false)
@@ -181,7 +188,12 @@ function App() {
       .catch(error => console.log(error.message))
   }
 
-  function setTimeGoalReminderLastSeen(time) {
+  function handlePageChange(targetPage) {
+    setActivePage(targetPage)
+    window.scroll({ top: 0, left: 0, behavior: 'smooth' })
+  }
+
+  function setGoalReminderLastSeen(time) {
     setSettings(prevState => ({
       ...prevState,
       goalReminderLastSeen: time,
@@ -291,16 +303,18 @@ function App() {
     <ThemeProvider theme={theme}>
       <Grid>
         <GlobalStyles />
-        <TopbarNav
-          subPages={subPages}
-          startTime={startTime}
+        <NavBarTop
           activePage={activePage}
-          setActivePage={setActivePage}
+          handlePageChange={handlePageChange}
+          pages={pages}
+          startTime={startTime}
         />
         {showGoalReminder(30, settings) && (
           <Toast
-            timeLeftDailyGoal={timeLeftToDailyCodingGoal}
-            setTimeGoalReminderLastSeen={setTimeGoalReminderLastSeen}
+            duration={5}
+            setGoalReminderLastSeen={setGoalReminderLastSeen}
+            timeLeftToDailyCodingGoal={timeLeftToDailyCodingGoal}
+            type="goal"
           />
         )}
 
@@ -310,7 +324,7 @@ function App() {
             codingActivities={sortActivitiesByDate(codingActivities)}
             stravaActivities={sortActivitiesByDate(stravaActivities)}
             isTracking={isTracking}
-            onTimerClick={() => setIsTracking(prevState => !prevState)}
+            handleTimerClick={handleTimerClick}
             isStravaLoading={isStravaLoading}
             showModal={(!isTracking && startTime) > 0}
             onTrackingCompleted={handleTrackingCompleted}
@@ -320,6 +334,7 @@ function App() {
             path="settings"
             settings={settings}
             setSettings={setSettings}
+            mailPending={mailPending}
             modalDuration={3}
             showModal={showModal}
             handleFeedbackSubmit={handleFeedbackSubmit}
@@ -349,9 +364,9 @@ function App() {
           <FaqPage path="faq" />
         </Router>
         <NavBar
-          subPages={subPages}
+          pages={pages}
           activePage={activePage}
-          setActivePage={setActivePage}
+          handlePageChange={handlePageChange}
         />
       </Grid>
     </ThemeProvider>

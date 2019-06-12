@@ -206,7 +206,15 @@ export const getFromLocalStorage = name => {
 
 //convert tracked time to minutes and seconds
 export const formatToMinutesAndSeconds = seconds => {
-  return moment(seconds * 1000).format('mm:ss')
+  return moment(seconds * 1000)
+    .utc()
+    .format('mm:ss')
+}
+
+export const formatToHoursAndMinutes = seconds => {
+  return moment(seconds * 1000)
+    .utc()
+    .format('h:mm:ss')
 }
 
 export const formatMinutesToHours = minutes => {

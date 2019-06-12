@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import ToggleSwitch from '../components/ToggleSwitch'
+import PageToggle from '../components/PageToggle'
 import GoalSettings from '../components/GoalSettings'
 import { StyledContainer } from '../components/StyledComponents'
 
@@ -20,7 +20,7 @@ export default function GoalsPage({
 
   return (
     <StyledContainerGoalsPage>
-      <ToggleSwitch
+      <PageToggle
         pages={goalPages}
         activePage={activeGoalPage}
         setActivePage={setActiveGoalPage}

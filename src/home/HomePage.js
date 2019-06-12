@@ -14,8 +14,8 @@ const HomepageLayout = styled.main`
 export default function HomePage({
   codingActivities,
   stravaActivities,
+  handleTimerClick,
   isTracking,
-  onTimerClick,
   isStravaLoading,
   onTrackingCompleted,
   showModal,
@@ -28,7 +28,7 @@ export default function HomePage({
           codingActivities={codingActivities}
           stravaActivities={stravaActivities}
           isTracking={isTracking}
-          onTimerClick={onTimerClick}
+          handleTimerClick={handleTimerClick}
           isStravaLoading={isStravaLoading}
           onTrackingCompleted={onTrackingCompleted}
           showModal={showModal}

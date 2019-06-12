@@ -1,13 +1,13 @@
 import React from 'react'
-import TimeTracker from '../components/TimeTracker'
+import TimerButton from '../components/TimerButton'
 import ActivityList from '../components/ActivityList'
 import TrackingConfirmationModal from '../components/TrackingConfirmationModal'
 
 export default function OverviewPage({
   codingActivities,
   stravaActivities,
+  handleTimerClick,
   isTracking,
-  onTimerClick,
   onTrackingCompleted,
   showModal,
 }) {
@@ -20,7 +20,7 @@ export default function OverviewPage({
         <TrackingConfirmationModal onTrackingCompleted={onTrackingCompleted} />
       )}
 
-      <TimeTracker
+      <TimerButton
         codingActivities={codingActivities.map(activity => ({
           duration: activity.elapsed_time,
           languages: activity.languages,
@@ -30,7 +30,7 @@ export default function OverviewPage({
           type: activity.type,
         }))}
         isTracking={isTracking}
-        onTimerClick={onTimerClick}
+        handleTimerClick={handleTimerClick}
       />
       <ActivityList activities={allActivities} />
     </>

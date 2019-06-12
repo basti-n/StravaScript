@@ -1,16 +1,17 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const StyledToggleSwitch = styled.ul`
+const StyledPageToggle = styled.ul`
+  border-bottom: 1px solid;
+  border-color: ${props => props.theme.toggleBorder};
+  display: grid;
+  font-size: 15px;
+  grid-auto-rows: 35px;
+  grid-template-columns: 1fr 1fr;
   list-style: none;
   margin: 30px 20px;
   padding: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: 35px;
-  border-bottom: 1px solid;
-  border-color: ${props => props.theme.toggleBorder};
-  font-size: 15px;
 `
 
 const StyledToggle = styled.li`
@@ -18,7 +19,8 @@ const StyledToggle = styled.li`
   background: ${props =>
     props.active ? props.theme.fontColorHeadline : 'transparent'};
   border-radius: ${props => (props.active ? '5px' : '0')};
-  color: ${props => (props.active ? '#FFFFFF' : '#D8D8D8')};
+  color: ${props =>
+    props.active ? props.theme.lightFont : props.theme.toggleBorder};
   cursor: pointer;
   display: flex;
   font-weight: ${props => (props.active ? 'bold' : 'normal')};
@@ -29,18 +31,24 @@ const StyledToggle = styled.li`
   transition: all 0.3s ease-in-out;
 `
 
-export default function ToggleSwitch({ pages, activePage, setActivePage }) {
+export default function PageToggle({ activePage, pages, setActivePage }) {
   return (
-    <StyledToggleSwitch>
+    <StyledPageToggle>
       {pages.map(page => (
         <StyledToggle
-          key={page}
           active={activePage === page}
+          key={page}
           onClick={() => setActivePage(page)}
         >
           {page}
         </StyledToggle>
       ))}
-    </StyledToggleSwitch>
+    </StyledPageToggle>
   )
+}
+
+PageToggle.propTypes = {
+  activePage: PropTypes.string,
+  pages: PropTypes.arrayOf(PropTypes.string),
+  setActivePage: PropTypes.func,
 }

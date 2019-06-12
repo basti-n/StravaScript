@@ -18,6 +18,13 @@ export function hexToRgb(hex) {
     : null
 }
 
+export function getTypeOf(value) {
+  return Object.prototype.toString
+    .call(value)
+    .slice(8, -1)
+    .toLowerCase()
+}
+
 export function sortActivitiesByDate(activities) {
   try {
     return activities.sort((a, b) => (b.start_date > a.start_date ? 1 : -1))

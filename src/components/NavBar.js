@@ -15,7 +15,7 @@ const StyledNavBar = styled.nav`
 
 const StyledNavItem = styled.ul`
   align-items: center;
-  color: var(--light-font);
+  color: ${props => props.theme.lightFont};
   display: flex;
   justify-content: space-around;
   margin: 0;
@@ -28,7 +28,7 @@ const StyledNavItem = styled.ul`
 `
 
 const StyledNavLink = styled(Link)`
-  color: var(--light-font);
+  color: ${props => props.theme.lightFont};
 `
 
 const NavLinkActive = createGlobalStyle`
@@ -38,35 +38,30 @@ const NavLinkActive = createGlobalStyle`
   }
 `
 
-function NavBar({ activePage, setActivePage, subPages, theme }) {
-  const pages = Object.keys(subPages)
+function NavBar({ activePage, handlePageChange, pages, theme }) {
+  const pageNames = Object.keys(pages)
 
   const isActive = ({ isCurrent }) => {
     return isCurrent ? { className: 'nav-active' } : null
   }
 
   function getPageName(page) {
-    return subPages[page].page
+    return pages[page].page
   }
 
   function getNavIcon(page) {
     return theme.navIcons[page]
   }
 
-  function handleClick(page) {
-    window.scroll({ top: 0, left: 0, behavior: 'smooth' })
-    setActivePage(getPageName(page))
-  }
-
   return (
     <StyledNavBar>
       <NavLinkActive />
       <StyledNavItem>
-        {pages.map(page => (
+        {pageNames.map(page => (
           <StyledNavLink
             getProps={isActive}
             key={page}
-            onClick={() => handleClick(page)}
+            onClick={() => handlePageChange(getPageName(page))}
             to={page === 'home' ? `/` : `/${page}`}
           >
             <img
@@ -89,7 +84,7 @@ export default withTheme(NavBar)
 NavBar.propTypes = {
   activePage: PropTypes.string,
   setActivePage: PropTypes.func,
-  subPages: PropTypes.objectOf(
+  pages: PropTypes.objectOf(
     PropTypes.shape({
       name: PropTypes.arrayOf(PropTypes.string),
       page: PropTypes.string,

@@ -68,7 +68,7 @@ export default function getTheme(darkMode) {
       secondaryColor1: 'rgba(216, 216, 214, 0.44)',
       secondaryColor2: '#FDE100',
       secondaryColor3: '#0072C2',
-      toggleBorder: '#D8D8D8',
+      toggleBorder: '#B3B3B3',
       red: '#DF4D60',
       rideColor: '#62A881',
       runColor: '#2E8B57',

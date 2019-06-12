@@ -4,13 +4,12 @@ import { StyledRegularText } from './StyledComponents'
 import LanguagePicker from './LanguagePicker'
 
 const StyledModalBackdrop = styled.div`
-  position: fixed;
-  top: 0;
+  background: ${props => props.theme.modalBackground};
   bottom: 0;
+  position: fixed;
   left: 0;
   right: 0;
-  background: ${props => props.theme.modalBackground};
-  padding: 50;
+  top: 0;
   z-index: 3;
 `
 
@@ -33,14 +32,12 @@ const StyledModalDialog = styled.section`
 const StyledModalHeader = styled.header`
   background: ${props => props.theme.fontColorHeadline};
   border-radius: 10px 10px 0 0;
+  display: flex;
+  justify-content: center;
   position: relative;
   img {
     position: absolute;
-    left: 16vw;
     top: -70px;
-    @media (min-width: 600px) {
-      left: 60px;
-    }
   }
 `
 
@@ -51,23 +48,22 @@ const StyledModalBody = styled.main`
   padding: 10px 15px;
   h2 {
     color: ${props => props.theme.fontColorHeadline};
+    font-size: 28px;
     margin-top: 10px;
     text-align: center;
-    font-size: 28px;
   }
 `
+
 const StyledModalButton = styled.button`
   background: ${props =>
-    props.active ? props.theme.fontColorHeadline : 'grey'};
-  color: #ffffff;
-  font-weight: bolder;
+    props.active ? props.theme.fontColorHeadline : '#808080'};
   border: none;
   border-radius: 0 0 10px 10px;
-  padding: 0;
+  color: ${props => props.theme.lightFont};
+  font-weight: bolder;
   font-size: 18px;
   outline: none;
-  height: 100%;
-  width: 100%;
+  padding: 0;
   text-align: center;
 `
 
