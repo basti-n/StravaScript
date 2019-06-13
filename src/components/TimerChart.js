@@ -34,10 +34,10 @@ const StyledTimerButton = styled.button`
 `
 
 function TimerChart({
-  codingActivities,
+  codingActivitiesDurationAndType,
   handleTimerClick,
   isTracking,
-  stravaActivities,
+  stravaActivitiesDurationAndType,
   theme,
 }) {
   function getTotalDurationInSecondsByActivityType(
@@ -65,40 +65,40 @@ function TimerChart({
   }
 
   const cssDuration = getTotalDurationInSecondsByActivityType(
-    codingActivities,
+    codingActivitiesDurationAndType,
     'css',
     'languages'
   )
   const jsDuration = getTotalDurationInSecondsByActivityType(
-    codingActivities,
+    codingActivitiesDurationAndType,
     'js',
     'languages'
   )
   const backendDuration = getTotalDurationInSecondsByActivityType(
-    codingActivities,
+    codingActivitiesDurationAndType,
     'backend',
     'languages'
   )
 
   const stravaBikeDuration = getTotalDurationInSecondsByActivityType(
-    stravaActivities,
+    stravaActivitiesDurationAndType,
     'Ride',
     'type'
   )
   const stravaRunDuration = getTotalDurationInSecondsByActivityType(
-    stravaActivities,
+    stravaActivitiesDurationAndType,
     'Run',
     'type'
   )
 
   const stravaWorkoutDuration =
     getTotalDurationInSecondsByActivityType(
-      stravaActivities,
+      stravaActivitiesDurationAndType,
       'Workout',
       'type'
     ) +
     getTotalDurationInSecondsByActivityType(
-      stravaActivities,
+      stravaActivitiesDurationAndType,
       'WeightTraining',
       'type'
     )
@@ -149,7 +149,7 @@ function TimerChart({
 export default withTheme(TimerChart)
 
 TimerChart.propTypes = {
-  codingActivities: PropTypes.arrayOf(
+  codingActivitiesDurationAndType: PropTypes.arrayOf(
     PropTypes.shape({
       duration: PropTypes.number,
       languages: PropTypes.arrayOf(PropTypes.string),
@@ -157,7 +157,7 @@ TimerChart.propTypes = {
   ),
   handleTimerClick: PropTypes.func,
   isTracking: PropTypes.bool,
-  stravaActivities: PropTypes.arrayOf(
+  stravaActivitiesDurationAndType: PropTypes.arrayOf(
     PropTypes.shape({
       duration: PropTypes.number,
       type: PropTypes.string,

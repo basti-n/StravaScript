@@ -1,20 +1,28 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { navigate } from '@reach/router'
 import styled, { withTheme } from 'styled-components'
 import {
-  StyledMainHeadline,
+  StyledActivityContainer,
+  StyledButtonPrimary,
   StyledContainer,
   StyledHeadlineWithIcon,
+  StyledMainHeadline,
   StyledRegularText,
-  ButtonPrimary,
   StyledTextLink,
-  StyledActivityContainer,
 } from '../components/StyledComponents'
 import UserProfile from '../components/UserProfile'
-import { saveToLocalStorage } from '../services'
 import Modal from '../components/Modal'
 import NumberedListItem from '../components/NumberedListItem'
 import Loading from '../components/Loading'
+
+const StyledConnectPageHeadline = styled(StyledHeadlineWithIcon)`
+  margin-bottom: 18px;
+`
+
+const ButtonDisconnectStrava = styled(StyledButtonPrimary)`
+  background: ${props => props.theme.secondaryButtonColor};
+`
 
 const NumberedListContainer = styled(StyledActivityContainer)`
   padding: 10px 0 0 20px;
@@ -23,71 +31,70 @@ const NumberedListContainer = styled(StyledActivityContainer)`
   }
 `
 
-const StyledConnectPageHeadlineWithIcon = styled(StyledHeadlineWithIcon)`
-  margin-bottom: 18px;
-`
-
-const ButtonDisconnectStrava = styled(ButtonPrimary)`
-  background: ${props => props.theme.secondaryButtonColor};
-`
-
 function ConnectPage({
-  username,
+  handlePageChange,
+  handleStravaConnect,
+  handleStravaDisconnect,
   image,
-  setActivePage,
-  handleDisconnect,
   isLoggedIn,
   theme,
+  username,
 }) {
   const [showModal, setShowModal] = useState({
     connect: false,
     disconnect: false,
     duration: 3,
   })
-  const currentUrl = new URL(document.location).searchParams
-  const stravaCode = currentUrl.get('code')
-  const authUrl =
-    'https://www.strava.com/oauth/authorize?client_id=35264&redirect_uri=http://localhost:3000/connect/strava&response_type=code&scope=read,activity:read_all,profile:read_all,read_all,'
-
-  function onClickToPage(subpage, page, event) {
-    event && event.preventDefault()
-    navigate(subpage)
-    setActivePage(page)
-    window.scroll({ top: 0, left: 0, behavior: 'smooth' })
-  }
+  const currentPath = new URL(document.location).searchParams
+  const stravaCode = currentPath.get('code')
+  const redirectURL = 'http://localhost:3000/connect/strava'
+  const authUrl = `https://www.strava.com/oauth/authorize?client_id=35264&redirect_uri=${redirectURL}&response_type=code&scope=read,activity:read_all,profile:read_all,read_all,`
 
   function handleRedirect() {
-    if (stravaCode !== null) {
+    if (stravaCode) {
       return
     }
     window.location = authUrl
   }
 
   function onStravaDisconnect() {
-    handleDisconnect().then(disconnect => {
-      if (disconnect) {
-        setShowModal(prevState => ({ ...prevState, disconnect: true }))
-        setTimeout(
-          () =>
-            setShowModal(prevState => ({ ...prevState, disconnect: false })),
-          showModal.duration * 1000
-        )
-      }
-    })
+    handleStravaDisconnect()
+      .then(isDisconnected => {
+        if (isDisconnected) {
+          showConfirmationModal('disconnect')
+        }
+      })
+      .catch(err => window.alert(err.message))
+  }
+
+  function onStravaConnect(code) {
+    handleStravaConnect(code)
+    showConfirmationModal('connect')
+  }
+
+  function showConfirmationModal(type) {
+    setShowModal(prevState => ({
+      ...prevState,
+      [type]: true,
+    }))
+    setTimeout(
+      () => setShowModal(prevState => ({ ...prevState, [type]: false })),
+      showModal.duration * 1000
+    )
+  }
+
+  function onClickTextLink(subpage, page, event) {
+    event.preventDefault()
+    navigate(subpage)
+    handlePageChange(page)
   }
 
   useEffect(() => {
     if (window.location.pathname === '/connect/strava') {
-      stravaCode && saveToLocalStorage('strava_code', stravaCode)
-      navigate('../connect')
-      setActivePage('connect')
-      setShowModal(prevState => ({ ...prevState, connect: true }))
-      setTimeout(
-        () => setShowModal(prevState => ({ ...prevState, connect: false })),
-        showModal.duration * 1000
-      )
+      stravaCode && onStravaConnect(stravaCode)
     }
-  }, [setActivePage, showModal.duration, stravaCode])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stravaCode])
 
   return (
     <>
@@ -111,10 +118,10 @@ function ConnectPage({
         )}
         {!isLoggedIn ? (
           <>
-            <StyledConnectPageHeadlineWithIcon>
+            <StyledConnectPageHeadline>
               <img src={theme.connectIcon} alt="connect icon" />
               <StyledMainHeadline>Connect, Track, …Compare!</StyledMainHeadline>
-            </StyledConnectPageHeadlineWithIcon>
+            </StyledConnectPageHeadline>
             <StyledRegularText>
               Take full advantage of what StravaScript offers you!
             </StyledRegularText>
@@ -125,7 +132,7 @@ function ConnectPage({
             </StyledRegularText>
             <StyledTextLink
               href="/faq"
-              onClick={event => onClickToPage('faq', 'connect', event)}
+              onClick={event => onClickTextLink('faq', 'connect', event)}
             >
               Find more information in our FAQs.
             </StyledTextLink>
@@ -141,9 +148,9 @@ function ConnectPage({
               </NumberedListItem>
             </NumberedListContainer>
 
-            <ButtonPrimary onClick={handleRedirect}>
+            <StyledButtonPrimary onClick={handleRedirect}>
               Connect to Strava
-            </ButtonPrimary>
+            </StyledButtonPrimary>
           </>
         ) : (
           <>
@@ -165,18 +172,20 @@ function ConnectPage({
             <UserProfile username={username} image={image} />
             <StyledRegularText>
               All your activities will be automatically synced. You can check
-              out your activities on the home screen.{' '}
+              out your activities on the home screen.
             </StyledRegularText>
-            <ButtonPrimary onClick={() => onClickToPage('../sport', 'home')}>
+            <StyledButtonPrimary
+              onClick={() => onClickTextLink('../sport', 'home')}
+            >
               View Activities
-            </ButtonPrimary>{' '}
+            </StyledButtonPrimary>
             <StyledRegularText>
               No worries, you can reconnect your Strava Account at one point in
               time.{' '}
             </StyledRegularText>
             <ButtonDisconnectStrava onClick={onStravaDisconnect}>
               Disconnect Account
-            </ButtonDisconnectStrava>{' '}
+            </ButtonDisconnectStrava>
           </>
         )}
       </StyledContainer>
@@ -185,3 +194,13 @@ function ConnectPage({
 }
 
 export default withTheme(ConnectPage)
+
+ConnectPage.propTypes = {
+  handlePageChange: PropTypes.func,
+  handleStravaConnect: PropTypes.func,
+  handleStravaDisconnect: PropTypes.func,
+  image: PropTypes.string,
+  isLoggedIn: PropTypes.bool,
+  theme: PropTypes.object,
+  username: PropTypes.string,
+}

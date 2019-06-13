@@ -1,42 +1,64 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import TimerChart from '../components/TimerChart'
 import ActivityList from '../components/ActivityList'
 import TrackingConfirmationModal from '../components/TrackingConfirmationModal'
+import { sortActivitiesByDate } from '../utils'
 
 export default function OverviewPage({
   availableLanguages,
   codingActivities,
   stravaActivities,
   handleTimerClick,
+  handleTrackingCompleted,
   isTracking,
-  onTrackingCompleted,
   showModal,
 }) {
-  const allActivities = [...stravaActivities, ...codingActivities]
-  allActivities.sort((a, b) => (b.start_date > a.start_date ? 1 : -1))
+  const allActivities = sortActivitiesByDate([
+    ...stravaActivities,
+    ...codingActivities,
+  ])
 
   return (
     <>
       {showModal && (
         <TrackingConfirmationModal
           availableLanguages={availableLanguages}
-          onTrackingCompleted={onTrackingCompleted}
+          handleTrackingCompleted={handleTrackingCompleted}
         />
       )}
 
       <TimerChart
-        codingActivities={codingActivities.map(activity => ({
+        codingActivitiesDurationAndType={codingActivities.map(activity => ({
           duration: activity.elapsed_time,
           languages: activity.languages,
         }))}
-        stravaActivities={stravaActivities.map(activity => ({
+        stravaActivitiesDurationAndType={stravaActivities.map(activity => ({
           duration: activity.elapsed_time,
           type: activity.type,
         }))}
-        isTracking={isTracking}
         handleTimerClick={handleTimerClick}
+        isTracking={isTracking}
       />
       <ActivityList activities={allActivities} />
     </>
   )
+}
+
+OverviewPage.propTypes = {
+  availableLanguages: PropTypes.arrayOf(PropTypes.string),
+  codingActivities: PropTypes.arrayOf(
+    PropTypes.shape({
+      elapsed_time: PropTypes.number,
+      languages: PropTypes.arrayOf(PropTypes.string),
+      name: PropTypes.string,
+      start_date: PropTypes.string,
+      type: PropTypes.string,
+    })
+  ),
+  stravaActivities: PropTypes.arrayOf(PropTypes.object),
+  handleTimerClick: PropTypes.func,
+  handleTrackingCompleted: PropTypes.func,
+  isTracking: PropTypes.bool,
+  showModal: PropTypes.bool,
 }

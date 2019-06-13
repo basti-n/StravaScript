@@ -74,7 +74,7 @@ const Button = styled.button`
   }
 `
 
-export const ButtonPrimary = styled(Button)`
+export const StyledButtonPrimary = styled(Button)`
   background: ${props => props.theme.fontColorHeadline};
   color: ${props => props.theme.lightFont};
 `

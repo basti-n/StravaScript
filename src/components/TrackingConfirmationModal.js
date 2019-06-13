@@ -70,13 +70,13 @@ const StyledModalButton = styled.button`
 
 export default function TrackingConfirmationModal({
   availableLanguages,
-  onTrackingCompleted,
+  handleTrackingCompleted,
 }) {
   const [selectedLanguages, setSelectedLanguages] = useState([])
 
   function onLanguageSelect() {
     selectedLanguages.length &&
-      onTrackingCompleted(
+      handleTrackingCompleted(
         selectedLanguages.sort(
           (a, b) =>
             availableLanguages.indexOf(a) - availableLanguages.indexOf(b)
@@ -114,5 +114,5 @@ export default function TrackingConfirmationModal({
 
 TrackingConfirmationModal.propTypes = {
   availableLanguages: PropTypes.arrayOf(PropTypes.string),
-  onTrackingCompleted: PropTypes.func,
+  handleTrackingCompleted: PropTypes.func,
 }

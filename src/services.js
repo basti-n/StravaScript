@@ -23,7 +23,7 @@ export const getActivitiesFromStrava = token =>
     })
     .catch(error => error.json({ errors: [error] }))
 
-export const getAthlete = token =>
+export const getAthleteFromStrava = token =>
   fetch(`https://www.strava.com/api/v3/athlete?access_token=${token}`)
     .then(res => {
       if (res.status === 401) {
@@ -31,7 +31,7 @@ export const getAthlete = token =>
         return getTokenFromStrava(code).then(data => {
           const { access_token } = data
           saveToLocalStorage('token', access_token)
-          return getAthlete(access_token)
+          return getAthleteFromStrava(access_token)
         })
       }
       return res.json()
@@ -128,6 +128,19 @@ export const updateUser = (data, id) => {
   return fetch(`user/${id}`, options).then(res => res.json())
 }
 
+// Email Feedback
+
+export const sendFeedback = (text, user) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ text, user }),
+  }
+  return fetch('/feedback', options)
+}
+
 //Activities
 export function getActivitiesForLastWeek(activities) {
   const timestampsLastWeek = timeStampLastSevenDays()
@@ -164,17 +177,17 @@ export function getActivitiesForLastWeek(activities) {
 }
 
 //Goal Settings
-export const showGoalReminder = (hoursBetweenNotification, settings) => {
-  // for testing purposes set to fire after 30sec
-  if (!settings.notifications) {
+export const showGoalReminder = (
+  hoursBetweenNotification,
+  isNotificationsEnabled,
+  notificationLastSeen
+) => {
+  if (!isNotificationsEnabled) {
     return
   }
   const timeBetweenNotification = hoursBetweenNotification * 24 * 60
-  console.log(
-    timeBetweenNotification,
-    Date.now() - settings.goalReminderLastSeen
-  )
-  return Date.now() - settings.goalReminderLastSeen > timeBetweenNotification
+  console.log(timeBetweenNotification, Date.now() - notificationLastSeen)
+  return Date.now() - notificationLastSeen > timeBetweenNotification
     ? true
     : false
 }

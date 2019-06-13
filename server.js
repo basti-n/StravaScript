@@ -71,7 +71,7 @@ app.post('/feedback', (req, res) => {
     from: 'stravascript@gmail.com',
     to: 'stravascript@gmail.com',
     subject: `App Feedback from ${req.body.user}`,
-    text: req.body.data,
+    text: req.body.text,
   }
 
   transporter.sendMail(mailContent, (err, data) => {

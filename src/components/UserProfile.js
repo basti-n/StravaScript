@@ -1,35 +1,44 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const StyledUserProfile = styled.section`
-  display: flex;
+  display: grid;
+  grid-template-columns: 60% 1fr;
   margin-bottom: 40px;
+`
 
-  p {
-    color: ${props => props.theme.fontColor};
-    padding: 0 4px;
-    font-size: 16px;
-    span {
-      font-weight: bold;
-    }
-  }
-  img {
-    margin-left: 30px;
-    height: 50px;
-    border-radius: 50%;
+const StyledUserName = styled.p`
+  color: ${props => props.theme.fontColor};
+  font-size: 16px;
+  padding: 0 4px;
+  span {
+    font-weight: bold;
   }
 `
 
-export default function UserProfile({ username, image }) {
+const StyledUserImage = styled.img`
+  border-radius: 50%;
+  height: 50px;
+  margin-left: 15px;
+  width: 50px;
+`
+
+export default function UserProfile({ image, username }) {
   return (
     <StyledUserProfile>
-      <p>
+      <StyledUserName>
         username: <span>{username}</span>
-      </p>
-      <img
+      </StyledUserName>
+      <StyledUserImage
         src={image || '/assets/placeholder_profile.svg'}
-        alt="strava profile"
+        alt="strava profile image"
       />
     </StyledUserProfile>
   )
+}
+
+UserProfile.propTypes = {
+  image: PropTypes.string,
+  username: PropTypes.string,
 }

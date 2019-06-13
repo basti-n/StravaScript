@@ -1,43 +1,54 @@
 import React from 'react'
-import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import { Router } from '@reach/router'
 import OverviewPage from './OverviewPage'
 import SportActivityPage from './SportActivitiesPage'
 import CodingActivitiesPage from './CodingActivitiesPage'
-
-const HomepageLayout = styled.main`
-  display: grid;
-  overflow: auto;
-  position: relative;
-`
 
 export default function HomePage({
   availableLanguages,
   codingActivities,
   stravaActivities,
   handleTimerClick,
+  handleTrackingCompleted,
   isTracking,
   isStravaLoading,
-  onTrackingCompleted,
   showModal,
 }) {
   return (
-    <HomepageLayout>
-      <Router primary={false}>
-        <OverviewPage
-          path="/"
-          availableLanguages={availableLanguages}
-          codingActivities={codingActivities}
-          stravaActivities={stravaActivities}
-          isTracking={isTracking}
-          handleTimerClick={handleTimerClick}
-          isStravaLoading={isStravaLoading}
-          onTrackingCompleted={onTrackingCompleted}
-          showModal={showModal}
-        />
-        <CodingActivitiesPage path="code" codingActivities={codingActivities} />
-        <SportActivityPage path="sport" stravaActivities={stravaActivities} />
-      </Router>
-    </HomepageLayout>
+    <Router primary={false}>
+      <OverviewPage
+        path="/"
+        availableLanguages={availableLanguages}
+        codingActivities={codingActivities}
+        stravaActivities={stravaActivities}
+        handleTimerClick={handleTimerClick}
+        handleTrackingCompleted={handleTrackingCompleted}
+        isTracking={isTracking}
+        isStravaLoading={isStravaLoading}
+        showModal={showModal}
+      />
+      <CodingActivitiesPage path="code" codingActivities={codingActivities} />
+      <SportActivityPage path="sport" stravaActivities={stravaActivities} />
+    </Router>
   )
+}
+
+HomePage.propTypes = {
+  availableLanguages: PropTypes.arrayOf(PropTypes.string),
+  codingActivities: PropTypes.arrayOf(
+    PropTypes.shape({
+      elapsed_time: PropTypes.number,
+      languages: PropTypes.arrayOf(PropTypes.string),
+      name: PropTypes.string,
+      start_date: PropTypes.string,
+      type: PropTypes.string,
+    })
+  ),
+  stravaActivities: PropTypes.arrayOf(PropTypes.object),
+  handleTrackingCompleted: PropTypes.func,
+  handleTimerClick: PropTypes.func,
+  isTracking: PropTypes.bool,
+  isStravaLoading: PropTypes.bool,
+  showModal: PropTypes.bool,
 }

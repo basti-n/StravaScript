@@ -5,7 +5,7 @@ import {
   StyledMainHeadline,
   StyledActivityContainer,
   StyledRegularText,
-  ButtonPrimary,
+  StyledButtonPrimary,
 } from '../components/StyledComponents'
 import SettingsItem from '../components/SettingsItem'
 import Modal from '../components/Modal'
@@ -42,7 +42,7 @@ const StyledFeedbackForm = styled.form`
   }
 `
 
-const SubmitButton = styled(ButtonPrimary)`
+const SubmitButton = styled(StyledButtonPrimary)`
   margin: 10px 0 24px 0;
   padding: 5px 10px;
   width: 50%;
