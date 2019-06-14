@@ -1,24 +1,18 @@
 const setupServer = require('./server-setup')
 const app = setupServer()
 const nodemailer = require('nodemailer')
-require('dotenv').config()
-
 const fetch = require('node-fetch')
 const User = require('./models/User')
+require('dotenv').config()
 
-app.get('/token', (req, res) => {
-  getAccessTokenFromStrava(req.query.code).then(data => {
-    return res.json(data)
-  })
-})
-
-const fetchOptions = (method, type = 'application/json') => ({
+const getFetchOptions = (method, type = 'application/json') => ({
   method,
   headers: {
     'Content-Type': type,
   },
 })
 
+// Strava API
 const getAccessTokenFromStrava = code =>
   fetch(
     `https://www.strava.com/oauth/token?client_id=${
@@ -26,23 +20,20 @@ const getAccessTokenFromStrava = code =>
     }&client_secret=${
       process.env.STRAVA_CLIENT_SECRET
     }&code=${code}&grant_type=authorization_code`,
-    fetchOptions('POST')
+    getFetchOptions('POST')
   )
     .then(res => res.json())
     .catch(err => err.json({ errors: [err] }))
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USERNAME,
-    pass: process.env.EMAIL_PASSWORD,
-  },
+app.get('/token', (req, res) => {
+  getAccessTokenFromStrava(req.query.code).then(data => {
+    return res.json(data)
+  })
 })
 
 app.get('/user/:id', (req, res) => {
   const { id } = req.params
-
-  User.find({ id: id })
+  User.find({ id })
     .then(user => {
       return res.json(user)
     })
@@ -52,18 +43,27 @@ app.get('/user/:id', (req, res) => {
 app.patch('/user/:id', (req, res) => {
   const { id } = req.params
   const data = req.body
-  User.findOneAndUpdate({ id: id }, data, { new: true })
+  User.findOneAndUpdate({ id }, data, { new: true })
     .then(user => res.json(user))
     .catch(err => res.json(err))
 })
 
-app.post('/user/', (req, res) => {
+app.post('/user', (req, res) => {
   const { id, username } = req.body
 
   id &&
     User.create({ id, username })
       .then(user => res.json(user))
       .catch(err => res.json(err))
+})
+
+//Email Feedback
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USERNAME,
+    pass: process.env.EMAIL_PASSWORD,
+  },
 })
 
 app.post('/feedback', (req, res) => {

@@ -39,7 +39,7 @@ import { Grid } from '../components/StyledComponents'
 
 function App() {
   const token = getTokenFromLocalStorage('strava_token')
-  const code = getTokenFromLocalStorage('strava_code')
+  const loginToken = getTokenFromLocalStorage('strava_loginToken')
   const [stravaActivities, setStravaActivities] = useState(
     getFromLocalStorage('strava_activities') || []
   )
@@ -87,8 +87,8 @@ function App() {
   )
   const theme = getTheme(settings.darkMode)
 
-  function handleStravaConnect(code) {
-    saveToLocalStorage('strava_code', code)
+  function handleStravaConnect(loginToken) {
+    saveToLocalStorage('strava_loginToken', loginToken)
     navigate('../connect')
     setActivePage('connect')
   }
@@ -115,7 +115,7 @@ function App() {
     try {
       await disconnectStravaAccount(token)
       removeFromLocalStorage('strava_token')
-      removeFromLocalStorage('strava_code')
+      removeFromLocalStorage('strava_loginToken')
       removeFromLocalStorage('stravascript_coding')
       setCodingActivities([])
       setSettings(prevState => ({
@@ -239,7 +239,7 @@ function App() {
 
   useEffect(() => {
     setisStravaLoading(true)
-    if (!code) {
+    if (!loginToken) {
       setSettings(prevState => ({
         ...prevState,
         isLoggedIn: false,
@@ -252,13 +252,13 @@ function App() {
       }))
       token
         ? getStravaActivities(token)
-        : getTokenFromStrava(code).then(data => {
+        : getTokenFromStrava(loginToken).then(data => {
             const token = data.access_token
             saveToLocalStorage('strava_token', token)
             getStravaActivities(token)
           })
     }
-  }, [token, code, settings.isLoggedIn])
+  }, [token, loginToken, settings.isLoggedIn])
 
   useEffect(() => {
     if (settings.isLoggedIn && codingActivities.length) {

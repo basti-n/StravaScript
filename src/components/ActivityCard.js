@@ -9,10 +9,13 @@ moment.locale('de')
 const activityTypeImg = {
   Code: { src: '/assets/code.svg', alt: 'code tag icon' },
   Ride: { src: '/assets/bike.svg', alt: 'ride icon' },
+  VirtualRide: { src: '/assets/bike.svg', alt: 'ride icon' },
   Run: { src: './assets/run.svg', alt: 'run icon' },
+  Swim: { src: './assets/google.svg', alt: 'swim icon' },
   Walk: { src: '/assets/run.svg', alt: 'run icon' },
   WeightTraining: { src: '/assets/dumbbell.svg', alt: 'weight icon' },
   Workout: { src: '/assets/dumbbell.svg', alt: 'weight icon' },
+  Yoga: { src: '/assets/yoga.svg', alt: 'yoga icon' },
 }
 
 const StyledCard = styled.article`
