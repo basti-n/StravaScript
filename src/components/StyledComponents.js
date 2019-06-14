@@ -15,6 +15,11 @@ export const StyledContainer = styled(StyledActivityContainer)`
   padding: 0 10px;
 `
 
+export const StyledLayoutSettingsPage = styled(StyledContainer)`
+  display: grid;
+  grid-template-rows: auto 1fr;
+`
+
 export const StyledMainHeadline = styled.h2`
   color: ${props => props.theme.fontColorHeadline};
   font-size: 18.5px;

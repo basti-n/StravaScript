@@ -1,40 +1,43 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import PageToggle from '../components/PageToggle'
 import GoalSettings from '../components/GoalSettings'
-import { StyledContainer } from '../components/StyledComponents'
+import { StyledLayoutSettingsPage } from '../components/StyledComponents'
 
-const StyledContainerGoalsPage = styled(StyledContainer)`
-  display: grid;
-  grid-template-rows: auto 1fr;
-`
 export default function GoalsPage({
-  weeklyGoal,
-  setWeeklyGoal,
-  stravaActivitiesLastWeekByDay,
   codingActivitiesLastWeekByDay,
+  stravaActivitiesLastWeekByDay,
+  setWeeklyGoal,
+  weeklyGoal,
 }) {
-  const [activeGoalPage, setActiveGoalPage] = useState('coding')
   const goalPages = ['coding', 'sport']
+  const [activeGoalPage, setActiveGoalPage] = useState('coding')
 
   return (
-    <StyledContainerGoalsPage>
+    <StyledLayoutSettingsPage>
       <PageToggle
-        pages={goalPages}
         activePage={activeGoalPage}
+        pages={goalPages}
         setActivePage={setActiveGoalPage}
       />
 
       <GoalSettings
-        page={activeGoalPage}
         activitiesLastWeekByWeekday={
           activeGoalPage === 'coding'
             ? codingActivitiesLastWeekByDay
             : stravaActivitiesLastWeekByDay
         }
-        weeklyGoal={weeklyGoal}
+        page={activeGoalPage}
         setWeeklyGoal={setWeeklyGoal}
+        weeklyGoal={weeklyGoal}
       />
-    </StyledContainerGoalsPage>
+    </StyledLayoutSettingsPage>
   )
+}
+
+GoalsPage.propTypes = {
+  codingActivitiesLastWeekByDay: PropTypes.objectOf(PropTypes.number),
+  stravaActivitiesLastWeekByDay: PropTypes.objectOf(PropTypes.number),
+  setWeeklyGoal: PropTypes.func,
+  weeklyGoal: PropTypes.objectOf(PropTypes.number),
 }

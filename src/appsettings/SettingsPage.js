@@ -1,36 +1,31 @@
 import React, { useRef } from 'react'
+import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import {
-  StyledContainer,
-  StyledMainHeadline,
   StyledActivityContainer,
-  StyledRegularText,
   StyledButtonPrimary,
+  StyledMainHeadline,
+  StyledLayoutSettingsPage,
+  StyledRegularText,
 } from '../components/StyledComponents'
-import SettingsItem from '../components/SettingsItem'
 import Modal from '../components/Modal'
 import Loading from '../components/Loading'
-
-const StyledSettingsPageContainer = styled(StyledContainer)`
-  display: grid;
-  grid-template-rows: auto 1fr;
-`
+import SettingsItem from '../components/SettingsItem'
 
 const StyledGeneralSettingsContainer = styled(StyledActivityContainer)`
   display: flex;
   flex-flow: column;
-  justify-items: center;
 `
 
 const StyledFeedbackForm = styled.form`
   textarea {
     background: ${props => props.theme.background};
-    box-sizing: border-box;
     border: 1px solid;
-    border-color: #d8d8d8;
+    border-color: ${props => props.theme.fontColorGrey};
     border-radius: 3px;
+    box-sizing: border-box;
     color: ${props => props.theme.fontColor};
-    font-family: 'Libre Franklin', sans-serif;
+    font-family: inherit;
     height: 60px;
     padding: 5px;
     width: 100%;
@@ -43,58 +38,60 @@ const StyledFeedbackForm = styled.form`
 `
 
 const SubmitButton = styled(StyledButtonPrimary)`
-  margin: 10px 0 24px 0;
+  align-items: center;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  margin: 10px 0 24px;
   padding: 5px 10px;
   width: 50%;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `
 
 function SettingsPage({
-  settings,
-  setSettings,
   handleFeedbackSubmit,
   mailPending,
   modalDuration,
   showModal,
+  settings,
+  setSettings,
   theme,
 }) {
   const formValue = useRef()
 
-  function onSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault()
-    const submitValue = formValue.current.value
-    if (!submitValue) {
+    event.persist()
+    const submitText = formValue.current.value
+    if (!submitText) {
       return
     }
 
-    handleFeedbackSubmit(submitValue)
-    event.target.reset()
+    handleFeedbackSubmit(submitText).then(status => {
+      status === 200 && event.target.reset()
+    })
   }
 
   return (
     <>
       {mailPending && <Loading />}
-      <StyledSettingsPageContainer>
+      <StyledLayoutSettingsPage>
         <StyledGeneralSettingsContainer>
           <StyledMainHeadline>General</StyledMainHeadline>
           <SettingsItem
-            label="Dark Mode"
             icon={theme.darkModeIcon}
+            isChecked={settings.darkMode}
+            label="Dark Mode"
             setValue={value =>
               setSettings(prevState => ({ ...prevState, darkMode: value }))
             }
-            isChecked={settings.darkMode}
           />
           <SettingsItem
-            label="Goal Reminder"
             icon={theme.notificationIcon}
+            isChecked={settings.notifications}
+            label="Goal Reminder"
             setValue={value =>
               setSettings(prevState => ({ ...prevState, notifications: value }))
             }
-            isChecked={settings.notifications}
           />
         </StyledGeneralSettingsContainer>
         <StyledActivityContainer>
@@ -102,7 +99,7 @@ function SettingsPage({
           <StyledRegularText>
             Found any Bugs? Let us know and we’ll fix it ASAP.
           </StyledRegularText>
-          <StyledFeedbackForm onSubmit={onSubmit}>
+          <StyledFeedbackForm onSubmit={handleSubmit}>
             <textarea
               placeholder="Describe your findings or ideas here"
               ref={formValue}
@@ -112,15 +109,31 @@ function SettingsPage({
         </StyledActivityContainer>
         {showModal && (
           <Modal
-            title="Feedback sent"
-            text="We will review your feedback and get back to you as soon possible."
-            icon="/assets/checkbox_green.svg"
             duration={modalDuration}
+            icon="/assets/checkbox_green.svg"
+            text="We will review your feedback and get back to you as soon possible."
+            title="Feedback sent"
           />
         )}
-      </StyledSettingsPageContainer>
+      </StyledLayoutSettingsPage>
     </>
   )
 }
 
 export default withTheme(SettingsPage)
+
+SettingsPage.propTypes = {
+  handleFeedbackSubmit: PropTypes.func,
+  mailPending: PropTypes.bool,
+  modalDuration: PropTypes.number,
+  showModal: PropTypes.bool,
+  settings: PropTypes.shape({
+    darkMode: PropTypes.bool.isRequired,
+    goalReminderLastSeen: PropTypes.number,
+    isLoggedIn: PropTypes.bool,
+    notifications: PropTypes.bool.isRequired,
+    userId: PropTypes.number,
+  }),
+  setSettings: PropTypes.func,
+  theme: PropTypes.object,
+}

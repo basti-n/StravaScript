@@ -50,7 +50,7 @@ function ConnectPage({
   const redirectURL = 'http://localhost:3000/connect/strava'
   const authUrl = `https://www.strava.com/oauth/authorize?client_id=35264&redirect_uri=${redirectURL}&response_type=code&scope=read,activity:read_all,profile:read_all,read_all,`
 
-  function handleRedirect() {
+  function startAuthorization() {
     if (stravaCode) {
       return
     }
@@ -102,18 +102,18 @@ function ConnectPage({
       <StyledContainer>
         {showModal.disconnect && (
           <Modal
-            title="Strava Disconnected"
-            text="But no worries: You can reconnect your Strava account at any time. "
-            icon="/assets/checkbox_green.svg"
             duration={showModal.duration}
+            icon="/assets/checkbox_green.svg"
+            text="But no worries: You can reconnect your Strava account at any time. "
+            title="Strava Disconnected"
           />
         )}
         {showModal.connect && (
           <Modal
-            title="Strava Connected"
-            text="Congrats! StravaScript will now automatically show all your Strava Activities."
-            icon="/assets/checkbox_green.svg"
             duration={showModal.duration}
+            icon="/assets/checkbox_green.svg"
+            text="Congrats! StravaScript will now automatically show all your Strava Activities."
+            title="Strava Connected"
           />
         )}
         {!isLoggedIn ? (
@@ -128,7 +128,6 @@ function ConnectPage({
             <StyledRegularText>
               Connect your Strava account and have all your activities
               automatically synced.
-              <br />
             </StyledRegularText>
             <StyledTextLink
               href="/faq"
@@ -148,7 +147,7 @@ function ConnectPage({
               </NumberedListItem>
             </NumberedListContainer>
 
-            <StyledButtonPrimary onClick={handleRedirect}>
+            <StyledButtonPrimary onClick={startAuthorization}>
               Connect to Strava
             </StyledButtonPrimary>
           </>
@@ -156,15 +155,15 @@ function ConnectPage({
           <>
             <StyledHeadlineWithIcon>
               <img
-                src={theme.checkboxIcon}
                 alt="checked icon"
+                src={theme.checkboxIcon}
                 style={{
-                  visibility: username === '...loading' ? 'hidden' : 'visible',
+                  visibility: username === '...loading' && 'hidden',
                 }}
               />
 
               <StyledMainHeadline>
-                {username === '...loading' && isLoggedIn
+                {username === '...loading'
                   ? '...Loading User Information'
                   : 'Strava Account connected'}
               </StyledMainHeadline>
@@ -175,13 +174,13 @@ function ConnectPage({
               out your activities on the home screen.
             </StyledRegularText>
             <StyledButtonPrimary
-              onClick={() => onClickTextLink('../sport', 'home')}
+              onClick={event => onClickTextLink('../sport', 'home', event)}
             >
               View Activities
             </StyledButtonPrimary>
             <StyledRegularText>
               No worries, you can reconnect your Strava Account at one point in
-              time.{' '}
+              time.
             </StyledRegularText>
             <ButtonDisconnectStrava onClick={onStravaDisconnect}>
               Disconnect Account

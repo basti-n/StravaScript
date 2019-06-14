@@ -156,7 +156,7 @@ function App() {
 
   function handleFeedbackSubmit(feedbackText) {
     setMailPending(true)
-    sendFeedback(feedbackText, stravaUser.username)
+    return sendFeedback(feedbackText, stravaUser.username)
       .then(data => {
         if (data.status === 200) {
           setMailPending(false)
@@ -164,9 +164,10 @@ function App() {
           setTimeout(() => {
             setShowModal(false)
           }, 3 * 1000)
+          return data.status
         }
       })
-      .catch(err => console.log(err.message))
+      .catch(err => new Error('Mail cannot be send'))
   }
 
   function handlePageChange(targetPage) {

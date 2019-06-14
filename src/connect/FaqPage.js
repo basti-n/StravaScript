@@ -13,8 +13,8 @@ export default function FaqPage() {
       <StyledMainHeadline>Welcome to StravaScript</StyledMainHeadline>
       <StyledRegularText>
         <span>
-          Remember when you got completely lost in your code spannd span whole
-          day went by without you realizing?
+          Remember when you got completely lost in your code and a whole day
+          went by without you realizing?
         </span>
         <span>
           Remember when you were trying to solve a problem for hours, finally
