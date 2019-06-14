@@ -20,7 +20,7 @@ const StyledToastText = styled.p`
 function Toast({
   duration,
   setGoalReminderLastSeen,
-  timeLeftToDailyCodingGoal,
+  minutesLeftToDailyCodingGoal,
   theme,
   type,
 }) {
@@ -37,7 +37,9 @@ function Toast({
   )
 
   toast(
-    <ToastContent timeLeftToDailyCodingGoal={timeLeftToDailyCodingGoal} />,
+    <ToastContent
+      minutesLeftToDailyCodingGoal={minutesLeftToDailyCodingGoal}
+    />,
     {
       toastId: type,
       onOpen: () => {
@@ -68,25 +70,25 @@ function Toast({
     toast.isActive(type) || (
       <ToastContainer
         autoClose={timeToastActive}
-        transition={Flip}
         position={toast.POSITION.TOP_LEFT}
+        transition={Flip}
       />
     )
   )
 }
 
-function ToastContent({ timeLeftToDailyCodingGoal }) {
+function ToastContent({ minutesLeftToDailyCodingGoal }) {
   return (
     <>
       <StyledToastHeadline>
-        {timeLeftToDailyCodingGoal < 0
+        {minutesLeftToDailyCodingGoal < 0
           ? `Daily Goal Achieved!`
           : `Your daily goal reminder`}
       </StyledToastHeadline>
       <StyledToastText>
-        {timeLeftToDailyCodingGoal < 0
+        {minutesLeftToDailyCodingGoal < 0
           ? `Congrats, you have already achieved your daily coding goal`
-          : `${timeLeftToDailyCodingGoal} min left to achieve your daily coding goal. Go for it!`}{' '}
+          : `${minutesLeftToDailyCodingGoal} min left to achieve your daily coding goal. Go for it!`}{' '}
       </StyledToastText>
     </>
   )
@@ -97,11 +99,11 @@ export default withTheme(Toast)
 Toast.propTypes = {
   duration: PropTypes.number,
   setGoalReminderLastSeen: PropTypes.func,
-  timeLeftToDailyCodingGoal: PropTypes.number,
+  minutesLeftToDailyCodingGoal: PropTypes.number,
   theme: PropTypes.object,
   type: PropTypes.string,
 }
 
 ToastContent.propTypes = {
-  timeLeftToDailyCodingGoal: PropTypes.number,
+  minutesLeftToDailyCodingGoal: PropTypes.number,
 }

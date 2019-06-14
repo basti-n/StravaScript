@@ -16,12 +16,12 @@ import {
   getTrackingTimeInSeconds,
   getActivitiesForLastWeek,
   showGoalReminder,
-  getTimeLeftToDailyCodingGoal,
+  getMinutesLeftToDailyCodingGoal,
   getUser,
   updateUser,
   sendFeedback,
+  sortActivitiesByDate,
 } from '../services'
-import { sortActivitiesByDate } from '../utils'
 
 import NavBarTop from '../components/NavBarTop'
 import HomePage from '../home/HomePage'
@@ -55,7 +55,7 @@ function App() {
   const [weeklyGoal, setWeeklyGoal] = useState(
     getFromLocalStorage('stravascript_goals') || { coding: 10, sport: 5 }
   )
-  const timeLeftToDailyCodingGoal = getTimeLeftToDailyCodingGoal(
+  const minutesLeftToDailyCodingGoal = getMinutesLeftToDailyCodingGoal(
     weeklyGoal,
     codingActivities
   )
@@ -300,7 +300,7 @@ function App() {
           <Toast
             duration={5}
             setGoalReminderLastSeen={setGoalReminderLastSeen}
-            timeLeftToDailyCodingGoal={timeLeftToDailyCodingGoal}
+            minutesLeftToDailyCodingGoal={minutesLeftToDailyCodingGoal}
             type="goal"
           />
         )}

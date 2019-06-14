@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import TimerChart from '../components/TimerChart'
 import ActivityList from '../components/ActivityList'
 import TrackingConfirmationModal from '../components/TrackingConfirmationModal'
-import { sortActivitiesByDate } from '../utils'
+import { sortActivitiesByDate } from '../services'
 
 export default function OverviewPage({
   availableLanguages,

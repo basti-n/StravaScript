@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { StyledMainHeadline } from './StyledComponents'
 import Slider from './GoalSlider'
 import GoalWeeklyChart from './GoalWeeklyChart'
-import { formatMinutesToHours } from '../services'
+import { formatMinutesToHours } from '../utils'
 import moment from 'moment'
 import 'moment/locale/de'
 moment.locale('de')

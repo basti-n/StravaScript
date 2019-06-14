@@ -2,35 +2,21 @@ import moment from 'moment'
 import 'moment/locale/de'
 moment.locale('de')
 
-export function hexToRgb(hex) {
-  // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-  const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i
-  hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-    return r + r + g + g + b + b
-  })
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
-    : null
+//Timing and date related helper functions
+export function formatToMinutesAndSeconds(seconds) {
+  return moment(seconds * 1000)
+    .utc()
+    .format('mm:ss')
 }
 
-export function getTypeOf(value) {
-  return Object.prototype.toString
-    .call(value)
-    .slice(8, -1)
-    .toLowerCase()
+export function formatToHoursAndMinutes(seconds) {
+  return moment(seconds * 1000)
+    .utc()
+    .format('h:mm:ss')
 }
 
-export function sortActivitiesByDate(activities) {
-  try {
-    return activities.sort((a, b) => (b.start_date > a.start_date ? 1 : -1))
-  } catch (err) {
-    return []
-  }
+export function formatMinutesToHours(minutes) {
+  return moment(minutes * 60 * 1000).format('H')
 }
 
 export function timeStampLastSevenDays() {
@@ -54,7 +40,7 @@ export function timeStampLastSevenDays() {
 
 export function getHoursAndMinutesFromMinutes(minutes) {
   return minutes < 60
-    ? `${minutes % 60}m`
+    ? `${minutes}m`
     : `${Math.floor(minutes / 60)}h ${minutes % 60}m`
 }
 
@@ -70,4 +56,27 @@ export function getDayOfWeek(daysBackFromToday) {
   return moment()
     .subtract(daysBackFromToday, 'day')
     .format('dddd')
+}
+
+export function hexToRgb(hex) {
+  // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+  const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i
+  hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+    return r + r + g + g + b + b
+  })
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null
+}
+
+export function getTypeOf(value) {
+  return Object.prototype.toString
+    .call(value)
+    .slice(8, -1)
+    .toLowerCase()
 }

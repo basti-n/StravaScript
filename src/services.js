@@ -5,47 +5,33 @@ moment.locale('de')
 
 // Strava API
 const stravaClientId = 35264
-export const getActivitiesFromStrava = token =>
-  fetch(
-    `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`
-  )
+
+const getDataFromStrava = (token, path) =>
+  fetch(`https://www.strava.com/api/v3/athlete${path}?access_token=${token}`)
     .then(res => {
       if (res.status === 401) {
         const code = getTokenFromLocalStorage('strava_code')
         return getTokenFromStrava(code).then(data => {
           const { access_token } = data
           saveToLocalStorage('token', access_token)
-          return getActivitiesFromStrava(access_token)
+          return getDataFromStrava(access_token, path)
         })
       }
-
       return res.json()
     })
     .catch(error => error.json({ errors: [error] }))
 
-export const getAthleteFromStrava = token =>
-  fetch(`https://www.strava.com/api/v3/athlete?access_token=${token}`)
-    .then(res => {
-      if (res.status === 401) {
-        const code = getTokenFromLocalStorage('strava_code')
-        return getTokenFromStrava(code).then(data => {
-          const { access_token } = data
-          saveToLocalStorage('token', access_token)
-          return getAthleteFromStrava(access_token)
-        })
-      }
-      return res.json()
-    })
+export const getActivitiesFromStrava = token =>
+  getDataFromStrava(token, '/activities')
 
-    .then(data => {
-      const { username, id } = data
-      const userData = { username, id }
-      getUser(id).then(user => {
-        user.length ? updateUser(userData, id) : createUser(userData)
-      })
-      return data
-    })
-    .catch(error => console.log(error))
+export const getAthleteFromStrava = token =>
+  getDataFromStrava(token, '').then(data => {
+    const { username, id } = data
+    const userData = { username, id }
+    createOrUpdateUser(userData, id)
+
+    return data
+  })
 
 export const disconnectStravaAccount = token =>
   fetch(
@@ -54,8 +40,6 @@ export const disconnectStravaAccount = token =>
   )
     .then(res => res.json())
     .catch(error => error.json({ errors: [error] }))
-
-// getTokenFromStrava
 
 export const getTokenFromStrava = code =>
   fetch(`/token?code=${code}`)
@@ -75,82 +59,62 @@ export const getTokenFromStrava = code =>
         expires_at,
       }
 
-      getUser(id).then(user => {
-        user.length ? updateUser(userData, id) : createUser(userData)
-      })
+      createOrUpdateUser(userData, id)
 
       return data
     })
 
-//saveTokenToLocalStorage
-export const getTokenFromLocalStorage = name => {
-  return localStorage.getItem(name)
-}
+export const getTokenFromLocalStorage = name => localStorage.getItem(name)
+export const removeFromLocalStorage = name => localStorage.removeItem(name)
 
-//RemoveFromLocalStorage
-export const removeFromLocalStorage = name => {
-  console.log('localStorage:', name)
-  return localStorage.removeItem(name)
-}
-
-//Database
-
-export const getUsers = id => {
-  return id && fetch('/user').then(res => res.json())
-}
-
-export const getUser = id => {
-  return id && fetch(`user/${id}`).then(res => res.json())
-}
-
-export const createUser = user => {
+const sendRequestToBackend = (endpoint, method, data) => {
   const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(user),
-  }
-  return fetch(`/user`, options).then(res => res.json())
-}
-
-export const updateUser = (data, id) => {
-  if (!id) {
-    return
-  }
-  const options = {
-    method: 'PATCH',
+    method,
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
   }
-  return fetch(`user/${id}`, options).then(res => res.json())
+  return fetch(endpoint, options)
 }
+
+//Database
+export const getUser = id =>
+  sendRequestToBackend(`user/${id}`, 'GET').then(res => res.json())
+
+export const createOrUpdateUser = (data, id) => {
+  getUser(id).then(user => {
+    user.length ? updateUser(data, id) : createUser(data)
+  })
+}
+
+export const createUser = user => sendRequestToBackend(`/user`, 'POST', user)
+
+export const updateUser = (data, id) =>
+  id && sendRequestToBackend(`user/${id}`, 'PATCH', data)
 
 // Email Feedback
-
-export const sendFeedback = (text, user) => {
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ text, user }),
-  }
-  return fetch('/feedback', options)
-}
+export const sendFeedback = (text, user) =>
+  sendRequestToBackend('/feedback', 'POST', { text, user })
 
 //Activities
-export function getActivitiesForLastWeek(activities) {
+export const sortActivitiesByDate = activities => {
+  try {
+    return activities.sort((a, b) => (b.start_date > a.start_date ? 1 : -1))
+  } catch (err) {
+    return []
+  }
+}
+
+export const getActivitiesForLastWeek = activities => {
   const timestampsLastWeek = timeStampLastSevenDays()
 
   let activityMinutesPerWeekday = {}
   timestampsLastWeek.map((timestamp, index) => {
     if (index !== 0) {
-      let minutesPerDay
+      let secondsPerDay
       try {
-        minutesPerDay = activities
+        secondsPerDay = activities
           .filter(
             activity =>
               activity.start_date < timestampsLastWeek[index] &&
@@ -158,12 +122,12 @@ export function getActivitiesForLastWeek(activities) {
           )
           .reduce((acc, curr) => acc + curr.elapsed_time, 0)
       } catch (err) {
-        minutesPerDay = 0
+        secondsPerDay = 0
       }
 
       const activityDay = {
         [moment(timestampsLastWeek[index - 1]).format('dddd')]: Math.round(
-          minutesPerDay / 60
+          secondsPerDay / 60
         ),
       }
       activityMinutesPerWeekday = {
@@ -176,23 +140,29 @@ export function getActivitiesForLastWeek(activities) {
   return activityMinutesPerWeekday
 }
 
-//Goal Settings
+export const getTrackingTimeInSeconds = startTime =>
+  (Date.now() - startTime) / 1000
+
+//App Settings
 export const showGoalReminder = (
-  hoursBetweenNotification,
-  isNotificationsEnabled,
+  secondsBetweenNotification,
+  isNotificationEnabled,
   notificationLastSeen
 ) => {
-  if (!isNotificationsEnabled) {
+  if (!isNotificationEnabled) {
     return
   }
-  const timeBetweenNotification = hoursBetweenNotification * 24 * 60
-  console.log(timeBetweenNotification, Date.now() - notificationLastSeen)
-  return Date.now() - notificationLastSeen > timeBetweenNotification
+  const msBetweenNotification = secondsBetweenNotification * 1000
+  console.log(msBetweenNotification, Date.now() - notificationLastSeen)
+  return Date.now() - notificationLastSeen > msBetweenNotification
     ? true
     : false
 }
 
-export const getTimeLeftToDailyCodingGoal = (weeklyGoal, codingActivities) => {
+export const getMinutesLeftToDailyCodingGoal = (
+  weeklyGoal,
+  codingActivities
+) => {
   const dailyCodingGoalInMinutes = (weeklyGoal.coding / 7) * 60
   const today = moment
     .utc()
@@ -207,35 +177,13 @@ export const getTimeLeftToDailyCodingGoal = (weeklyGoal, codingActivities) => {
   return Math.round(dailyCodingGoalInMinutes - dailyCodingMinutes)
 }
 
-//set localStorage
+//Local Storage
 export const saveToLocalStorage = (name, data) => {
   localStorage.setItem(name, data)
 }
 
-//get localStorage
 export const getFromLocalStorage = name => {
   return JSON.parse(localStorage.getItem(name))
-}
-
-//convert tracked time to minutes and seconds
-export const formatToMinutesAndSeconds = seconds => {
-  return moment(seconds * 1000)
-    .utc()
-    .format('mm:ss')
-}
-
-export const formatToHoursAndMinutes = seconds => {
-  return moment(seconds * 1000)
-    .utc()
-    .format('h:mm:ss')
-}
-
-export const formatMinutesToHours = minutes => {
-  return moment(minutes * 60 * 1000).format('H')
-}
-
-export function getTrackingTimeInSeconds(startTime) {
-  return (Date.now() - startTime) / 1000
 }
 
 //for App Routing
@@ -249,7 +197,7 @@ const urlMapping = {
   Settings: { url: 'settings', mainPage: 'goals' },
 }
 
-export function getMainPagefromSubPage(page) {
+export const getMainPagefromSubPage = page => {
   if (!page) {
     return 'home'
   }

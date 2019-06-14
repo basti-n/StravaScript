@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { formatToMinutesAndSeconds, formatToHoursAndMinutes } from '../services'
+import { formatToMinutesAndSeconds, formatToHoursAndMinutes } from '../utils'
 
 const StyledTimer = styled.h2`
   @import url(http://allfont.de/allfont.css?fonts=ds-digital);
