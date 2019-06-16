@@ -29,7 +29,46 @@
           "description": "",
           "displayName": "GoalsPage",
           "methods": [],
-          "actualName": "GoalsPage"
+          "actualName": "GoalsPage",
+          "props": {
+            "codingActivitiesLastWeekByDay": {
+              "type": {
+                "name": "objectOf",
+                "value": {
+                  "name": "number"
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "stravaActivitiesLastWeekByDay": {
+              "type": {
+                "name": "objectOf",
+                "value": {
+                  "name": "number"
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "setWeeklyGoal": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "weeklyGoal": {
+              "type": {
+                "name": "objectOf",
+                "value": {
+                  "name": "number"
+                }
+              },
+              "required": false,
+              "description": ""
+            }
+          }
         }
       ]
     },
@@ -40,18 +79,235 @@
           "description": "",
           "displayName": "SettingsPage",
           "methods": [],
-          "actualName": "SettingsPage"
+          "actualName": "SettingsPage",
+          "props": {
+            "handleFeedbackSubmit": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "mailPending": {
+              "type": {
+                "name": "bool"
+              },
+              "required": false,
+              "description": ""
+            },
+            "modalDuration": {
+              "type": {
+                "name": "number"
+              },
+              "required": false,
+              "description": ""
+            },
+            "showModal": {
+              "type": {
+                "name": "bool"
+              },
+              "required": false,
+              "description": ""
+            },
+            "settings": {
+              "type": {
+                "name": "shape",
+                "value": {
+                  "darkMode": {
+                    "name": "bool",
+                    "required": true
+                  },
+                  "goalReminderLastSeen": {
+                    "name": "number",
+                    "required": false
+                  },
+                  "isLoggedIn": {
+                    "name": "bool",
+                    "required": false
+                  },
+                  "notifications": {
+                    "name": "bool",
+                    "required": true
+                  },
+                  "userId": {
+                    "name": "number",
+                    "required": false
+                  }
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "setSettings": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "theme": {
+              "type": {
+                "name": "object"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
         }
       ]
     },
     {
-      "key": "src/components/ActivityOnLineChart.js",
+      "key": "src/components/ActivityCard.js",
       "value": [
         {
           "description": "",
-          "displayName": "ActivityOnLineChart",
+          "displayName": "ActivityCard",
           "methods": [],
-          "actualName": "ActivityOnLineChart"
+          "actualName": "ActivityCard",
+          "props": {
+            "activity": {
+              "type": {
+                "name": "shape",
+                "value": {
+                  "elapsed_time": {
+                    "name": "number",
+                    "required": false
+                  },
+                  "languages": {
+                    "name": "arrayOf",
+                    "value": {
+                      "name": "string"
+                    },
+                    "required": false
+                  },
+                  "name": {
+                    "name": "string",
+                    "required": false
+                  },
+                  "start_date": {
+                    "name": "string",
+                    "required": false
+                  },
+                  "type": {
+                    "name": "string",
+                    "required": false
+                  }
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "elapsed_time": {
+              "defaultValue": {
+                "value": "0",
+                "computed": false
+              },
+              "required": false
+            },
+            "languages": {
+              "defaultValue": {
+                "value": "['backend', 'css', 'js']",
+                "computed": false
+              },
+              "required": false
+            },
+            "name": {
+              "defaultValue": {
+                "value": "'Coding Activity'",
+                "computed": false
+              },
+              "required": false
+            },
+            "startDate": {
+              "defaultValue": {
+                "value": "moment().toISOString()",
+                "computed": true
+              },
+              "required": false
+            },
+            "type": {
+              "defaultValue": {
+                "value": "'Code'",
+                "computed": false
+              },
+              "required": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/ActivityLineChart.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ActivityLineChart",
+          "methods": [],
+          "actualName": "ActivityLineChart",
+          "props": {
+            "color": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": "",
+              "defaultValue": {
+                "value": "'#D2D2D2'",
+                "computed": false
+              }
+            },
+            "duration": {
+              "type": {
+                "name": "string"
+              },
+              "required": true,
+              "description": ""
+            },
+            "icon": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "title": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "width": {
+              "type": {
+                "name": "number"
+              },
+              "required": true,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/ActivityList.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ActivityList",
+          "methods": [],
+          "actualName": "ActivityList",
+          "props": {
+            "activities": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "object"
+                }
+              },
+              "required": false,
+              "description": ""
+            }
+          }
         }
       ]
     },
@@ -62,249 +318,33 @@
           "description": "",
           "displayName": "ActivitySummary",
           "methods": [],
-          "actualName": "ActivitySummary"
-        }
-      ]
-    },
-    {
-      "key": "src/components/GoalSettings.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "GoalSettings",
-          "methods": [],
-          "actualName": "GoalSettings"
-        }
-      ]
-    },
-    {
-      "key": "src/components/GoalWeeklyChart.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "GoalWeeklyChart",
-          "methods": [],
-          "actualName": "GoalWeeklyChart"
-        }
-      ]
-    },
-    {
-      "key": "src/components/LanguagePicker.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "LanguagePicker",
-          "methods": [],
-          "actualName": "LanguagePicker"
-        }
-      ]
-    },
-    {
-      "key": "src/components/Modal.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Modal",
-          "methods": [],
-          "actualName": "Modal"
-        }
-      ]
-    },
-    {
-      "key": "src/components/NavigationBar.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "NavigationBar",
-          "methods": [],
-          "actualName": "NavigationBar"
-        }
-      ]
-    },
-    {
-      "key": "src/components/NumberedListItem.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "NumberedListItem",
-          "methods": [],
-          "actualName": "NumberedListItem"
-        }
-      ]
-    },
-    {
-      "key": "src/components/PieChart.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "PieChart",
-          "methods": [],
-          "actualName": "PieChart"
-        }
-      ]
-    },
-    {
-      "key": "src/components/SettingsItem.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "SettingsItem",
-          "methods": [],
-          "actualName": "SettingsItem"
-        }
-      ]
-    },
-    {
-      "key": "src/components/Slider.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "SliderGoal",
-          "methods": [],
-          "actualName": "SliderGoal"
-        }
-      ]
-    },
-    {
-      "key": "src/components/TimeTracker.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "TimeTracker",
-          "methods": [],
-          "actualName": "TimeTracker"
-        }
-      ]
-    },
-    {
-      "key": "src/components/TimerClock.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "TimerClock",
-          "methods": [],
-          "actualName": "TimerClock"
-        }
-      ]
-    },
-    {
-      "key": "src/components/Toast.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Toast",
-          "methods": [],
-          "actualName": "Toast"
-        }
-      ]
-    },
-    {
-      "key": "src/components/ToggleSwitch.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "ToggleSwitch",
-          "methods": [],
-          "actualName": "ToggleSwitch"
-        }
-      ]
-    },
-    {
-      "key": "src/components/TopbarNav.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "TopbarNav",
-          "methods": [],
-          "actualName": "TopbarNav"
-        }
-      ]
-    },
-    {
-      "key": "src/components/TrackingConfirmationModal.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "TrackingConfirmationModal",
-          "methods": [],
-          "actualName": "TrackingConfirmationModal"
-        }
-      ]
-    },
-    {
-      "key": "src/components/UserProfile.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "UserProfile",
-          "methods": [],
-          "actualName": "UserProfile"
-        }
-      ]
-    },
-    {
-      "key": "src/home/CodingActivitiesPage.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "CodingActivitiesPage",
-          "methods": [],
-          "actualName": "CodingActivitiesPage"
-        }
-      ]
-    },
-    {
-      "key": "src/home/HomePage.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "HomePage",
-          "methods": [],
-          "actualName": "HomePage"
-        }
-      ]
-    },
-    {
-      "key": "src/home/OverviewPage.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "OverviewPage",
-          "methods": [],
-          "actualName": "OverviewPage"
-        }
-      ]
-    },
-    {
-      "key": "src/home/SportActivitiesPage.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "SportActivityPage",
-          "methods": [],
-          "actualName": "SportActivityPage"
-        }
-      ]
-    },
-    {
-      "key": "src/connect/ConnectPage.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "ConnectPage",
-          "methods": [],
-          "actualName": "ConnectPage"
-        }
-      ]
-    },
-    {
-      "key": "src/connect/FaqPage.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "FaqPage",
-          "methods": [],
-          "actualName": "FaqPage"
+          "actualName": "ActivitySummary",
+          "props": {
+            "activities": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "object"
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "activityType": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "theme": {
+              "type": {
+                "name": "object"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
         }
       ]
     },
@@ -320,35 +360,1117 @@
       ]
     },
     {
-      "key": "src/components/CodingLanguagesTags.js",
+      "key": "src/components/GoalSettings.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "GoalSettings",
+          "methods": [],
+          "actualName": "GoalSettings",
+          "props": {
+            "activitiesLastWeekByWeekday": {
+              "type": {
+                "name": "objectOf",
+                "value": {
+                  "name": "number"
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "page": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "setWeeklyGoal": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "weeklyGoal": {
+              "type": {
+                "name": "objectOf",
+                "value": {
+                  "name": "number"
+                }
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/GoalSlider.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "GoalSlider",
+          "methods": [],
+          "actualName": "GoalSlider",
+          "props": {
+            "page": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "setWeeklyGoal": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "weeklyGoal": {
+              "type": {
+                "name": "objectOf",
+                "value": {
+                  "name": "number"
+                }
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/GoalWeeklyChart.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "GoalWeeklyChart",
+          "methods": [],
+          "actualName": "GoalWeeklyChart",
+          "props": {
+            "activitiesLastWeekByWeekday": {
+              "type": {
+                "name": "objectOf",
+                "value": {
+                  "name": "number"
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "dailyGoal": {
+              "type": {
+                "name": "number"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/LanguagePicker.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "LanguagePicker",
+          "methods": [],
+          "actualName": "LanguagePicker"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Loading.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Loading",
+          "methods": [],
+          "actualName": "Loading"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Modal.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Modal",
+          "methods": [],
+          "actualName": "Modal",
+          "props": {
+            "duration": {
+              "type": {
+                "name": "number"
+              },
+              "required": false,
+              "description": "",
+              "defaultValue": {
+                "value": "3",
+                "computed": false
+              }
+            },
+            "icon": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "text": {
+              "type": {
+                "name": "string"
+              },
+              "required": true,
+              "description": ""
+            },
+            "title": {
+              "type": {
+                "name": "string"
+              },
+              "required": true,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/NavBar.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "NavBar",
+          "methods": [],
+          "actualName": "NavBar",
+          "props": {
+            "activePage": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "setActivePage": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "pages": {
+              "type": {
+                "name": "objectOf",
+                "value": {
+                  "name": "shape",
+                  "value": {
+                    "name": {
+                      "name": "arrayOf",
+                      "value": {
+                        "name": "string"
+                      },
+                      "required": false
+                    },
+                    "page": {
+                      "name": "string",
+                      "required": false
+                    },
+                    "path": {
+                      "name": "arrayOf",
+                      "value": {
+                        "name": "string"
+                      },
+                      "required": false
+                    },
+                    "src": {
+                      "name": "string",
+                      "required": false
+                    },
+                    "srcActive": {
+                      "name": "string",
+                      "required": false
+                    }
+                  }
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "theme": {
+              "type": {
+                "name": "object"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/NavBarTop.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "NavBarTop",
+          "methods": [],
+          "actualName": "NavBarTop",
+          "props": {
+            "activePage": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "handlePageChange": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "pages": {
+              "type": {
+                "name": "objectOf",
+                "value": {
+                  "name": "shape",
+                  "value": {
+                    "page": {
+                      "name": "string",
+                      "required": false
+                    },
+                    "name": {
+                      "name": "arrayOf",
+                      "value": {
+                        "name": "string"
+                      },
+                      "required": false
+                    },
+                    "path": {
+                      "name": "arrayOf",
+                      "value": {
+                        "name": "string"
+                      },
+                      "required": false
+                    },
+                    "src": {
+                      "name": "string",
+                      "required": false
+                    },
+                    "srcActive": {
+                      "name": "string",
+                      "required": false
+                    }
+                  }
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "startTime": {
+              "type": {
+                "name": "number"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/NumberedListItem.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "NumberedListItem",
+          "methods": [],
+          "actualName": "NumberedListItem",
+          "props": {
+            "children": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "number": {
+              "type": {
+                "name": "number"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/PageToggle.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PageToggle",
+          "methods": [],
+          "actualName": "PageToggle",
+          "props": {
+            "activePage": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "pages": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "string"
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "setActivePage": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/SettingsItem.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SettingsItem",
+          "methods": [],
+          "actualName": "SettingsItem",
+          "props": {
+            "icon": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "isChecked": {
+              "type": {
+                "name": "bool"
+              },
+              "required": false,
+              "description": ""
+            },
+            "label": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "setValue": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "theme": {
+              "type": {
+                "name": "object"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/PieChart.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PieChart",
+          "methods": [],
+          "actualName": "PieChart",
+          "props": {
+            "backgroundColor": {
+              "type": {
+                "name": "shape",
+                "value": {
+                  "stravaData": {
+                    "name": "arrayOf",
+                    "value": {
+                      "name": "string"
+                    },
+                    "required": false
+                  },
+                  "codingData": {
+                    "name": "arrayOf",
+                    "value": {
+                      "name": "string"
+                    },
+                    "required": false
+                  },
+                  "totalData": {
+                    "name": "arrayOf",
+                    "value": {
+                      "name": "string"
+                    },
+                    "required": false
+                  }
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "codingData": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "number"
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "labels": {
+              "type": {
+                "name": "shape",
+                "value": {
+                  "stravaData": {
+                    "name": "arrayOf",
+                    "value": {
+                      "name": "string"
+                    },
+                    "required": false
+                  },
+                  "codingData": {
+                    "name": "arrayOf",
+                    "value": {
+                      "name": "string"
+                    },
+                    "required": false
+                  },
+                  "totalData": {
+                    "name": "arrayOf",
+                    "value": {
+                      "name": "string"
+                    },
+                    "required": false
+                  }
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "stravaData": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "number"
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "theme": {
+              "type": {
+                "name": "object"
+              },
+              "required": false,
+              "description": ""
+            },
+            "totalData": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "number"
+                }
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Tags.js",
       "value": [
         {
           "description": "",
           "displayName": "CodingLanguagesTags",
           "methods": [],
-          "actualName": "CodingLanguagesTags"
+          "actualName": "CodingLanguagesTags",
+          "props": {
+            "languages": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "string"
+                }
+              },
+              "required": false,
+              "description": ""
+            }
+          }
         }
       ]
     },
     {
-      "key": "src/components/ActivityList.js",
+      "key": "src/components/Timer.js",
       "value": [
         {
           "description": "",
-          "displayName": "ActivityList",
+          "displayName": "Timer",
           "methods": [],
-          "actualName": "ActivityList"
+          "actualName": "Timer",
+          "props": {
+            "startTime": {
+              "type": {
+                "name": "number"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
         }
       ]
     },
     {
-      "key": "src/components/ActivityCard.js",
+      "key": "src/components/TimerChart.js",
       "value": [
         {
           "description": "",
-          "displayName": "ActivityCard",
+          "displayName": "TimerChart",
           "methods": [],
-          "actualName": "ActivityCard"
+          "actualName": "TimerChart",
+          "props": {
+            "codingActivitiesDurationAndType": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "shape",
+                  "value": {
+                    "duration": {
+                      "name": "number",
+                      "required": false
+                    },
+                    "languages": {
+                      "name": "arrayOf",
+                      "value": {
+                        "name": "string"
+                      },
+                      "required": false
+                    }
+                  }
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "handleTimerClick": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "isTracking": {
+              "type": {
+                "name": "bool"
+              },
+              "required": false,
+              "description": ""
+            },
+            "stravaActivitiesDurationAndType": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "shape",
+                  "value": {
+                    "duration": {
+                      "name": "number",
+                      "required": false
+                    },
+                    "type": {
+                      "name": "string",
+                      "required": false
+                    }
+                  }
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "theme": {
+              "type": {
+                "name": "object"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Toast.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Toast",
+          "methods": [],
+          "actualName": "Toast",
+          "props": {
+            "duration": {
+              "type": {
+                "name": "number"
+              },
+              "required": false,
+              "description": ""
+            },
+            "setGoalReminderLastSeen": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "minutesLeftToDailyCodingGoal": {
+              "type": {
+                "name": "number"
+              },
+              "required": false,
+              "description": ""
+            },
+            "theme": {
+              "type": {
+                "name": "object"
+              },
+              "required": false,
+              "description": ""
+            },
+            "type": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/TrackingConfirmationModal.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TrackingConfirmationModal",
+          "methods": [],
+          "actualName": "TrackingConfirmationModal",
+          "props": {
+            "availableLanguages": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "string"
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "handleTrackingCompleted": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/UserProfile.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "UserProfile",
+          "methods": [],
+          "actualName": "UserProfile",
+          "props": {
+            "image": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "username": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/connect/ConnectPage.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ConnectPage",
+          "methods": [],
+          "actualName": "ConnectPage",
+          "props": {
+            "handlePageChange": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "handleStravaConnect": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "handleStravaDisconnect": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "image": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "isLoggedIn": {
+              "type": {
+                "name": "bool"
+              },
+              "required": false,
+              "description": ""
+            },
+            "theme": {
+              "type": {
+                "name": "object"
+              },
+              "required": false,
+              "description": ""
+            },
+            "username": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/connect/FaqPage.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FaqPage",
+          "methods": [],
+          "actualName": "FaqPage"
+        }
+      ]
+    },
+    {
+      "key": "src/home/CodingActivitiesPage.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "CodingActivitiesPage",
+          "methods": [],
+          "actualName": "CodingActivitiesPage",
+          "props": {
+            "codingActivities": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "shape",
+                  "value": {
+                    "elapsed_time": {
+                      "name": "number",
+                      "required": false
+                    },
+                    "languages": {
+                      "name": "arrayOf",
+                      "value": {
+                        "name": "string"
+                      },
+                      "required": false
+                    },
+                    "name": {
+                      "name": "string",
+                      "required": false
+                    },
+                    "start_date": {
+                      "name": "string",
+                      "required": false
+                    },
+                    "type": {
+                      "name": "string",
+                      "required": false
+                    }
+                  }
+                }
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/home/HomePage.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "HomePage",
+          "methods": [],
+          "actualName": "HomePage",
+          "props": {
+            "availableLanguages": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "string"
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "codingActivities": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "shape",
+                  "value": {
+                    "elapsed_time": {
+                      "name": "number",
+                      "required": false
+                    },
+                    "languages": {
+                      "name": "arrayOf",
+                      "value": {
+                        "name": "string"
+                      },
+                      "required": false
+                    },
+                    "name": {
+                      "name": "string",
+                      "required": false
+                    },
+                    "start_date": {
+                      "name": "string",
+                      "required": false
+                    },
+                    "type": {
+                      "name": "string",
+                      "required": false
+                    }
+                  }
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "stravaActivities": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "object"
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "handleTrackingCompleted": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "handleTimerClick": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "isTracking": {
+              "type": {
+                "name": "bool"
+              },
+              "required": false,
+              "description": ""
+            },
+            "isStravaLoading": {
+              "type": {
+                "name": "bool"
+              },
+              "required": false,
+              "description": ""
+            },
+            "showModal": {
+              "type": {
+                "name": "bool"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/home/OverviewPage.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "OverviewPage",
+          "methods": [],
+          "actualName": "OverviewPage",
+          "props": {
+            "availableLanguages": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "string"
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "codingActivities": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "shape",
+                  "value": {
+                    "elapsed_time": {
+                      "name": "number",
+                      "required": false
+                    },
+                    "languages": {
+                      "name": "arrayOf",
+                      "value": {
+                        "name": "string"
+                      },
+                      "required": false
+                    },
+                    "name": {
+                      "name": "string",
+                      "required": false
+                    },
+                    "start_date": {
+                      "name": "string",
+                      "required": false
+                    },
+                    "type": {
+                      "name": "string",
+                      "required": false
+                    }
+                  }
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "stravaActivities": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "object"
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "handleTimerClick": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "handleTrackingCompleted": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "isTracking": {
+              "type": {
+                "name": "bool"
+              },
+              "required": false,
+              "description": ""
+            },
+            "showModal": {
+              "type": {
+                "name": "bool"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/home/SportActivitiesPage.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SportActivityPage",
+          "methods": [],
+          "actualName": "SportActivityPage",
+          "props": {
+            "stravaActivities": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "object"
+                }
+              },
+              "required": false,
+              "description": ""
+            }
+          }
         }
       ]
     }
@@ -363,30 +1485,6 @@
         "link": "",
         "slug": "src-components-docz-activity-card",
         "route": "/src-components-docz-activity-card",
-        "menu": "",
-        "headings": [
-          {
-            "slug": "props",
-            "depth": 2,
-            "value": "Props"
-          },
-          {
-            "slug": "basic-usage",
-            "depth": 2,
-            "value": "Basic Usage"
-          }
-        ]
-      }
-    },
-    {
-      "key": "src/components/docz/CodingLanguagesTags.mdx",
-      "value": {
-        "name": "CodingLanguagesTags",
-        "id": "229e14eba92400354f1e987abfad0c20",
-        "filepath": "src/components/docz/CodingLanguagesTags.mdx",
-        "link": "",
-        "slug": "src-components-docz-coding-languages-tags",
-        "route": "/src-components-docz-coding-languages-tags",
         "menu": "",
         "headings": [
           {
@@ -427,14 +1525,14 @@
       }
     },
     {
-      "key": "src/components/docz/TimeTracker.mdx",
+      "key": "src/components/docz/Tags.mdx",
       "value": {
-        "name": "TimeTracker",
-        "id": "4aad3b67114587de88c5275b3dd5d2e7",
-        "filepath": "src/components/docz/TimeTracker.mdx",
+        "name": "Tags",
+        "id": "b32b6da34087af6250cc29cc91f53c56",
+        "filepath": "src/components/docz/Tags.mdx",
         "link": "",
-        "slug": "src-components-docz-time-tracker",
-        "route": "/src-components-docz-time-tracker",
+        "slug": "src-components-docz-tags",
+        "route": "/src-components-docz-tags",
         "menu": "",
         "headings": [
           {
@@ -451,14 +1549,38 @@
       }
     },
     {
-      "key": "src/components/docz/TimerClock.mdx",
+      "key": "src/components/docz/Timer.mdx",
       "value": {
-        "name": "TimerClock",
-        "id": "95eaaee8d1e135cee655038fc238d22b",
-        "filepath": "src/components/docz/TimerClock.mdx",
+        "name": "Timer",
+        "id": "7d3747152ae388319bf56b5a9fa94b44",
+        "filepath": "src/components/docz/Timer.mdx",
         "link": "",
-        "slug": "src-components-docz-timer-clock",
-        "route": "/src-components-docz-timer-clock",
+        "slug": "src-components-docz-timer",
+        "route": "/src-components-docz-timer",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          },
+          {
+            "slug": "basic-usage",
+            "depth": 2,
+            "value": "Basic Usage"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/docz/TimerButton.mdx",
+      "value": {
+        "name": "TimerChart",
+        "id": "f656be370fc281e9c86568c2ad0f5a4b",
+        "filepath": "src/components/docz/TimerButton.mdx",
+        "link": "",
+        "slug": "src-components-docz-timer-button",
+        "route": "/src-components-docz-timer-button",
         "menu": "",
         "headings": [
           {

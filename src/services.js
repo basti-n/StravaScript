@@ -10,7 +10,7 @@ const getDataFromStrava = (token, path) =>
   fetch(`https://www.strava.com/api/v3/athlete${path}?access_token=${token}`)
     .then(res => {
       if (res.status === 401) {
-        const code = getTokenFromLocalStorage('strava_code')
+        const code = getTokenFromLocalStorage('strava_loginToken')
         return getTokenFromStrava(code).then(data => {
           const { access_token } = data
           saveToLocalStorage('token', access_token)
