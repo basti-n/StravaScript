@@ -1,4 +1,5 @@
 import { timeStampLastSevenDays } from './utils'
+import uid from 'uid'
 import moment from 'moment'
 import 'moment/locale/de'
 moment.locale('de')
@@ -97,6 +98,19 @@ export const updateUser = (data, id) =>
 export const sendFeedback = (text, user) =>
   sendRequestToBackend('/feedback', 'POST', { text, user })
 
+//Coding Tracker
+
+export function createCompletedCodingActivity(languages, startTime) {
+  return {
+    name: 'Coding Activity',
+    type: 'Code',
+    id: uid(),
+    elapsed_time: getTrackingTimeInSeconds(startTime),
+    start_date: new Date(startTime).toISOString(),
+    languages,
+  }
+}
+
 //Activities
 export const sortActivitiesByDate = activities => {
   try {
@@ -153,7 +167,6 @@ export const showGoalReminder = (
     return
   }
   const msBetweenNotification = secondsBetweenNotification * 1000
-  console.log(msBetweenNotification, Date.now() - notificationLastSeen)
   return Date.now() - notificationLastSeen > msBetweenNotification
     ? true
     : false

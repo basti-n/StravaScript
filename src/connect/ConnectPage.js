@@ -47,7 +47,7 @@ function ConnectPage({
   })
   const currentPath = new URL(document.location).searchParams
   const stravaCode = currentPath.get('code')
-  const redirectURL = 'http://localhost:3000/connect/strava'
+  const redirectURL = `${document.location.origin}/connect/strava`
   const authUrl = `https://www.strava.com/oauth/authorize?client_id=35264&redirect_uri=${redirectURL}&response_type=code&scope=read,activity:read_all,profile:read_all,read_all,`
 
   function startAuthorization() {

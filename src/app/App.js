@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Router, navigate } from '@reach/router'
 import { ThemeProvider } from 'styled-components'
-import uid from 'uid'
 
 import {
   getFromLocalStorage,
@@ -13,13 +12,13 @@ import {
   getAthleteFromStrava,
   disconnectStravaAccount,
   getMainPagefromSubPage,
-  getTrackingTimeInSeconds,
   getActivitiesForLastWeek,
   showGoalReminder,
   getMinutesLeftToDailyCodingGoal,
   getUser,
   updateUser,
   sortActivitiesByDate,
+  createCompletedCodingActivity,
 } from '../services'
 
 import NavBarTop from '../components/NavBarTop'
@@ -131,19 +130,11 @@ function App() {
     setIsTracking(prevState => !prevState)
   }
 
-  function createCompletedCodingActivity(languages) {
-    return {
-      name: 'Coding Activity',
-      type: 'Code',
-      id: uid(),
-      elapsed_time: getTrackingTimeInSeconds(startTime),
-      start_date: new Date(startTime).toISOString(),
-      languages,
-    }
-  }
-
   function handleTrackingCompleted(languages) {
-    const completedCodingActivity = createCompletedCodingActivity(languages)
+    const completedCodingActivity = createCompletedCodingActivity(
+      languages,
+      startTime
+    )
 
     setCodingActivities(prevCodingActivities => [
       ...prevCodingActivities,
@@ -180,15 +171,6 @@ function App() {
       console.log(err.message)
     }
   }
-
-  useEffect(() => {
-    window.onpopstate = () => {
-      const newActivePage = getMainPagefromSubPage(
-        window.location.pathname.substr(1)
-      )
-      setActivePage(newActivePage)
-    }
-  }, [])
 
   useEffect(() => {
     saveToLocalStorage('stravascript_settings', JSON.stringify(settings))
@@ -255,6 +237,15 @@ function App() {
   useEffect(() => saveToLocalStorage('stravascript_startTime', startTime), [
     startTime,
   ])
+
+  useEffect(() => {
+    window.onpopstate = () => {
+      const newActivePage = getMainPagefromSubPage(
+        window.location.pathname.substr(1)
+      )
+      setActivePage(newActivePage)
+    }
+  }, [])
 
   useEffect(() => {
     if (isTracking && !startTime) {
