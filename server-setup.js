@@ -18,7 +18,15 @@ module.exports = function() {
     err ? console.log(err) : console.log('Server ready')
   })
 
-  app.get(['/', '/connect', 'goals', 'connect/*'], function(req, res) {
+  app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'))
+  })
+
+  app.get('/connect', function(req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'))
+  })
+
+  app.get('/settings', function(req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'))
   })
 
