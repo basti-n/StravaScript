@@ -26,6 +26,7 @@ export default function getTheme(darkMode) {
       checkboxIcon: '/assets/checkbox_white-circle-darkMode.svg',
       connectIcon: '/assets/connect-icon-darkMode.svg',
       darkModeIcon: '/assets/darkMode-icon-darkMode.svg',
+      emptyStateIcon: '/assets/empty-state-darkMode.svg',
       notificationIcon: '/assets/notification-icon-darkMode.svg',
 
       sportIcons: {
@@ -79,6 +80,7 @@ export default function getTheme(darkMode) {
       checkboxIcon: '/assets/checkbox_white-circle.svg',
       connectIcon: '/assets/connect-icon.svg',
       darkModeIcon: '/assets/darkMode-icon.svg',
+      emptyStateIcon: '/assets/empty-state.svg',
       notificationIcon: '/assets/notification-icon.svg',
 
       sportIcons: {

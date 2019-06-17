@@ -9,8 +9,10 @@ export default function HomePage({
   availableLanguages,
   codingActivities,
   stravaActivities,
+  handlePageChange,
   handleTimerClick,
   handleTrackingCompleted,
+  isLoggedIn,
   isTracking,
   isStravaLoading,
   showModal,
@@ -22,8 +24,10 @@ export default function HomePage({
         availableLanguages={availableLanguages}
         codingActivities={codingActivities}
         stravaActivities={stravaActivities}
+        handlePageChange={handlePageChange}
         handleTimerClick={handleTimerClick}
         handleTrackingCompleted={handleTrackingCompleted}
+        isLoggedIn={isLoggedIn}
         isTracking={isTracking}
         isStravaLoading={isStravaLoading}
         showModal={showModal}
@@ -46,8 +50,10 @@ HomePage.propTypes = {
     })
   ),
   stravaActivities: PropTypes.arrayOf(PropTypes.object),
+  handlePageChange: PropTypes.func,
   handleTrackingCompleted: PropTypes.func,
   handleTimerClick: PropTypes.func,
+  isLoggedIn: PropTypes.bool,
   isTracking: PropTypes.bool,
   isStravaLoading: PropTypes.bool,
   showModal: PropTypes.bool,

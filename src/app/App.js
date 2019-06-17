@@ -116,8 +116,8 @@ function App() {
       await disconnectStravaAccount(token)
       removeFromLocalStorage('strava_token')
       removeFromLocalStorage('strava_loginToken')
-      removeFromLocalStorage('stravascript_coding')
       setCodingActivities([])
+      setStravaActivities([])
       setSettings(prevState => ({
         ...prevState,
         isLoggedIn: false,
@@ -311,8 +311,10 @@ function App() {
             availableLanguages={['backend', 'js', 'css']}
             codingActivities={sortActivitiesByDate(codingActivities)}
             stravaActivities={sortActivitiesByDate(stravaActivities)}
+            isLoggedIn={settings.isLoggedIn}
             isStravaLoading={isStravaLoading}
             isTracking={isTracking}
+            handlePageChange={handlePageChange}
             handleTimerClick={handleTimerClick}
             handleTrackingCompleted={handleTrackingCompleted}
             showModal={!isTracking && startTime > 0}
