@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import {
@@ -11,6 +11,7 @@ import {
 import Modal from '../components/Modal'
 import Loading from '../components/Loading'
 import SettingsItem from '../components/SettingsItem'
+import { sendFeedback } from '../services'
 
 const StyledGeneralSettingsContainer = styled(StyledActivityContainer)`
   display: flex;
@@ -48,14 +49,15 @@ const SubmitButton = styled(StyledButtonPrimary)`
 `
 
 function SettingsPage({
-  handleFeedbackSubmit,
-  mailPending,
   modalDuration,
-  showModal,
+  username,
   settings,
   setSettings,
   theme,
 }) {
+  const [mailPending, setMailPending] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+
   const formValue = useRef()
 
   function handleSubmit(event) {
@@ -66,9 +68,20 @@ function SettingsPage({
       return
     }
 
-    handleFeedbackSubmit(submitText).then(status => {
-      status === 200 && event.target.reset()
-    })
+    sendMail(submitText).then(status => status === 200 && event.target.reset())
+  }
+
+  async function sendMail(text) {
+    setMailPending(true)
+    const mail = await sendFeedback(text, username)
+    if (mail.status === 200) {
+      setMailPending(false)
+      setShowModal(true)
+      setTimeout(() => {
+        setShowModal(false)
+      }, modalDuration * 1000)
+    }
+    return mail.status
   }
 
   return (
@@ -123,10 +136,8 @@ function SettingsPage({
 export default withTheme(SettingsPage)
 
 SettingsPage.propTypes = {
-  handleFeedbackSubmit: PropTypes.func,
-  mailPending: PropTypes.bool,
   modalDuration: PropTypes.number,
-  showModal: PropTypes.bool,
+  username: PropTypes.string,
   settings: PropTypes.shape({
     darkMode: PropTypes.bool.isRequired,
     goalReminderLastSeen: PropTypes.number,

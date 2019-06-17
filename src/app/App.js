@@ -19,7 +19,6 @@ import {
   getMinutesLeftToDailyCodingGoal,
   getUser,
   updateUser,
-  sendFeedback,
   sortActivitiesByDate,
 } from '../services'
 
@@ -77,8 +76,7 @@ function App() {
   const [activePage, setActivePage] = useState(
     getMainPagefromSubPage(window.location.pathname.substr(1)) || 'home'
   )
-  const [mailPending, setMailPending] = useState(false)
-  const [showModal, setShowModal] = useState(false)
+
   // for presentational purposes set to fire after 30sec
   const showReminder = showGoalReminder(
     30,
@@ -152,22 +150,6 @@ function App() {
       completedCodingActivity,
     ])
     setStartTime(null)
-  }
-
-  function handleFeedbackSubmit(feedbackText) {
-    setMailPending(true)
-    return sendFeedback(feedbackText, stravaUser.username)
-      .then(data => {
-        if (data.status === 200) {
-          setMailPending(false)
-          setShowModal(true)
-          setTimeout(() => {
-            setShowModal(false)
-          }, 3 * 1000)
-          return data.status
-        }
-      })
-      .catch(err => new Error('Mail cannot be send'))
   }
 
   function handlePageChange(targetPage) {
@@ -322,12 +304,10 @@ function App() {
 
           <SettingsPage
             path="settings"
-            handleFeedbackSubmit={handleFeedbackSubmit}
-            mailPending={mailPending}
             modalDuration={3}
+            username={settings.username}
             settings={settings}
             setSettings={setSettings}
-            showModal={showModal}
           />
 
           <ConnectPage
