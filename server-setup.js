@@ -18,7 +18,7 @@ module.exports = function() {
     err ? console.log(err) : console.log('Server ready')
   })
 
-  app.get('/', function(req, res) {
+  app.get(['/', '/connect/*', 'goals/*'], function(req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'))
   })
 
