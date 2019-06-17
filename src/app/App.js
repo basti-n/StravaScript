@@ -5,7 +5,6 @@ import { ThemeProvider } from 'styled-components'
 import {
   getFromLocalStorage,
   saveToLocalStorage,
-  removeFromLocalStorage,
   getTokenFromLocalStorage,
   getTokenFromStrava,
   getActivitiesFromStrava,
@@ -19,6 +18,7 @@ import {
   updateUser,
   sortActivitiesByDate,
   createCompletedCodingActivity,
+  removeUserDataFromLocalStorage,
 } from '../services'
 
 import NavBarTop from '../components/NavBarTop'
@@ -111,8 +111,7 @@ function App() {
   async function handleStravaDisconnect() {
     try {
       await disconnectStravaAccount(token)
-      removeFromLocalStorage('strava_token')
-      removeFromLocalStorage('strava_loginToken')
+      removeUserDataFromLocalStorage()
       setCodingActivities([])
       setStravaActivities([])
       setSettings(prevState => ({

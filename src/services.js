@@ -65,6 +65,13 @@ export const getTokenFromStrava = code =>
       return data
     })
 
+export const removeUserDataFromLocalStorage = () => {
+  removeFromLocalStorage('strava_token')
+  removeFromLocalStorage('strava_loginToken')
+  removeFromLocalStorage('strava_activities')
+  removeFromLocalStorage('stravascript_coding')
+}
+
 export const getTokenFromLocalStorage = name => localStorage.getItem(name)
 export const removeFromLocalStorage = name => localStorage.removeItem(name)
 
