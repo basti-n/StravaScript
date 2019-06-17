@@ -26,7 +26,11 @@ module.exports = function() {
     res.sendFile(path.join(__dirname, 'build', 'index.html'))
   })
 
-  app.get('/settings', function(req, res) {
+  app.get('/connect/*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'))
+  })
+
+  app.get('/goals', function(req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'))
   })
 
