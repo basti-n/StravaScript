@@ -8,9 +8,7 @@ require('dotenv').config()
 module.exports = function() {
   mongoose
     .connect(
-      `mongodb+srv://Neumair:${
-        process.env.MONGO_PASSWORD
-      }@cluster0-puv2j.mongodb.net/stravascript?retryWrites=true&w=majority`,
+      process.env.MONGO_URI || 'mongodb://localhost:27017/stravascript',
       {
         useNewUrlParser: true,
       }
