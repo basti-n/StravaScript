@@ -4,7 +4,10 @@ import styled from 'styled-components'
 import { formatToMinutesAndSeconds, formatToHoursAndMinutes } from '../utils'
 
 const StyledTimer = styled.h2`
-  @import url(http://allfont.de/allfont.css?fonts=ds-digital);
+  @font-face {
+    font-family: 'DS-Digital';
+    src: url('assets/DS-DIGI.TTF');
+  }
   background: ${props => props.theme.primaryColor};
   color: ${props => props.theme.lightFont};
   display: flex;
