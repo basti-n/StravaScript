@@ -6,8 +6,12 @@ import { formatToMinutesAndSeconds, formatToHoursAndMinutes } from '../utils'
 const StyledTimer = styled.h2`
   @font-face {
     font-family: 'DS-Digital';
-    src: url('assets/DS-DIGI.TTF');
+    src: url('/assets/DS-Digital.woff2') format('woff2'),
+      url('/assets/DS-Digital.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
   }
+
   background: ${props => props.theme.primaryColor};
   color: ${props => props.theme.lightFont};
   display: flex;
