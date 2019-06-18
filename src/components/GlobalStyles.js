@@ -32,7 +32,7 @@ body {
   .MuiSlider-thumb {
     background: 1px solid;
     background-color: ${props => props.theme.background};
-    background-image: url('assets/goal-small.svg');
+    background-image: url('../assets/goal-small.svg');
     border: 1px solid ${props => props.theme.secondaryColor1};
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     width: 30px;

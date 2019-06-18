@@ -1,16 +1,4 @@
-import emptyStateDarkMode from './assets/empty-state-darkMode.svg'
-import connectIconDarkMode from './assets/connect-icon-darkMode.svg'
-import checkboxIconDarkMode from './assets/checkbox_white-circle-darkMode.svg'
-import darkModeIconDarkMode from './assets/darkMode-icon-darkMode.svg'
-import notificationIconDarkMode from './assets/notification-icon-darkMode.svg'
-
-import emptyState from './assets/empty-state.svg'
-import connectIcon from './assets/connect-icon.svg'
-import checkboxIcon from './assets/checkbox_white-circle.svg'
-import darkModeIcon from './assets/darkMode-icon.svg'
-import notificationIcon from './assets/notification-icon.svg'
-
-//
+// Acitivity Icons
 
 import bikeDarkMode from './assets/bike-small-darkMode.svg'
 import runDarkMode from './assets/run-small-darkMode.svg'
@@ -20,7 +8,7 @@ import bike from './assets/bike-small.svg'
 import run from './assets/run-small.svg'
 import strength from './assets/weighttraining-small.svg'
 
-//
+// Navigation
 
 import home from './assets/home.svg'
 import connect from './assets/connect.svg'
@@ -33,6 +21,20 @@ import settingsActiveDarkMode from './assets/settings-active-darkMode.svg'
 import homeActive from './assets/home-active.svg'
 import connectActive from './assets/connect-active.svg'
 import settingsActive from './assets/settings-active.svg'
+
+// Menu Icons
+
+import emptyStateDarkMode from './assets/empty-state-darkMode.svg'
+import connectIconDarkMode from './assets/connect-icon-darkMode.svg'
+import checkboxIconDarkMode from './assets/checkbox_white-circle-darkMode.svg'
+import darkModeIconDarkMode from './assets/darkMode-icon-darkMode.svg'
+import notificationIconDarkMode from './assets/notification-icon-darkMode.svg'
+
+import emptyState from './assets/empty-state.svg'
+import connectIcon from './assets/connect-icon.svg'
+import checkboxIcon from './assets/checkbox_white-circle.svg'
+import darkModeIcon from './assets/darkMode-icon.svg'
+import notificationIcon from './assets/notification-icon.svg'
 
 export default function getTheme(darkMode) {
   if (darkMode) {
