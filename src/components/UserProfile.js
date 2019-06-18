@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import placeholderImage from '../assets/placeholder_profile.svg'
 
 const StyledUserProfile = styled.section`
   display: grid;
@@ -31,7 +32,7 @@ export default function UserProfile({ image, username }) {
         username: <span>{username}</span>
       </StyledUserName>
       <StyledUserImage
-        src={image || '/assets/placeholder_profile.svg'}
+        src={image || placeholderImage}
         alt="strava profile image"
       />
     </StyledUserProfile>

@@ -4,6 +4,11 @@ import { Doughnut, defaults } from 'react-chartjs-2'
 import 'chartjs-plugin-labels'
 import styled, { withTheme } from 'styled-components'
 import { hexToRgb } from '../utils'
+import bikeIcon from '../assets/bike-small.svg'
+import runIcon from '../assets/run-small.svg'
+import openTag from '../assets/openTag.svg'
+import closeTag from '../assets/closeTag.svg'
+import strengthIcon from '../assets/weighttraining-small.svg'
 
 defaults.global.defaultFontFamily = 'Libre Franklin, sans-serif;'
 
@@ -81,9 +86,9 @@ function PieChart({
         fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
         render: activeFilter === 'stravaData' ? 'image' : 'label',
         images: [
-          { src: '/assets/bike-small.svg', width: 18, height: 18 },
-          { src: '/assets/run-small.svg', width: 18, height: 18 },
-          { src: '/assets/weighttraining-small.svg', width: 18, height: 18 },
+          { src: bikeIcon, width: 18, height: 18 },
+          { src: runIcon, width: 18, height: 18 },
+          { src: strengthIcon, width: 18, height: 18 },
         ],
       },
     },
@@ -117,13 +122,13 @@ function PieChart({
   return (
     <StyledPieChart>
       <StyledTagOpen
-        src="/assets/openTag.svg"
+        src={openTag}
         alt="html tag open"
         onClick={() => handleFilterChange('left')}
       />
       <Doughnut data={data} options={options} />
       <StyledTagClose
-        src="/assets/closeTag.svg"
+        src={closeTag}
         alt="html tag close"
         onClick={() => handleFilterChange('right')}
       />

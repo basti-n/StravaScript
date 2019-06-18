@@ -4,6 +4,36 @@ import checkboxIconDarkMode from './assets/checkbox_white-circle-darkMode.svg'
 import darkModeIconDarkMode from './assets/darkMode-icon-darkMode.svg'
 import notificationIconDarkMode from './assets/notification-icon-darkMode.svg'
 
+import emptyState from './assets/empty-state.svg'
+import connectIcon from './assets/connect-icon.svg'
+import checkboxIcon from './assets/checkbox_white-circle.svg'
+import darkModeIcon from './assets/darkMode-icon.svg'
+import notificationIcon from './assets/notification-icon.svg'
+
+//
+
+import bikeDarkMode from './assets/bike-small-darkMode.svg'
+import runDarkMode from './assets/run-small-darkMode.svg'
+import strengthDarkMode from './assets/weighttraining-small-darkMode.svg'
+
+import bike from './assets/bike-small.svg'
+import run from './assets/run-small.svg'
+import strength from './assets/weighttraining-small.svg'
+
+//
+
+import home from './assets/home.svg'
+import connect from './assets/connect.svg'
+import settings from './assets/settings.svg'
+
+import homeActiveDarkMode from './assets/home-active-darkMode.svg'
+import connectActiveDarkMode from './assets/connect-active-darkMode.svg'
+import settingsActiveDarkMode from './assets/settings-active-darkMode.svg'
+
+import homeActive from './assets/home-active.svg'
+import connectActive from './assets/connect-active.svg'
+import settingsActive from './assets/settings-active.svg'
+
 export default function getTheme(darkMode) {
   if (darkMode) {
     return {
@@ -36,26 +66,26 @@ export default function getTheme(darkMode) {
       notificationIcon: notificationIconDarkMode,
 
       sportIcons: {
-        bike: '/assets/bike-small-darkMode.svg',
-        run: '/assets/run-small-darkMode.svg',
-        strength: '/assets/weighttraining-small-darkMode.svg',
+        bike: bikeDarkMode,
+        run: runDarkMode,
+        strength: strengthDarkMode,
       },
 
       navIcons: {
         home: {
           page: 'home',
-          src: '/assets/home.svg',
-          srcActive: '/assets/home-active-darkMode.svg',
+          src: home,
+          srcActive: homeActiveDarkMode,
         },
         connect: {
           page: 'connect',
-          src: '/assets/connect.svg',
-          srcActive: '/assets/connect-active-darkMode.svg',
+          src: connect,
+          srcActive: connectActiveDarkMode,
         },
         goals: {
           page: 'goals',
-          src: '/assets/settings.svg',
-          srcActive: '/assets/settings-active-darkMode.svg',
+          src: settings,
+          srcActive: settingsActiveDarkMode,
         },
       },
     }
@@ -83,33 +113,33 @@ export default function getTheme(darkMode) {
       strengthColor: '#2E7357',
       toastBackground: 'rgba(46, 139, 87, 0.9)',
 
-      checkboxIcon: '/assets/checkbox_white-circle.svg',
-      connectIcon: '/assets/connect-icon.svg',
-      darkModeIcon: '/assets/darkMode-icon.svg',
-      emptyStateIcon: '/assets/empty-state.svg',
-      notificationIcon: '/assets/notification-icon.svg',
+      checkboxIcon: checkboxIcon,
+      connectIcon: connectIcon,
+      darkModeIcon: darkModeIcon,
+      emptyStateIcon: emptyState,
+      notificationIcon: notificationIcon,
 
       sportIcons: {
-        bike: '/assets/bike-small.svg',
-        run: '/assets/run-small.svg',
-        strength: '/assets/weighttraining-small.svg',
+        bike: bike,
+        run: run,
+        strength: strength,
       },
 
       navIcons: {
         home: {
           page: 'home',
-          src: '/assets/home.svg',
-          srcActive: '/assets/home-active.svg',
+          src: home,
+          srcActive: homeActive,
         },
         connect: {
           page: 'connect',
-          src: '/assets/connect.svg',
-          srcActive: '/assets/connect-active.svg',
+          src: connect,
+          srcActive: connectActive,
         },
         goals: {
           page: 'goals',
-          src: '/assets/settings.svg',
-          srcActive: '/assets/settings-active.svg',
+          src: settings,
+          srcActive: settingsActive,
         },
       },
     }

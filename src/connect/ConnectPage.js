@@ -15,6 +15,7 @@ import UserProfile from '../components/UserProfile'
 import Modal from '../components/Modal'
 import NumberedListItem from '../components/NumberedListItem'
 import Loading from '../components/Loading'
+import checkboxIcon from '../assets/checkbox_green.svg'
 
 const StyledConnectPageHeadline = styled(StyledHeadlineWithIcon)`
   margin-bottom: 18px;
@@ -103,7 +104,7 @@ function ConnectPage({
         {showModal.disconnect && (
           <Modal
             duration={showModal.duration}
-            icon="/assets/checkbox_green.svg"
+            icon={checkboxIcon}
             text="But no worries: You can reconnect your Strava account at any time. "
             title="Strava Disconnected"
           />
@@ -111,7 +112,7 @@ function ConnectPage({
         {showModal.connect && (
           <Modal
             duration={showModal.duration}
-            icon="/assets/checkbox_green.svg"
+            icon={checkboxIcon}
             text="Congrats! StravaScript will now automatically show all your Strava Activities."
             title="Strava Connected"
           />

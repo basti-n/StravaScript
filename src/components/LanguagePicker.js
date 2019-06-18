@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import selectedIcon from '../assets/selected-icon-small.svg'
 
 const StyledLanguagePickerContainer = styled.section`
   align-items: center;
@@ -68,9 +69,7 @@ export default function LanguagePicker({
             onClick={() => handleSelectLanguage(language)}
           >
             {language}
-            {active && (
-              <img src="/assets/selected-icon-small.svg" alt="select icon" />
-            )}
+            {active && <img src={selectedIcon} alt="select icon" />}
           </StyledLanguagePicker>
         )
       })}

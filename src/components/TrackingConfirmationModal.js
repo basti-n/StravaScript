@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { StyledRegularText } from './StyledComponents'
+import modalHeaderIcon from '../assets/modal-header-code.svg'
 import LanguagePicker from './LanguagePicker'
 
 const StyledModalBackdrop = styled.div`
@@ -88,7 +89,7 @@ export default function TrackingConfirmationModal({
     <StyledModalBackdrop>
       <StyledModalDialog>
         <StyledModalHeader>
-          <img src="/assets/modal-header-code.svg" alt="code icon" />
+          <img src={modalHeaderIcon} alt="code icon" />
         </StyledModalHeader>
         <StyledModalBody>
           <h2>Nice Work!</h2>

@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import PieChart from './PieChart'
+import stopIcon from '../assets/stop.svg'
+import playIcon from '../assets/play.svg'
 import { getTypeOf } from '../utils'
 
 const StyledTimerChartContainer = styled.section`
@@ -136,10 +138,7 @@ function TimerChart({
         }}
       />
       <StyledTimerButton onClick={handleTimerClick}>
-        <img
-          src={isTracking ? '/assets/stop.svg' : '/assets/play.svg'}
-          alt="start-stop-button"
-        />
+        <img src={isTracking ? stopIcon : playIcon} alt="start-stop-button" />
         <p>{isTracking ? 'Stop' : 'Start'}</p>
       </StyledTimerButton>
     </StyledTimerChartContainer>

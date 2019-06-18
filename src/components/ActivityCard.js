@@ -2,20 +2,29 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Tags from './Tags'
+
+import codeIcon from '../assets/code.svg'
+import rideIcon from '../assets/bike.svg'
+import runIcon from '../assets/run.svg'
+import swimIcon from '../assets/google.svg'
+import strengthIcon from '../assets/dumbbell.svg'
+import yogaIcon from '../assets/yoga.svg'
+import heartrateIcon from '../assets/heart-rate.svg'
+
 import moment from 'moment'
 import 'moment/locale/de'
 moment.locale('de')
 
 const activityTypeImg = {
-  Code: { src: import('../assets/code.svg'), alt: 'code tag icon' },
-  Ride: { src: '/assets/bike.svg', alt: 'ride icon' },
-  VirtualRide: { src: '/assets/bike.svg', alt: 'ride icon' },
-  Run: { src: './assets/run.svg', alt: 'run icon' },
-  Swim: { src: './assets/google.svg', alt: 'swim icon' },
-  Walk: { src: '/assets/run.svg', alt: 'run icon' },
-  WeightTraining: { src: '/assets/dumbbell.svg', alt: 'weight icon' },
-  Workout: { src: '/assets/dumbbell.svg', alt: 'weight icon' },
-  Yoga: { src: '/assets/yoga.svg', alt: 'yoga icon' },
+  Code: { src: codeIcon, alt: 'code tag icon' },
+  Ride: { src: rideIcon, alt: 'ride icon' },
+  VirtualRide: { src: rideIcon, alt: 'ride icon' },
+  Run: { src: runIcon, alt: 'run icon' },
+  Swim: { src: swimIcon, alt: 'swim icon' },
+  Walk: { src: runIcon, alt: 'run icon' },
+  WeightTraining: { src: strengthIcon, alt: 'weight icon' },
+  Workout: { src: strengthIcon, alt: 'weight icon' },
+  Yoga: { src: yogaIcon, alt: 'yoga icon' },
 }
 
 const StyledCard = styled.article`
@@ -90,7 +99,7 @@ export default function ActivityCard({ activity }) {
     ) : (
       <>
         {activitySportInformation}
-        <img src="/assets/heart-rate.svg" alt="heartrate monitor" />
+        <img src={heartrateIcon} alt="heartrate monitor" />
       </>
     )
 

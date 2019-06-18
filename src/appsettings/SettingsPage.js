@@ -12,6 +12,7 @@ import Modal from '../components/Modal'
 import Loading from '../components/Loading'
 import SettingsItem from '../components/SettingsItem'
 import { sendFeedback } from '../services'
+import checkboxIcon from '../assets/checkbox_green.svg'
 
 const StyledGeneralSettingsContainer = styled(StyledActivityContainer)`
   display: flex;
@@ -123,7 +124,7 @@ function SettingsPage({
         {showModal && (
           <Modal
             duration={modalDuration}
-            icon="/assets/checkbox_green.svg"
+            icon={checkboxIcon}
             text="We will review your feedback and get back to you as soon possible."
             title="Feedback sent"
           />
