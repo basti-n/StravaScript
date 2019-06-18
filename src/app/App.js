@@ -34,6 +34,7 @@ import { pages } from '../pages'
 import getTheme from '../theme'
 import GlobalStyles from '../components/GlobalStyles'
 import { Grid } from '../components/StyledComponents'
+import placeholderImage from '../assets/placeholder_profile.svg'
 
 function App() {
   const token = getTokenFromLocalStorage('strava_token')
@@ -44,7 +45,7 @@ function App() {
   const [isStravaLoading, setisStravaLoading] = useState(false)
   const [stravaUser, setStravaUser] = useState({
     username: '...loading',
-    profile: '/assets/placeholder_profile.svg',
+    profile: placeholderImage,
   })
 
   const [codingActivities, setCodingActivities] = useState(

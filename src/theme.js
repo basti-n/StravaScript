@@ -1,3 +1,9 @@
+import emptyStateDarkMode from './assets/empty-state-darkMode.svg'
+import connectIconDarkMode from './assets/connect-icon-darkMode.svg'
+import checkboxIconDarkMode from './assets/checkbox_white-circle-darkMode.svg'
+import darkModeIconDarkMode from './assets/darkMode-icon-darkMode.svg'
+import notificationIconDarkMode from './assets/notification-icon-darkMode.svg'
+
 export default function getTheme(darkMode) {
   if (darkMode) {
     return {
@@ -23,11 +29,11 @@ export default function getTheme(darkMode) {
       strengthColor: '#7F39FB',
       toastBackground: 'rgba(187, 134, 252, 0.9)',
 
-      checkboxIcon: '/assets/checkbox_white-circle-darkMode.svg',
-      connectIcon: '/assets/connect-icon-darkMode.svg',
-      darkModeIcon: '/assets/darkMode-icon-darkMode.svg',
-      emptyStateIcon: '/assets/empty-state-darkMode.svg',
-      notificationIcon: '/assets/notification-icon-darkMode.svg',
+      checkboxIcon: checkboxIconDarkMode,
+      connectIcon: connectIconDarkMode,
+      darkModeIcon: darkModeIconDarkMode,
+      emptyStateIcon: emptyStateDarkMode,
+      notificationIcon: notificationIconDarkMode,
 
       sportIcons: {
         bike: '/assets/bike-small-darkMode.svg',

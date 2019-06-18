@@ -7,7 +7,7 @@ import 'moment/locale/de'
 moment.locale('de')
 
 const activityTypeImg = {
-  Code: { src: '/assets/code.svg', alt: 'code tag icon' },
+  Code: { src: import('../assets/code.svg'), alt: 'code tag icon' },
   Ride: { src: '/assets/bike.svg', alt: 'ride icon' },
   VirtualRide: { src: '/assets/bike.svg', alt: 'ride icon' },
   Run: { src: './assets/run.svg', alt: 'run icon' },
