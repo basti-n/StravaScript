@@ -35,13 +35,6 @@ const StyledFeedbackForm = styled.form`
       border-color: ${props => props.theme.fontColorHeadline};
       outline: none;
     }
-    @media screen and (-webkit-min-device-pixel-ratio: 0) {
-      select:focus,
-      textarea:focus,
-      input:focus {
-        font-size: 16px;
-      }
-    }
   }
 `
 
