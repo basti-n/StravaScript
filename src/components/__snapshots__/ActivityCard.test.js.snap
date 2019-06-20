@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivityCard Render with Test Props should render correctly with test activity 1`] = `
+<styled.article>
+  <styled.div>
+    <h2>
+      Coding Activity
+    </h2>
+    <p>
+      19. Juni 2019
+    </p>
+  </styled.div>
+  <styled.section>
+    <img
+      alt="activity"
+      src="code.svg"
+    />
+    <p>
+      21 min
+    </p>
+    <label>
+      <CodingLanguagesTags
+        languages={
+          Array [
+            "js",
+          ]
+        }
+      />
+    </label>
+  </styled.section>
+</styled.article>
+`;
+
+exports[`ActivityCard should render correctly with test activity 1`] = `
+<styled.article>
+  <styled.div>
+    <h2>
+      Coding Activity
+    </h2>
+    <p>
+      19. Juni 2019
+    </p>
+  </styled.div>
+  <styled.section>
+    <img
+      alt="activity"
+      src="code.svg"
+    />
+    <p>
+      21 min
+    </p>
+    <label>
+      <CodingLanguagesTags
+        languages={
+          Array [
+            "js",
+          ]
+        }
+      />
+    </label>
+  </styled.section>
+</styled.article>
+`;

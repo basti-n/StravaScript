@@ -5,6 +5,7 @@ import PieChart from './PieChart'
 import stopIcon from '../assets/stop.svg'
 import playIcon from '../assets/play.svg'
 import { getTypeOf } from '../utils'
+import getTheme from '../theme'
 
 const StyledTimerChartContainer = styled.section`
   align-items: center;
@@ -15,7 +16,7 @@ const StyledTimerChartContainer = styled.section`
   position: relative;
 `
 
-const StyledTimerButton = styled.button`
+export const StyledTimerButton = styled.button`
   background: ${props => props.theme.primaryColor};
   border: none;
   border-radius: 50%;
@@ -163,4 +164,8 @@ TimerChart.propTypes = {
     })
   ),
   theme: PropTypes.object,
+}
+
+TimerChart.defaultProps = {
+  theme: getTheme(),
 }

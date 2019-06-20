@@ -56,7 +56,7 @@ const StyledModalBody = styled.main`
   }
 `
 
-const StyledModalButton = styled.button`
+export const StyledModalButton = styled.button`
   background: ${props =>
     props.active ? props.theme.fontColorHeadline : '#808080'};
   border: none;
