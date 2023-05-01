@@ -32,7 +32,7 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.3",
     "glamor": "^2.20.40",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "mongoose": "^5.5.9",
     "node-fetch": "^3.2.10",
     "nodemailer": "^6.2.1",
